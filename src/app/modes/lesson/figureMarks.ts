@@ -59,8 +59,14 @@ export function figureMarks(figures: LessonFigure[], sfen: string, showLast: boo
     const tint = mentionColor(mentioned, part.square)!
     return [{ usi: move.usi, color: `#${tint.toString(16).padStart(6, '0')}`, dashed: move.sfen.split(' ')[0] !== sfen.split(' ')[0], square: part.square }]
   })
-  const squares = [...new Set(parts.filter((part) => !part.piece || !references.some((move) => move.square === part.square)).map((part) => part.square))]
   const marks = Object.assign({}, ...figures.map((figure) => figure.marks ?? {})) as NonNullable<LessonFigure['marks']>
+  const heat = [
+    ...(showLast && marks.last ? tile(marks.last, 0xf1c27a, 0.55) : []),
+    ...(marks.ghosts ?? []).flatMap((usi) => tile(usi, 0x857a6b, 0.35)),
+    ...(marks.boxes ?? []).flatMap((usi) => tile(usi, 0xc4442a, 0.4)),
+    ...(marks.dashed ?? []).flatMap((usi) => tile(usi, 0xc4442a, 0.15)),
+    ...mentioned.flatMap((usi) => tile(usi, mentionColor(mentioned, usi)!, MENTION_OPACITY)),
+  ]
   return {
     at: sfen.split(' ')[0],
     arrows: [
@@ -70,13 +76,7 @@ export function figureMarks(figures: LessonFigure[], sfen: string, showLast: boo
       }),
       ...references,
     ],
-    heat: [
-      ...(showLast && marks.last ? tile(marks.last, 0xf1c27a, 0.55) : []),
-      ...(marks.ghosts ?? []).flatMap((usi) => tile(usi, 0x857a6b, 0.35)),
-      ...(marks.boxes ?? []).flatMap((usi) => tile(usi, 0xc4442a, 0.4)),
-      ...(marks.dashed ?? []).flatMap((usi) => tile(usi, 0xc4442a, 0.15)),
-      ...squares.flatMap((usi) => tile(usi, mentionColor(mentioned, usi)!, MENTION_OPACITY)),
-    ],
+    heat: [...new Map(heat.map((entry) => [entry.square.usi, entry])).values()],
     illustration: figures.find((figure) => figure.crop || figure.pieces),
   }
 }

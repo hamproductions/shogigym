@@ -1,7 +1,7 @@
 import { bookLookup } from './kifu'
 import { strategiesAt } from './catalog'
 import { COURSE_SIDES, LEGACY_AI_STRATEGY, STRATEGIES } from '@/data/strategies'
-import { COURSES, SETUPS, type Course, type JosekiMove, type JosekiNode, courseLoaded, loadBookFor } from './model'
+import { COURSES, SETUPS, type Course, type JosekiMove, type JosekiNode, courseLoaded, loadedBookNodes, loadBookFor } from './model'
 import type { Side } from './shogi'
 import { openingMoves } from './openingBook'
 import { localizeSquares } from './notation'
@@ -70,9 +70,17 @@ export function resolveAiStrategy(id: string, side: Side) {
   return options[Math.floor(Math.random() * options.length)]?.id ?? ''
 }
 
+function strategyNodes(strategyId: string, side: Side, sfen: string) {
+  const indexed = loadedBookNodes(sfen)
+  return strategyCourses(strategyId, side).flatMap((course) => {
+    const node = courseLoaded(course) ? courseNodes(course).get(strip(sfen)) : indexed.find((hit) => hit.baseId === course.baseId)?.node
+    return node ? [node] : []
+  })
+}
+
 export function strategyMove(strategyId: string, side: Side, sfen: string) {
-  const options = strategyCourses(strategyId, side).flatMap((c) => {
-    const pick = mainBranch(courseNodes(c).get(strip(sfen)))
+  const options = strategyNodes(strategyId, side, sfen).flatMap((node) => {
+    const pick = mainBranch(node)
     return pick ? [pick] : []
   })
   return options[Math.floor(Math.random() * options.length)]
@@ -81,8 +89,7 @@ export function strategyMove(strategyId: string, side: Side, sfen: string) {
 export async function strategyReply(strategyId: string, side: Side, sfen: string, ply: number) {
   if (!strategyId || ply >= 48) return undefined
   await loadBookFor([sfen])
-  const courses = strategyCourses(strategyId, side)
-  const allowed = courses.flatMap((course) => goodBranches(courseNodes(course).get(strip(sfen))))
+  const allowed = strategyNodes(strategyId, side, sfen).flatMap((node) => goodBranches(node))
   let evaluated: Awaited<ReturnType<typeof openingMoves>> = []
   try {
     evaluated = await openingMoves(sfen)

@@ -183,16 +183,37 @@ export const loadAllJoseki = () =>
     .then(() => Promise.all(JOSEKI.map((raw) => loadFile(raw.file!))))
     .then(() => undefined)
 
-let bookPositions: Promise<{ files: string[]; at: Record<string, number[]> }> | null = null
+const bookNodes = new Map<string, { baseId: string; node: JosekiNode; book: boolean }[]>()
+let bookShards: Promise<(typeof import('virtual:book-positions'))['default']> | null = null
+const shardLoads = new Map<number, Promise<void>>()
+
+export const loadedBookNodes = (sfen: string) => bookNodes.get(sfen.split(' ').slice(0, 3).join(' ')) ?? []
 
 export async function loadBookFor(sfens: readonly string[]) {
-  if (!bookPositions) {
-    bookPositions = import('virtual:book-positions').then((module) => module.default)
-    bookPositions.catch(() => (bookPositions = null))
+  if (!bookShards) {
+    bookShards = import('virtual:book-positions').then((module) => module.default)
+    bookShards.catch(() => (bookShards = null))
   }
-  const [{ files, at }] = await Promise.all([bookPositions, loadCatalog()])
-  const needed = new Set(sfens.flatMap((sfen) => at[positionHash(sfen)] ?? []))
-  await Promise.all([...needed].map((index) => loadFile(files[index])))
+  const [shards] = await Promise.all([bookShards, loadCatalog()])
+  await Promise.all(
+    [...new Set(sfens.map((sfen) => parseInt(positionHash(sfen), 36) % 256))].map((shard) => {
+      let loading = shardLoads.get(shard)
+      if (!loading) {
+        loading = shards[shard]().then((entries) => {
+          for (const [baseId, node, book] of localizeEnglish(entries)) {
+            const key = node.sfen.split(' ').slice(0, 3).join(' ')
+            const hits = bookNodes.get(key)
+            if (hits) hits.push({ baseId, node, book })
+            else bookNodes.set(key, [{ baseId, node, book }])
+          }
+          changed()
+        })
+        loading.catch(() => shardLoads.delete(shard))
+        shardLoads.set(shard, loading)
+      }
+      return loading
+    }),
+  )
 }
 
 export const prefetchCourses = (courses: Course[]) =>

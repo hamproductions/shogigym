@@ -1,4 +1,5 @@
 import { PieceType, Square, type ImmutablePosition, type Color } from 'tsshogi'
+import { useLayoutEffect, useRef, useState } from 'react'
 import type { Board3DProps, BoardArrow } from './Board3D'
 import { SQ_D, squareX, squareZ } from '@/rendering/board3d/dimensions'
 import { handSpot } from '@/rendering/board3d/hand'
@@ -109,6 +110,19 @@ function Arrow({ p, u, arrow, position, handPoint }: { p: Project; u: number; ar
 }
 
 function Castle({ p, u, castle }: { p: Project; u: number; castle: { squares: Square[]; color: string; label: string } }) {
+  const text = useRef<SVGTextElement>(null)
+  const [labelWidth, setLabelWidth] = useState(256)
+  useLayoutEffect(() => {
+    let active = true
+    const measure = () => {
+      if (active && text.current) setLabelWidth(Math.max(256, Math.ceil(text.current.getComputedTextLength()) + 24))
+    }
+    measure()
+    void document.fonts.ready.then(measure)
+    return () => {
+      active = false
+    }
+  }, [castle.label])
   const xs = castle.squares.map((sq) => squareX(sq.file))
   const zs = castle.squares.map((sq) => squareZ(sq.rank))
   const minX = Math.min(...xs) - 0.5
@@ -127,8 +141,9 @@ function Castle({ p, u, castle }: { p: Project; u: number; castle: { squares: Sq
     <>
       <rect x={left} y={top} width={width} height={height} fill="none" stroke={castle.color} strokeWidth={t * u} opacity={0.85} />
       <g transform={`translate(${lx} ${ly}) scale(${k}) translate(-128 -32)`}>
-        <rect x={4} y={8} width={248} height={48} rx={10} fill={castle.color} />
+        <rect x={(256 - labelWidth) / 2 + 4} y={8} width={labelWidth - 8} height={48} rx={10} fill={castle.color} />
         <text
+          ref={text}
           x={128}
           y={34}
           textAnchor="middle"
@@ -161,12 +176,16 @@ export function UnderMarks({
   const { lastMove, selected, targets, checkSquare, peek, peekFrom, heat, arrows, position } = props
   const to = lastMove ? Square.newByUSI(lastMove.slice(2, 4)) : null
   const from = lastMove && lastMove[1] !== '*' ? Square.newByUSI(lastMove.slice(0, 2)) : null
+  const flip = props.flipped ? -1 : 1
+  const stacked = new Map<string, number>()
+  const tinted = new Set(heat?.map((entry) => entry.square.usi))
+  const annotatedMove = !!lastMove && (tinted.has(lastMove.slice(0, 2)) || tinted.has(lastMove.slice(2, 4)))
   return (
     <g pointerEvents="none">
       {!markersOnly && (
         <g>
-          {to && <Tile p={p} u={u} square={to} color={0xe8a63a} opacity={0.55} />}
-          {from && <Tile p={p} u={u} square={from} color={0xe8a63a} opacity={0.38} />}
+          {to && !annotatedMove && <Tile p={p} u={u} square={to} color={0xe8a63a} opacity={0.55} />}
+          {from && !annotatedMove && <Tile p={p} u={u} square={from} color={0xe8a63a} opacity={0.38} />}
           {checkSquare && (
             <>
               <Tile p={p} u={u} square={checkSquare} color={0xe0301e} opacity={0.6} />
@@ -198,14 +217,21 @@ export function UnderMarks({
       {arrows.map((arrow, i) => (
         <Arrow key={`a${i}`} p={p} u={u} arrow={arrow} position={position} handPoint={handPoint} />
       ))}
+      {arrows.map((arrow, i) => {
+        const to = Square.newByUSI(arrow.usi.slice(2, 4))
+        if (!arrow.label || !to) return null
+        const stack = stacked.get(to.usi) ?? 0
+        stacked.set(to.usi, stack + 1)
+        const [x, y] = p(squareX(to.file), squareZ(to.rank) + (0.49 - stack * 0.25) * SQ_D * flip)
+        return <Tag key={`label${i}`} x={x} y={y} u={u} text={arrow.label} color={arrow.color} />
+      })}
     </g>
   )
 }
 
 export function OverMarks({ props, p, u, coordFill, handPoint }: { props: Board3DProps; p: Project; u: number; coordFill: string; handPoint?: HandPoint }) {
-  const { position, selected, selectedColor, heat, castles, arrows, stamp } = props
+  const { position, selected, selectedColor, heat, castles, stamp } = props
   const flip = props.flipped ? -1 : 1
-  const stacked = new Map<string, number>()
   const stamped = stamp && Square.newByUSI(stamp.square)
   const handSlot =
     selected !== null && !(selected instanceof Square) && selectedColor !== undefined
@@ -240,14 +266,6 @@ export function OverMarks({ props, p, u, coordFill, handPoint }: { props: Board3
       {(castles ?? []).map((c, i) => (
         <Castle key={`c${i}`} p={p} u={u} castle={c} />
       ))}
-      {arrows.map((arrow, i) => {
-        const to = Square.newByUSI(arrow.usi.slice(2, 4))
-        if (!arrow.label || !to) return null
-        const stack = stacked.get(to.usi) ?? 0
-        stacked.set(to.usi, stack + 1)
-        const [x, y] = p(squareX(to.file), squareZ(to.rank) + (0.49 - stack * 0.25) * SQ_D * flip)
-        return <Tag key={`a${i}`} x={x} y={y} u={u} text={arrow.label} color={arrow.color} />
-      })}
       {stamp &&
         stamped &&
         (() => {

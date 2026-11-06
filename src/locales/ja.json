@@ -351,7 +351,14 @@
     "seeHowTheBestLine": "最善手順の続きを見る",
     "hideTheLine": "手順を隠す",
     "showTheBestMoveAs": "最善手を矢印で表示",
-    "lessonNote": "AIの意見です。レッスンは定跡の手順を教えるので、異なることがあります。"
+    "lessonNote": "AIの意見です。レッスンは定跡の手順を教えるので、異なることがあります。",
+    "positionUnavailable": {
+      "invalid": "この局面は不正なため、AIで解析できません。",
+      "kings": "AIの解析には、盤上に先手と後手の玉が1枚ずつ必要です。",
+      "inventory": "この局面は、駒の枚数が通常の将棋の上限を超えています。",
+      "turn": "直前に指した側の玉に王手が残っています。局面と手番を確認してください。"
+    },
+    "disabledForLesson": "このレッスンではAIの解析を使いません。"
   },
   "flow": {
     "noBookLineFromThis": "この局面からの定跡はなく、AIはまだ考えています。",
@@ -377,6 +384,14 @@
     "statsKey": "バーは左が☗勝ち、右が☖勝ち、間が引き分け。その手を指した対局の結果で、手の良し悪しの評価ではありません。薄い行は{{min}}局未満です。"
   },
   "games": {
+    "searchSaved": "題名・対局者・戦型で検索",
+    "filterFormation": "戦型・囲いで絞り込む",
+    "allFormations": "すべての戦型・囲い",
+    "showingSaved": "{{total}}件中{{shown}}件",
+    "noMatches": "一致する棋譜はありません。",
+    "formationUnavailable": "戦型を判定できません",
+    "identifyingFormations": "戦型を判定中…",
+    "showMore": "さらに20件表示",
     "savedUpdatedThisSlot": "保存しました（上書き）。",
     "savedToYourGames": "保存しました。",
     "couldNotSaveBrowserStorage": "保存できませんでした。ブラウザのストレージが一杯か、ブロックされています。",
@@ -1347,5 +1362,44 @@
     "senderError": "盤アプリに接続できません。両方の端末がネットにつながっているか確認してください（再試行中）。",
     "senderNoTarget": "盤アプリが見つかりません。パソコンでカメラ画面を開くか、QRコードを読み取ってください。",
     "phoneLinkError": "接続サービスにつながりません。インターネット接続を確認してください。"
+  },
+  "positionEditor": {
+    "title": "局面を編集",
+    "instructions": "駒を選び、移動先をタップします。駒があるマス同士は入れ替わります。マスを選ぶと駒の追加・変更・削除ができます。持ち駒を選び、空きマスをタップすると配置できます。",
+    "undo": "元に戻す",
+    "redo": "やり直す",
+    "flipBoard": "盤を反転",
+    "deselect": "選択を解除",
+    "square": "{{file}}筋・{{rank}}段",
+    "selectSquare": "マスを選択",
+    "piece": "駒の種類",
+    "owner": "駒の所属",
+    "sente": "先手",
+    "gote": "後手",
+    "place": "駒を設定",
+    "changeOwner": "先後を変更",
+    "promote": "成・不成を切り替え",
+    "remove": "駒を削除",
+    "toHand": "自分の持ち駒に戻す",
+    "senteHand": "先手の持ち駒",
+    "goteHand": "後手の持ち駒",
+    "senteTurn": "先手番",
+    "goteTurn": "後手番",
+    "saveCopy": "修正版を別に保存",
+    "copySfen": "SFENをコピー",
+    "originalKept": "元の棋譜は保存したまま残します。指し手や変化を自動で削除することはありません。",
+    "start": "開始局面",
+    "current": "現在の局面",
+    "keepMoves": "指し手・変化を残す",
+    "positionOnly": "局面のみ",
+    "corrected": "修正版",
+    "invalid": "この局面を読み取れません。",
+    "illegalMove": "本譜または変化の{{count}}手目を、この局面から再現できません。配置を修正するか「局面のみ」を選んでください。",
+    "issue": {
+      "invalid": "この局面を読み取れません。",
+      "kings": "AIの検討には、先後それぞれ1枚の玉が必要です。",
+      "inventory": "通常の将棋の枚数を超えた駒があります。盤上または持ち駒の枚数を修正するとAIで検討できます。",
+      "turn": "直前に指した側の玉に王手がかかっています。手番と駒の配置を確認してください。"
+    }
   }
 }

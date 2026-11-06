@@ -360,7 +360,14 @@
     "seeHowTheBestLine": "See how the best line continues",
     "hideTheLine": "Hide the line",
     "showTheBestMoveAs": "Show the best move as an arrow",
-    "lessonNote": "The engine’s own opinion. The lesson teaches its book line, which may differ."
+    "lessonNote": "The engine’s own opinion. The lesson teaches its book line, which may differ.",
+    "positionUnavailable": {
+      "invalid": "The engine cannot analyse this invalid position.",
+      "kings": "Engine analysis needs exactly one king for each side on the board.",
+      "inventory": "This position has more pieces than a standard shogi set.",
+      "turn": "The side that just moved is still in check. Check the position and side to move."
+    },
+    "disabledForLesson": "Engine analysis is disabled for this lesson."
   },
   "flow": {
     "noBookLineFromThis": "No book line from this position, and the AI is still thinking.",
@@ -386,6 +393,14 @@
     "statsKey": "Bars: ☗ wins on the left, ☖ wins on the right, draws in the gap. They are results of the games that played the move, not a rating of the move; faded rows have fewer than {{min}} games."
   },
   "games": {
+    "searchSaved": "Search titles, players or formations",
+    "filterFormation": "Filter by strategy or castle",
+    "allFormations": "All strategies and castles",
+    "showingSaved": "{{shown}} of {{total}} games",
+    "noMatches": "No saved games match.",
+    "formationUnavailable": "Formation unavailable",
+    "identifyingFormations": "Identifying formations…",
+    "showMore": "Show 20 more",
     "savedUpdatedThisSlot": "Saved (updated this slot).",
     "savedToYourGames": "Saved to your games.",
     "couldNotSaveBrowserStorage": "Could not save: browser storage is full or blocked.",
@@ -1372,5 +1387,44 @@
     "senderError": "Can't reach the board app. Check both devices are online; retrying…",
     "senderNoTarget": "Couldn't find the board app. Open the camera panel on the computer, or scan its QR code.",
     "phoneLinkError": "Can't reach the connection service. Check the internet connection."
+  },
+  "positionEditor": {
+    "title": "Edit position",
+    "instructions": "Tap a piece, then its destination. Occupied squares swap pieces. Select a square to add, change or remove a piece. Tap a hand piece, then an empty square to place it.",
+    "undo": "Undo",
+    "redo": "Redo",
+    "flipBoard": "Flip board",
+    "deselect": "Clear selection",
+    "square": "Square {{file}}–{{rank}}",
+    "selectSquare": "Select a square",
+    "piece": "Piece",
+    "owner": "Piece owner",
+    "sente": "Sente",
+    "gote": "Gote",
+    "place": "Set piece",
+    "changeOwner": "Switch owner",
+    "promote": "Promote / unpromote",
+    "remove": "Remove piece",
+    "toHand": "Move to own hand",
+    "senteHand": "Sente hand",
+    "goteHand": "Gote hand",
+    "senteTurn": "Sente to move",
+    "goteTurn": "Gote to move",
+    "saveCopy": "Save corrected copy",
+    "copySfen": "Copy SFEN",
+    "originalKept": "The original record stays saved. No moves or variations are removed automatically.",
+    "start": "Starting diagram",
+    "current": "Current position",
+    "keepMoves": "Keep moves and variations",
+    "positionOnly": "Position only",
+    "corrected": "Corrected",
+    "invalid": "This position cannot be read.",
+    "illegalMove": "Move {{count}} in the record or a variation cannot replay from this diagram. Correct the position or choose Position only.",
+    "issue": {
+      "invalid": "This position cannot be read.",
+      "kings": "AI analysis needs exactly one king for each side.",
+      "inventory": "Too many pieces of one type. Correct the board or hand counts to enable AI analysis.",
+      "turn": "The side that just moved is in check. Check the side to move and piece placement."
+    }
   }
 }

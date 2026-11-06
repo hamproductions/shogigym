@@ -27,10 +27,17 @@ export type GameChoice = 'sente' | 'gote' | 'study'
 export const gameRole = (g: StoredGame): GameRole => g.role ?? (g.vsAi ? 'mine' : 'study')
 
 const KEY = 'joseki-practice:games:v1'
+let cachedText: string | null | undefined
+let cachedGames: StoredGame[] = []
 
 export function loadGames(): StoredGame[] {
   try {
-    return JSON.parse(localStorage.getItem(KEY) ?? '[]')
+    const text = localStorage.getItem(KEY)
+    if (text !== cachedText) {
+      cachedGames = JSON.parse(text ?? '[]')
+      cachedText = text
+    }
+    return cachedGames
   } catch {
     return []
   }
@@ -40,12 +47,16 @@ function write(games: StoredGame[]) {
   const text = JSON.stringify(games)
   try {
     localStorage.setItem(KEY, text)
+    cachedText = text
+    cachedGames = games
     return true
   } catch {
     freeAnalysisCache()
   }
   try {
     localStorage.setItem(KEY, text)
+    cachedText = text
+    cachedGames = games
     return true
   } catch (error) {
     console.warn('games not persisted', error)

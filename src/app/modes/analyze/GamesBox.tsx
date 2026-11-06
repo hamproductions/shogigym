@@ -9,10 +9,12 @@ import { Badge } from '@/components/ui'
 import { Muted } from '@/app/panels/panels.styles'
 
 const ImportBox = lazy(() => import('./ImportBox').then((m) => ({ default: m.ImportBox })))
+const PositionEditorDialog = lazy(() => import('./PositionEditor').then((m) => ({ default: m.PositionEditorDialog })))
 
 export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse?: boolean }) {
   const { t } = useTranslation()
   const [note, setNote] = useState<string | null>(null)
+  const [editing, setEditing] = useState(false)
   const [view, setView] = useState<'none' | 'saved' | 'load'>('none')
   const current = games.slotId
   const stored = loadGames()
@@ -20,6 +22,9 @@ export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse
   return (
     <Box m="{spacing.3} 0 {spacing.3}" p="{spacing.2.5} 0 {spacing.3}" borderTop="1px solid {colors.border}" borderBottom="1px solid {colors.border}">
       <Wrap gap="2" align="center">
+        <Button size="sm" onClick={() => setEditing(true)}>
+          {t('positionEditor.title')}
+        </Button>
         <Button
           size="sm"
           onClick={() =>
@@ -54,6 +59,11 @@ export function GamesBox({ games, browse = true }: { games: AnalyzeGames; browse
         </Button>
       </Wrap>
       {note && <Muted m="{spacing.2} 0 0">{note}</Muted>}
+      {editing && (
+        <Suspense fallback={null}>
+          <PositionEditorDialog games={games} onClose={() => setEditing(false)} />
+        </Suspense>
+      )}
       {view === 'saved' && <SavedGames games={games} />}
       {view === 'load' && (
         <Suspense fallback={null}>

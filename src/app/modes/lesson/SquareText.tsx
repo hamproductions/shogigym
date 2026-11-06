@@ -24,6 +24,7 @@ export function SquareText({ text, context = text }: { text: string; context?: s
             key={i}
             p="0 0.2em"
             borderRadius="0.25em"
+            whiteSpace="nowrap"
             bg="color-mix(in srgb, var(--sq) 38%, transparent)"
             boxShadow="inset 0 -2px 0 var(--sq)"
             css={{ '--sq': '#e0b84a' }}

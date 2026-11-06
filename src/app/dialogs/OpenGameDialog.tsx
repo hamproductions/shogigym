@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Suspense, lazy, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { loadGames } from '@/app/games'
 import { ImportBox } from '@/app/modes/analyze/ImportBox'
@@ -7,10 +7,12 @@ import type { AnalyzeGames } from '@/app/modes/analyze/useAnalyzeGames'
 import { Dialog, DialogHeader } from '@/app/ui/Dialog'
 import { Segmented } from '@/app/ui/Segmented'
 
+const PositionEditor = lazy(() => import('@/app/modes/analyze/PositionEditor').then((m) => ({ default: m.PositionEditor })))
+
 export function OpenGameDialog({ games, onClose }: { games: AnalyzeGames; onClose: () => void }) {
   const { t } = useTranslation()
   const stored = loadGames()
-  const [tab, setTab] = useState<'saved' | 'file'>(stored.length ? 'saved' : 'file')
+  const [tab, setTab] = useState<'saved' | 'file' | 'edit'>(stored.length ? 'saved' : 'file')
   return (
     <Dialog label={t('rail.open')} onBackdrop={onClose}>
       <DialogHeader title={t('rail.open')} closeLabel={t('settings.closeSettings')} onClose={onClose} />
@@ -20,10 +22,15 @@ export function OpenGameDialog({ games, onClose }: { games: AnalyzeGames; onClos
         options={[
           { v: 'saved', t: `${t('games.savedGames')} (${stored.length})` },
           { v: 'file', t: t('rail.importKif') },
+          { v: 'edit', t: t('positionEditor.title') },
         ]}
       />
       {tab === 'saved' ? (
         <SavedGames games={games} onOpen={onClose} />
+      ) : tab === 'edit' ? (
+        <Suspense fallback={null}>
+          <PositionEditor games={games} onClose={onClose} />
+        </Suspense>
       ) : (
         <ImportBox
           bare

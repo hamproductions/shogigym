@@ -4,6 +4,7 @@ import { spriteKey, type Baked, type PromotionAtlas } from '@/rendering/sprites'
 import { loadBoardStyle } from '@/appearance/boardStyles'
 import { loadPieceSet } from '@/appearance/pieceSets'
 import { loadPieceFont, useSettings, type Settings } from '@/appearance/settings'
+import { useLatest } from './useLatest'
 
 const promotionCache = new Map<string, PromotionAtlas>()
 const promotionTypes = [PieceType.PAWN, PieceType.LANCE, PieceType.KNIGHT, PieceType.SILVER, PieceType.BISHOP, PieceType.ROOK]
@@ -136,6 +137,7 @@ const bakeKey = (settings: Settings) =>
 
 export function useBakedPieces(enabled = true, scope: 'board' | 'furigoma' = 'board') {
   const settings = useSettings()
+  const latest = useLatest(settings)
   const fullKey = bakeKey(settings)
   const key = scope === 'furigoma' ? `${fullKey}|furigoma` : fullKey
   const [ready, setReady] = useState<Baked | null>(null)
@@ -145,7 +147,7 @@ export function useBakedPieces(enabled = true, scope: 'board' | 'furigoma' = 'bo
   useEffect(() => {
     if (!enabled || cached) return
     let live = true
-    const job = acquireBake(key, settings, scope)
+    const job = acquireBake(key, latest.current, scope)
     void job.promise.then(
       (baked) => {
         if (live) setReady(baked)
@@ -158,6 +160,6 @@ export function useBakedPieces(enabled = true, scope: 'board' | 'furigoma' = 'bo
       live = false
       if (--job.users === 0) job.controller.abort()
     }
-  }, [key, enabled, settings, scope, cached])
+  }, [key, enabled, latest, scope, cached])
   return { baked: cached ?? ready, loading: enabled && !cached && !error, error }
 }
