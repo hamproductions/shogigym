@@ -1,25 +1,18 @@
-import { execFileSync } from 'node:child_process'
 import { readFileSync, readdirSync } from 'node:fs'
 import { Color, Position } from 'tsshogi'
 import { FREE_LICENSES, HANDICAPS, STARTPOS, buildUnit, type Node, type Text, type Unit } from './unit'
 import { bookMoves } from './book'
+import { pawnCapturesOfNonPawns, unrecapturedMajorCaptures } from './capture-notes'
+import { evaluate } from './engine-scores'
 import { boardKey, material, oldPositions, overlaps, textsOf } from './originality'
 
 const args = process.argv.slice(2)
 const useEngine = args.includes('--engine')
+const withBranches = args.includes('--branches')
 const ids = args.filter((arg) => !arg.startsWith('--'))
 const files = ids.length
   ? ids.map((id) => `data/lessons/units/${id.replace(/\.json$/, '')}.json`)
   : readdirSync('data/lessons/units').map((f) => `data/lessons/units/${f}`)
-
-const evaluate = (sfens: string[]) =>
-  execFileSync('node', ['scripts/lessons/engine-eval.mjs', '400'], { input: sfens.join('\n'), encoding: 'utf8', timeout: 600000 })
-    .trim()
-    .split('\n')
-    .map((line) => {
-      const [score, best] = line.split(' ')
-      return { score: Number(score), best }
-    })
 
 const old = oldPositions()
 let failures = 0
@@ -58,14 +51,24 @@ for (const file of files) {
   for (const [c, course] of courses.entries()) {
     const chapter = unit.chapters[c]
     const opening = ['startpos', STARTPOS, ...HANDICAPS].includes(chapter.start)
+    const edges: { sfen: string; after: string; usi: string; kind: string; node: string; color: Color }[] = []
     if (chapter.kind === 'opening' && !opening) errors.push(`${course.id}: opening chapters start from the initial or a handicap position`)
     const walk = (node: Node) => {
       const position = Position.newBySFEN(node.sfen)!
+      for (const capture of pawnCapturesOfNonPawns(position))
+        notes.push(
+          `${course.id} ${node.id}: pawn ${capture.usi} can capture ${capture.target}; inspect the complete exchange even if it is guarded (${position.sfen})`,
+        )
+      for (const capture of unrecapturedMajorCaptures(position))
+        notes.push(`${course.id} ${node.id}: ${capture} can capture a major piece without immediate board recapture (${position.sfen})`)
       if (node.branches.length && position.board.isChecked(position.color === Color.BLACK ? Color.WHITE : Color.BLACK))
         errors.push(`${course.id}: side not to move is in check at ${node.sfen}`)
       const match = old.get(boardKey(position.sfen))
       if (match && (!opening || material(node.sfen) < 40)) errors.push(`${course.id}: position copies a source figure (${match}): ${node.sfen}`)
-      node.branches.forEach((branch) => walk(branch.child))
+      node.branches.forEach((branch) => {
+        edges.push({ sfen: node.sfen, after: branch.child.sfen, usi: branch.usi, kind: branch.kind, node: node.id, color: position.color })
+        walk(branch.child)
+      })
     }
     walk(course.root)
     if (!opening) continue
@@ -74,7 +77,8 @@ for (const file of files) {
     const misses: string[] = []
     const line: { sfen: string; usi: string }[] = []
     while (node?.branches.length) {
-      const branch: Node['branches'][number] = node.branches.find((b) => b.kind === 'main') ?? node.branches[0]
+      const branch: Node['branches'][number] | undefined = node.branches.find((b) => b.kind === 'main') ?? node.branches.find((b) => b.kind !== 'deviation')
+      if (!branch) break
       ply++
       line.push({ sfen: node.sfen, usi: branch.usi })
       const entry = bookMoves(node.sfen)
@@ -88,14 +92,29 @@ for (const file of files) {
       node = branch.child
     }
     if (useEngine && node) {
-      const scores = evaluate([...line.map((step) => step.sfen), node.sfen])
-      line.forEach((step, i) => {
-        const loss = scores[i].score + scores[i + 1].score
-        if (loss > 300)
-          notes.push(
-            `${course.id} ply ${i + 1} ${step.usi}: engine loss ${loss} (engine prefers ${scores[i].best}, eval for mover ${scores[i].score} -> ${-scores[i + 1].score})`,
-          )
-      })
+      if (withBranches) {
+        const scores = evaluate(edges.flatMap((edge) => [edge.sfen, edge.after]))
+        edges.forEach((edge, i) => {
+          const loss = scores[i * 2].score + scores[i * 2 + 1].score
+          const role = edge.color === (chapter.side === 'gote' ? Color.WHITE : Color.BLACK) ? 'learner' : 'opponent'
+          if (loss > 300)
+            notes.push(
+              `${course.id} ${edge.node} ${edge.usi} (${role}, edge ${edge.kind}): engine loss ${loss} (engine prefers ${scores[i * 2].best})${scores[i * 2 + 1].pv.length ? `; reply PV: ${scores[i * 2 + 1].pv.slice(0, 6).join(' ')}` : ''}`,
+            )
+        })
+        notes.push(
+          `${course.id}: engine branch coverage ${edges.length} moves, ${new Set(edges.flatMap((edge) => [edge.sfen, edge.after])).size} distinct positions`,
+        )
+      } else {
+        const scores = evaluate([...line.map((step) => step.sfen), node.sfen])
+        line.forEach((step, i) => {
+          const loss = scores[i].score + scores[i + 1].score
+          if (loss > 300)
+            notes.push(
+              `${course.id} ply ${i + 1} ${step.usi}: engine loss ${loss} (engine prefers ${scores[i].best}, eval for mover ${scores[i].score} -> ${-scores[i + 1].score})${scores[i + 1].pv.length ? `; reply PV: ${scores[i + 1].pv.slice(0, 6).join(' ')}` : ''}`,
+            )
+        })
+      }
     }
     if (misses.length) notes.push(`${course.id}: moves outside the Peta book where the position is in it: ${misses.join('; ')}`)
   }

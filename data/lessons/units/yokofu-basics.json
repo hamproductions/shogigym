@@ -173,8 +173,8 @@
             "2b3c"
           ],
           "text": {
-            "ja": "この戦法の長所と短所です。長所は、歩を一枚得したうえで飛車と角が早くから働くので、攻め合いになると手が速いこと。短所は、先手の飛車が敵陣の近くにいて狙われやすく、玉もまだ囲えていないため、一手の読み違いで形勢が傾きやすいことです。ここで後手が△３三角と上がり、３四の飛車に角を向けました。後手の選び方によって、この先の戦いが分かれます。",
-            "en": "Strengths and weaknesses. Sente is a pawn up and rook and bishop work early, so Sente moves fast once the fighting starts. The weakness is that the rook sits near the enemy camp and is easy to target, and the king is not castled, so one misread move can swing the game. Here Gote plays △3三角, pointing the bishop at the rook on 3d. What Gote chooses decides how the fight continues."
+            "ja": "この戦法の長所と短所です。長所は、歩を一枚得したうえで飛車と角が早くから働くので、攻め合いになると手が速いこと。短所は、先手の飛車が敵陣の近くにいて狙われやすく、玉もまだ囲えていないため、一手の読み違いで形勢が傾きやすいことです。ここで後手が△３三角と上がり、３四の飛車が３二へ進む道をふさぎ、２四を守っています。後手の選び方によって、この先の戦いが分かれます。",
+            "en": "Strengths and weaknesses. Sente is a pawn up and rook and bishop work early, so Sente moves fast once the fighting starts. The weakness is that the rook sits near the enemy camp and is easy to target, and the king is not castled, so one misread move can swing the game. Here Gote plays △3三角, blocking the rook’s route from 3d to 3b and guarding 2d. What Gote chooses decides how the fight continues."
           },
           "marks": {
             "last": "3c",

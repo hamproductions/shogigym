@@ -277,7 +277,7 @@
           ],
           "text": {
             "ja": "▲６六銀。銀を７五へ進める準備です。",
-            "en": "▲6六銀 prepares to advance the silver to 6e next."
+            "en": "▲6六銀 prepares to advance the silver to 7e next."
           },
           "marks": {
             "last": "6f"
@@ -350,8 +350,8 @@
             "B*4e"
           ],
           "text": {
-            "ja": "先手の歩得を許さない受け方を見ます。後手は６二飛でなく、銀を上げて６三を守り、さらに歩を突いて先手の角を狭めます。",
-            "en": "Now the defence that does not allow the pawn gain. Gote guards 6c with a silver, then pushes a pawn to cramp Sente's bishop."
+            "ja": "３四の歩を渡す代わりに、先手角の働きを制限する受け方です。後手は銀を６二へ上げて６三を守り、４筋の歩を進めます。先手の歩得と、角の可動域を比べます。",
+            "en": "This defence concedes the pawn on 3d while restricting Sente’s bishop. Gote raises the silver to 6b to guard 6c and advances the fourth-file pawn. Compare Sente’s pawn gain with the bishop’s reduced mobility."
           },
           "marks": {
             "last": "4e",

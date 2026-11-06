@@ -561,8 +561,8 @@
             "2h2g"
           ],
           "text": {
-            "ja": "▲２七飛とかわします。▲２五飛は△７七桂、▲２六飛は△３五銀から飛車を追われるので避けます。ここからは、２筋から攻める、▲１一香成から攻める、飛車を５筋へ回すなどの手があり、飛車をどう働かせるかの勝負になります。",
-            "en": "Sente dodges with ▲2七飛. ▲2五飛 would run into △7七桂 and ▲2六飛 into △3五銀 chasing the rook, so both are avoided. From here Sente can attack on the second file, play ▲1一香成, or swing the rook to the fifth file. The game turns on how well the rook is used."
+            "ja": "▲２七飛と角１九の斜線からかわします。ここからは２筋で攻める手、▲１一香成、飛車を別の筋へ回す手などを、その着地点への攻撃と比べて考えます。",
+            "en": "▲2七飛 moves out of bishop 1i’s diagonal. From here compare second-file play, ▲1一香成 and rook transfers with the attacks on each destination."
           },
           "marks": {
             "last": "2g",
@@ -641,8 +641,8 @@
             "4c4d"
           ],
           "text": {
-            "ja": "ここで指すのが升田新手の▲３八角です。２七に利きを足して、△２七歩の打ち込みを防ぎます。後手は△４四歩と突くのが定跡で、後手陣の桂に利きを足す手です。",
-            "en": "Here comes Masuda's new move ▲3八角. It adds an attacker to 2g and stops the pawn drop on 2g. Gote's standard reply is △4四歩, which adds support to his own knight."
+            "ja": "ここで指すのが升田新手の▲３八角です。２七に利きを足して、△２七歩の打ち込みを防ぎます。後手の△４四歩は、角５四から桂２一への斜線を準備します。今は金３二が途中を止めており、次に金が３三へ動いて初めて桂への道が通ります。",
+            "en": "Here comes Masuda's new move ▲3八角. It adds an attacker to 2g and stops the pawn drop on 2g. Gote’s △4四歩 prepares the diagonal from bishop 5d toward knight 2a. Gold 3b still blocks it; the support appears only after that gold moves to 3c."
           },
           "marks": {
             "last": "4d",
@@ -665,8 +665,8 @@
             "3b3c"
           ],
           "text": {
-            "ja": "▲２四歩から攻めて銀を交換します。飛車が２四へ出たところで△３三金と受けるのが手筋です。この金のおかげで２一の桂にヒモが付き、飛車はこれ以上前へ出られません。ここからは、３八の角をどう働かせるかの将棋になります。",
-            "en": "Sente attacks with ▲2四歩 and trades silvers. When the rook reaches 2d, △3三金 is the key reply. It protects the knight on 2a, so the rook cannot go further. From here the game turns on how to use the bishop on 3h."
+            "ja": "▲２四歩から銀を交換し、飛車が２四へ出ました。△３三金で金が３二を空けると、５四の角から４三、３二を通って２一の桂へ利きが通ります。▲２一飛成で桂を取っても△同角と取り返せる形です。桂を守るのは３三の金ではなく５四の角です。",
+            "en": "After ▲2四歩 and the silver exchange, the rook reaches 2d. △3三金 clears 3b, opening the bishop’s diagonal from 5d through 4c and 3b to the knight on 2a. If ▲2一飛成 captures the knight, △同角 can recapture. The bishop on 5d protects the knight; the gold on 3c does not."
           },
           "marks": {
             "last": "3c",
@@ -717,15 +717,24 @@
           "moves": [
             "2e2d",
             "2c2d",
-            "1e2d",
-            "P*2g",
-            "3h2g"
+            "1e2d"
           ],
           "text": {
-            "ja": "▲３八角のあとに△２七歩と打たれる変化です。",
-            "en": "A variation where Gote drops a pawn on 2g after ▲3八角."
+            "ja": "銀が２四へ進む共通の手順です。３八の角が２七を守る効果を、次の歩打ちへの取り返しで確かめます。",
+            "en": "The shared line advances the silver to 2d. Test bishop 3h’s protection of 2g against the following pawn drop."
           },
           "steps": [
+            {
+              "moves": [
+                "P*2g",
+                "3h2g"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "▲３八角のあとに△２七歩と打たれる変化です。",
+                "en": "A variation where Gote drops a pawn on 2g after ▲3八角."
+              }
+            },
             {
               "text": {
                 "ja": "▲同角で先手良しです。ここから△同角なら▲同飛、△２四銀なら▲５四角と進みます。▲３八角があるから、この打ち込みが通じません。",
@@ -739,7 +748,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "kind": "alt"
         }
       ]
     }

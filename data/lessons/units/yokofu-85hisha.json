@@ -174,8 +174,8 @@
             "3d3f"
           ],
           "text": {
-            "ja": "後手は△３三角と角を上げました。この角が３四の飛車の前に立ち、飛車に当たっています。先手は▲３六飛と飛車を一つ引きます。飛車が逃げると同時に、後手の飛車が７六の歩を取る手を防ぎます。なお、ここで▲５八玉と指す形が青野流、▲６八玉と指す形が勇気流で、それぞれ別の講座で扱います。",
-            "en": "Gote lifts the bishop with △3三角. It stands in front of the rook on 3d and attacks it. Sente pulls the rook back one square with ▲3六飛. This saves the rook and also stops Gote's rook from taking the pawn on 7f. Here ▲5八玉 would be the Aono style and ▲6八玉 the Yuuki style, which have their own lessons."
+            "ja": "△３三角のあと、先手は飛車を３四から３六へ二マス引きました。角の利きは斜めで、移動前の３四の飛車への直接攻撃ではありません。飛車３六は横の７六歩を守ります。ここで飛車を引く代わりに▲５八玉と指すのが青野流、▲６八玉と指すのが勇気流で、別の講座で扱います。",
+            "en": "After △3三角, Sente retreats the rook two squares from 3d to 3f. The bishop controls diagonals; it was not directly attacking the rook on 3d. From 3f the rook guards the pawn on 7f along the rank. Playing ▲5八玉 instead of retreating is Aono style, and ▲6八玉 is Yuuki style, covered in separate lessons."
           },
           "marks": {
             "last": "3f",
@@ -480,8 +480,8 @@
             "G*4b"
           ],
           "text": {
-            "ja": "△４二玉と玉で受けても、▲３二角成と角で金を取り、△同玉に▲４二金と打つのが送りの手筋です。後手玉が動けば▲２二飛成で決まり、先手の勝勢です。横歩取りは定跡から少し外れると乱戦になるので、こうした手筋を知っておくことが大切です。",
-            "en": "Even if Gote defends with the king by △4二玉, ▲3二角成 wins a gold with the bishop, and after △同玉, ▲4二金 is the sending technique. If the king captures, ▲2二飛成 ends it. Side Pawn Capture turns into a melee as soon as the book is left, so knowing these tactics matters."
+            "ja": "△４二玉に▲３二角成△同玉▲４二金と、金を打って王手する送りの手筋です。玉で金を取る応手には▲２二飛成が狙いですが、どの玉の移動にも同じ手が決まるわけではありません。△２一玉なら▲２二飛成に△同玉と竜を取れるので、玉の着地点と取り返しを改めて読みます。",
+            "en": "After △4二玉 ▲3二角成 △同玉, ▲4二金 checks with a sending tactic. If the king captures the gold, Sente aims at ▲2二飛成. That rook capture does not work against every king move: after △2一玉 ▲2二飛成, △同玉 captures the dragon. Recalculate the king’s destination and its recaptures."
           },
           "marks": {
             "last": "4b",

@@ -20,6 +20,7 @@ import { Select } from '@/components/ui'
 import { Button } from '@/app/ui/Button'
 import { Dialog } from '@/app/ui/Dialog'
 import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
+import { EngineModels } from '@/app/EngineModels'
 
 const NO_STRATEGY = 'none'
 
@@ -43,6 +44,7 @@ export function NewGameDialog({
   const [pick, setPick] = useState<PickSide>(side)
   const [draft, setDraft] = useState(() => ({
     opponent: preset?.opponent ?? st.opponent,
+    enginePlaying: st.enginePlaying ?? st.engine,
     timeControl: preset?.timeControl ?? st.timeControl,
     aiStrategy: preset?.aiStrategy ?? st.aiStrategy,
     sparCoach: preset?.coach ?? st.sparCoach,
@@ -94,6 +96,7 @@ export function NewGameDialog({
         options={(Object.keys(STRENGTH) as AiStrength[]).map((k) => ({ v: k, t: STRENGTH[k].label }))}
         onChange={(k) => setDraft((d) => ({ ...d, opponent: k }))}
       />
+      <EngineModels purpose="playing" value={draft.enginePlaying} onChange={(enginePlaying) => setDraft((d) => ({ ...d, enginePlaying }))} />
       <SegmentedField<TimeControl>
         alignTop
         label={t('newGame.clock')}

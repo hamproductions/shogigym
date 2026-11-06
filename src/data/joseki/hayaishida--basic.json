@@ -1,0 +1,433 @@
+{
+ "id": "hayaishida--basic",
+ "title": "早石田：７四歩で道を開け、角を持ち駒へ",
+ "titleEn": "Haya-Ishida: Open the Seventh File and Reuse the Bishop",
+ "myStrategy": "sankenbisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "sente",
+ "userSide": "sente",
+ "source": "早石田の標準的な７筋の歩交換と角打ちを独立した教材として構成。新ペタショック定跡（MIT）の候補手を参照し、説明はこのアプリ用に新しく執筆。",
+ "goalFormation": "７四歩の交換後、先手が角を交換して５五へ打ち、飛車を７四へ進める。後手銀７三の遮断と、後手が８筋を急いだ場合の９五角による王手飛車を区別する。",
+ "goalLabel": "角の二つの斜めを読み、飛車の進路を選ぶ",
+ "goalSfen": "ln1gkg1nl/1r5s1/p1sppp1pp/2R3p2/1p2B4/9/PP1PPPPPP/5K3/LNSG1GSNL w Pbp 1",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "７五の歩と７八の飛車を早く組み合わせます。玉を４八へ動かしたあと、７四歩で角の斜めにある歩を動かします。角交換は終点ではなく、角を別の場所へ打ち直す準備として見てください。",
+  "commentEn": "Combine the pawn on 7e with the rook on 7h early. After moving the king to 4h, use ▲7四歩 to change the pawn on the bishop’s diagonal. Treat the bishop exchange as preparation for a new drop, rather than as the end of the plan.",
+  "branches": [
+   {
+    "usi": "7g7f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P6/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "7f7e",
+          "kind": "main",
+          "note": "▲７五歩で７六が空きます。７筋に飛車を振る前に歩を進める手順です。",
+          "noteEn": "▲7五歩 clears 7f before the rook swings to the seventh file.",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/2P6/9/PP1PPPPPP/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "8c8d",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/2P6/9/PP1PPPPPP/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "2h7h",
+                "kind": "main",
+                "note": "▲７八飛。歩７五の後ろに飛車を置きました。角道は開いたままです。",
+                "noteEn": "▲7八飛 places the rook behind the pawn on 7e, while the bishop diagonal remains open.",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/1p4p2/2P6/9/PP1PPPPPP/1BR6/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "7a6b",
+                   "kind": "main",
+                   "note": "後手は△６二銀を選びます。序盤定跡の候補手として確認した進行です。",
+                   "noteEn": "Gote chooses △6二銀, a continuation selected from the opening book’s candidates.",
+                   "child": {
+                    "id": "nb0_0",
+                    "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/1p4p2/2P6/9/PP1PPPPPP/1BR6/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "5i4h",
+                      "kind": "main",
+                      "note": "▲４八玉で玉を５九から動かします。後手の角打ちに王手が付くかどうかも、玉の位置で変わります。",
+                      "noteEn": "▲4八玉 moves the king away from 5i. A bishop drop’s checking effect depends on that king position.",
+                      "child": {
+                       "id": "nb0_1",
+                       "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/1p4p2/2P6/9/PP1PPPPPP/1BR2K3/LNSG1GSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "8d8e",
+                         "kind": "main",
+                         "child": {
+                          "id": "nb0_2",
+                          "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/6p2/1pP6/9/PP1PPPPPP/1BR2K3/LNSG1GSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "7e7d",
+                            "kind": "main",
+                            "note": "▲７四歩。後手が歩で取ると７三が空きます。",
+                            "noteEn": "▲7四歩 challenges the pawn; Gote’s capture clears 7c.",
+                            "child": {
+                             "id": "nb0_3",
+                             "sfen": "ln1gkgsnl/1r1s3b1/p1pppp1pp/2P3p2/1p7/9/PP1PPPPPP/1BR2K3/LNSG1GSNL w - 1",
+                             "branches": [
+                              {
+                               "usi": "7c7d",
+                               "kind": "main",
+                               "child": {
+                                "id": "nb0_4",
+                                "sfen": "ln1gkgsnl/1r1s3b1/p2ppp1pp/2p3p2/1p7/9/PP1PPPPPP/1BR2K3/LNSG1GSNL b p 1",
+                                "branches": [
+                                 {
+                                  "usi": "8h2b+",
+                                  "kind": "main",
+                                  "note": "▲２二角成で角を取りました。まだ後手は馬を取り返していません。",
+                                  "noteEn": "▲2二角成 captures the bishop. Gote has not recaptured the horse yet.",
+                                  "child": {
+                                   "id": "nb0_5",
+                                   "sfen": "ln1gkgsnl/1r1s3+B1/p2ppp1pp/2p3p2/1p7/9/PP1PPPPPP/2R2K3/LNSG1GSNL w Bp 1",
+                                   "branches": [
+                                    {
+                                     "usi": "3a2b",
+                                     "kind": "main",
+                                     "note": "△同銀で角交換が完了します。先手は得た角を次の手で使います。",
+                                     "noteEn": "△同銀 completes the exchange. Sente uses the bishop it gained on the next move.",
+                                     "child": {
+                                      "id": "nb0_6",
+                                      "sfen": "ln1gkg1nl/1r1s3s1/p2ppp1pp/2p3p2/1p7/9/PP1PPPPPP/2R2K3/LNSG1GSNL b Bbp 1",
+                                      "branches": [
+                                       {
+                                        "usi": "B*5e",
+                                        "kind": "main",
+                                        "note": "▲５五角。６四・７三を通って８二の飛車へ、４四・３三を通って２二の銀へ斜めの利きが通ります。",
+                                        "noteEn": "▲5五角 reaches the rook on 8b through 6d and 7c, and the silver on 2b through 4d and 3c.",
+                                        "child": {
+                                         "id": "nb0_7",
+                                         "sfen": "ln1gkg1nl/1r1s3s1/p2ppp1pp/2p3p2/1p2B4/9/PP1PPPPPP/2R2K3/LNSG1GSNL w bp 1",
+                                         "branches": [
+                                          {
+                                           "usi": "6b7c",
+                                           "kind": "main",
+                                           "note": "△７三銀で飛車への道を遮り、８二の飛車を銀で守ります。",
+                                           "noteEn": "△7三銀 blocks the bishop’s route to the rook and protects the rook on 8b.",
+                                           "child": {
+                                            "id": "nb0_8",
+                                            "sfen": "ln1gkg1nl/1r5s1/p1sppp1pp/2p3p2/1p2B4/9/PP1PPPPPP/2R2K3/LNSG1GSNL b bp 1",
+                                            "branches": [
+                                             {
+                                              "usi": "7h7d",
+                                              "kind": "main",
+                                              "note": "▲７四飛で歩を取ります。飛車７四、角５五、後手銀７三という接点ができました。",
+                                              "noteEn": "▲7四飛 captures the pawn. The rook on 7d and bishop on 5e now meet Gote’s silver on 7c.",
+                                              "child": {
+                                               "id": "nb0_9",
+                                               "sfen": "ln1gkg1nl/1r5s1/p1sppp1pp/2R3p2/1p2B4/9/PP1PPPPPP/5K3/LNSG1GSNL w Pbp 1",
+                                               "branches": [],
+                                               "comment": "後手銀７三が角の道を止めているため、５五角を打っただけで飛車が取れるわけではありません。飛車７四から銀を取る候補では、８一の桂による取り返しまで数えます。ここからは駒の交換と玉への王手を一手ずつ読みます。",
+                                               "commentEn": "Gote’s silver on 7c blocks the diagonal, so the bishop drop alone does not win the rook. If considering a rook capture of that silver, include the knight recapture from 8a. Continue by counting exchanges and checks one move at a time."
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       },
+                                       {
+                                        "usi": "7h7d",
+                                        "kind": "main",
+                                        "note": "今度は角をすぐ打たず、▲７四飛で歩を取ります。先手は角を持ったままです。",
+                                        "noteEn": "This time ▲7四飛 captures the pawn before Sente drops the bishop, keeping it in hand.",
+                                        "child": {
+                                         "id": "nb2_7",
+                                         "sfen": "ln1gkg1nl/1r1s3s1/p2ppp1pp/2R3p2/1p7/9/PP1PPPPPP/5K3/LNSG1GSNL w BPbp 1",
+                                         "branches": [
+                                          {
+                                           "usi": "6b7c",
+                                           "kind": "main",
+                                           "note": "後手が銀を７三へ進める応手を選びます。",
+                                           "noteEn": "Gote chooses to develop the silver to 7c.",
+                                           "child": {
+                                            "id": "nb2_8",
+                                            "sfen": "ln1gkg1nl/1r5s1/p1sppp1pp/2R3p2/1p7/9/PP1PPPPPP/5K3/LNSG1GSNL b BPbp 1",
+                                            "branches": [
+                                             {
+                                              "usi": "7d7c+",
+                                              "kind": "main",
+                                              "note": "▲７三飛成で銀を取り、飛車を渡す比較です。△同桂の取り返しまで数えます。",
+                                              "noteEn": "▲7三飛成 captures the silver and concedes the rook. Include the recapture △同桂.",
+                                              "child": {
+                                               "id": "nb2_9",
+                                               "sfen": "ln1gkg1nl/1r5s1/p1+Rppp1pp/6p2/1p7/9/PP1PPPPPP/5K3/LNSG1GSNL w BSPbp 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "8a7c",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "nb2_10",
+                                                  "sfen": "l2gkg1nl/1r5s1/p1nppp1pp/6p2/1p7/9/PP1PPPPPP/5K3/LNSG1GSNL b BSPrbp 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "P*7d",
+                                                    "kind": "main",
+                                                    "note": "▲７四歩打で桂７三の頭へ歩を置きます。次の７三への成りを候補にします。",
+                                                    "noteEn": "▲7四歩打 attacks the head of knight 7c, creating a candidate promotion onto 7c.",
+                                                    "child": {
+                                                     "id": "nb2_11",
+                                                     "sfen": "l2gkg1nl/1r5s1/p1nppp1pp/2P3p2/1p7/9/PP1PPPPPP/5K3/LNSG1GSNL w BSrbp 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "4c4d",
+                                                       "kind": "main",
+                                                       "note": "後手が４四歩と動かす応手を選びます。４三が空きました。桂を逃がすなど、ほかの応手もあります。",
+                                                       "noteEn": "Gote chooses △4四歩, clearing 4c. Other replies, including moving the knight, are possible.",
+                                                       "child": {
+                                                        "id": "nb2_12",
+                                                        "sfen": "l2gkg1nl/1r5s1/p1npp2pp/2P2pp2/1p7/9/PP1PPPPPP/5K3/LNSG1GSNL b BSrbp 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "7d7c+",
+                                                          "kind": "alt",
+                                                          "child": {
+                                                           "id": "nb2b0_0",
+                                                           "sfen": "l2gkg1nl/1r5s1/p1+Ppp2pp/5pp2/1p7/9/PP1PPPPPP/5K3/LNSG1GSNL w BSNrbp 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "8b3b",
+                                                             "kind": "main",
+                                                             "child": {
+                                                              "id": "nb2b0_1",
+                                                              "sfen": "l2gkg1nl/6rs1/p1+Ppp2pp/5pp2/1p7/9/PP1PPPPPP/5K3/LNSG1GSNL b BSNrbp 1",
+                                                              "branches": [],
+                                                              "comment": "▲７三歩成は歩で桂を取る手で、王手ではありません。と金７三が飛車８二を狙います。この例では△３二飛と、金４一に守られる升へ飛車を逃がします。先手は銀と桂を持ち、と金７三を残します。",
+                                                              "commentEn": "▲7三歩成 captures the knight with a pawn; it is not check. The tokin on 7c attacks rook 8b. This selects △3二飛, escaping to a square guarded by gold 4a. Sente holds a silver and knight and retains the tokin."
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         },
+                                                         {
+                                                          "usi": "B*7f",
+                                                          "kind": "deviation",
+                                                          "child": {
+                                                           "id": "nb2b1_0",
+                                                           "sfen": "l2gkg1nl/1r5s1/p1npp2pp/2P2pp2/1p7/2B6/PP1PPPPPP/5K3/LNSG1GSNL w Srbp 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "B*6e",
+                                                             "kind": "main",
+                                                             "child": {
+                                                              "id": "nb2b1_1",
+                                                              "sfen": "l2gkg1nl/1r5s1/p1npp2pp/2P2pp2/1p1b5/2B6/PP1PPPPPP/5K3/LNSG1GSNL b Srp 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "7f6e",
+                                                                "kind": "main",
+                                                                "child": {
+                                                                 "id": "nb2b1_2",
+                                                                 "sfen": "l2gkg1nl/1r5s1/p1npp2pp/2P2pp2/1p1B5/9/PP1PPPPPP/5K3/LNSG1GSNL w BSrp 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "7c6e",
+                                                                   "kind": "main",
+                                                                   "child": {
+                                                                    "id": "nb2b1_3",
+                                                                    "sfen": "l2gkg1nl/1r5s1/p2pp2pp/2P2pp2/1p1n5/9/PP1PPPPPP/5K3/LNSG1GSNL b BSrbp 1",
+                                                                    "branches": [],
+                                                                    "comment": "▲７六角打は桂２一と歩８五へ利きますが、先に▲７三歩成で桂を取って飛車へ当てる機会を逃す弱い選択です。△６五角打▲同角△同桂と角を交換すると、桂が歩７四の前から６五へ逃げます。角を守って交換できることと、優先すべき駒取りを選べることは別です。",
+                                                                    "commentEn": "▲7六角打 targets knight 2a and pawn 8e, but is weaker because it misses first capturing knight 7c with promotion and an attack on the rook. After △6五角打 ▲同角 △同桂, the knight escapes the pawn on 7d by reaching 6e. An available bishop exchange does not replace checking the more urgent capture."
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ],
+                                                        "comment": "後手が△４四歩を選び、桂７三が歩７四の前に残っています。先手には角を打つ前に▲７三歩成で桂を取り、飛車８二へ当てる手があります。角打ちの狙いだけでなく、この捕獲と成りを先に確認します。",
+                                                        "commentEn": "After the selected △4四歩, knight 7c remains directly ahead of pawn 7d. Before dropping the bishop, Sente can capture that knight with ▲7三歩成 and attack rook 8b. Check this capture and promotion rather than looking only at bishop-drop targets."
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  },
+                  {
+                   "usi": "8d8e",
+                   "kind": "deviation",
+                   "child": {
+                    "id": "nb1_0",
+                    "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1pP6/9/PP1PPPPPP/1BR6/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "5i4h",
+                      "kind": "main",
+                      "child": {
+                       "id": "nb1_1",
+                       "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/1pP6/9/PP1PPPPPP/1BR2K3/LNSG1GSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "8e8f",
+                         "kind": "main",
+                         "note": "後手が銀の準備より８筋の歩交換を急ぐ比較例です。次の歩の捕獲も、この罠を示すための応手です。",
+                         "noteEn": "For comparison, Gote rushes the eighth-file exchange before developing the silver. The following pawn capture is chosen to demonstrate the trap.",
+                         "child": {
+                          "id": "nb1_2",
+                          "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/2P6/1p7/PP1PPPPPP/1BR2K3/LNSG1GSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "8g8f",
+                            "kind": "main",
+                            "child": {
+                             "id": "nb1_3",
+                             "sfen": "lnsgkgsnl/1r5b1/p1pppp1pp/6p2/2P6/1P7/P2PPPPPP/1BR2K3/LNSG1GSNL w P 1",
+                             "branches": [
+                              {
+                               "usi": "8b8f",
+                               "kind": "main",
+                               "child": {
+                                "id": "nb1_4",
+                                "sfen": "lnsgkgsnl/7b1/p1pppp1pp/6p2/2P6/1r7/P2PPPPPP/1BR2K3/LNSG1GSNL b Pp 1",
+                                "branches": [
+                                 {
+                                  "usi": "7e7d",
+                                  "kind": "main",
+                                  "note": "▲７四歩で７三の歩を動かす狙いです。後手が△同歩を選ぶ例を続けます。",
+                                  "noteEn": "▲7四歩 aims to move the pawn off 7c. This example continues with Gote choosing △同歩.",
+                                  "child": {
+                                   "id": "nb1_5",
+                                   "sfen": "lnsgkgsnl/7b1/p1pppp1pp/2P3p2/9/1r7/P2PPPPPP/1BR2K3/LNSG1GSNL w Pp 1",
+                                   "branches": [
+                                    {
+                                     "usi": "7c7d",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "nb1_6",
+                                      "sfen": "lnsgkgsnl/7b1/p2ppp1pp/2p3p2/9/1r7/P2PPPPPP/1BR2K3/LNSG1GSNL b P2p 1",
+                                      "branches": [
+                                       {
+                                        "usi": "8h2b+",
+                                        "kind": "main",
+                                        "child": {
+                                         "id": "nb1_7",
+                                         "sfen": "lnsgkgsnl/7+B1/p2ppp1pp/2p3p2/9/1r7/P2PPPPPP/2R2K3/LNSG1GSNL w BP2p 1",
+                                         "branches": [
+                                          {
+                                           "usi": "3a2b",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "nb1_8",
+                                            "sfen": "lnsgkg1nl/7s1/p2ppp1pp/2p3p2/9/1r7/P2PPPPPP/2R2K3/LNSG1GSNL b BPb2p 1",
+                                            "branches": [
+                                             {
+                                              "usi": "B*9e",
+                                              "kind": "main",
+                                              "note": "▲９五角。８六の飛車と、８四・７三・６二を通った先の５一玉へ同時に利きます。",
+                                              "noteEn": "▲9五角 attacks the rook on 8f and checks the king on 5a through 8d, 7c and 6b.",
+                                              "child": {
+                                               "id": "nb1_9",
+                                               "sfen": "lnsgkg1nl/7s1/p2ppp1pp/2p3p2/B8/1r7/P2PPPPPP/2R2K3/LNSG1GSNL w Pb2p 1",
+                                               "branches": [],
+                                               "comment": "９五の角が王手と飛車取りを兼ねました。６二に後手銀がいないこと、７三の歩が動いたこと、後手飛車が８六へ出たことを、本線と比べてください。相手の選んだ誤りを利用する枝であり、どの受けにも同じ攻めが決まるわけではありません。",
+                                               "commentEn": "The bishop on 9e gives check while attacking the rook. Compare three details with the main line: no silver on 6b, the pawn moved off 7c, and the rook advanced to 8f. This branch exploits Gote’s chosen errors; it is not a forced attack against every defense."
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

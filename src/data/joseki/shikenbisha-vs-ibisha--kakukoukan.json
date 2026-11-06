@@ -241,16 +241,38 @@
                                                                                             "branches": [
                                                                                              {
                                                                                               "usi": "7g6f",
-                                                                                              "kind": "main",
-                                                                                              "note": "銀６六。自歩が移動した後なので進める。飛車６八の前は今度は自銀で止まる。",
+                                                                                              "kind": "deviation",
                                                                                               "child": {
-                                                                                               "id": "nb0_4",
+                                                                                               "id": "nb0b0_0",
                                                                                                "sfen": "ln5nl/1r2ggk2/p1p1spsp1/4p1p1p/1p1p5/2PSP3P/PP3PPP1/2GRG1SK1/LN5NL w Bbp 1",
-                                                                                               "branches": [],
-                                                                                               "comment": "この応手は強制ではない。６六歩を突いた瞬間と、歩を交換して銀を進めた後を区別する。６五の後手歩を取る前にも相手銀５三と持ち角を数える。"
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "6e6f",
+                                                                                                 "kind": "main",
+                                                                                                 "child": {
+                                                                                                  "id": "nb0b0_1",
+                                                                                                  "sfen": "ln5nl/1r2ggk2/p1p1spsp1/4p1p1p/1p7/2PpP3P/PP3PPP1/2GRG1SK1/LN5NL b Bbsp 1",
+                                                                                                  "branches": [
+                                                                                                   {
+                                                                                                    "usi": "6h6f",
+                                                                                                    "kind": "main",
+                                                                                                    "child": {
+                                                                                                     "id": "nb0b0_2",
+                                                                                                     "sfen": "ln5nl/1r2ggk2/p1p1spsp1/4p1p1p/1p7/2PRP3P/PP3PPP1/2G1G1SK1/LN5NL w BPbsp 1",
+                                                                                                     "branches": [],
+                                                                                                     "comment": "▲６六銀は△同歩で銀を失います。▲同飛で取り返しても得るのは歩だけで、銀と歩の交換です。自歩が空けた升へ進めることだけを根拠に、銀を出してはいけません。",
+                                                                                                     "commentEn": "▲6六銀 loses the silver to △同歩. ▲同飛 recaptures only the pawn, leaving a silver-for-pawn loss. An empty square alone does not justify advancing the silver."
+                                                                                                    }
+                                                                                                   }
+                                                                                                  ]
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
                                                                                               }
                                                                                              }
-                                                                                            ]
+                                                                                            ],
+                                                                                            "comment": "６六は空きましたが、後手歩６五がその升を狙っています。合法に進める升と、安全に進める升は同じではありません。",
+                                                                                            "commentEn": "Square 6f is empty, but Gote’s pawn on 6e attacks it. A legal destination is not necessarily a safe one."
                                                                                            }
                                                                                           }
                                                                                          ]

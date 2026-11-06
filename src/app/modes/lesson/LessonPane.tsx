@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LABELS } from '@/utils/analysis'
 import i18n from '@/utils/i18n'
-import { SETUPS, catalogLoaded, useCourseVersion, type Course } from '@/utils/model'
+import { SETUPS, catalogLoaded, useCourseVersion, type Course, type JosekiNode } from '@/utils/model'
 import { moveText } from '@/utils/shogi'
 import { useSession } from '@/app/hooks/session'
 import { FlipMarks } from '@/app/ui/SideMark'
@@ -110,6 +110,16 @@ function nextCourseAfter(course: Course) {
   return siblings[siblings.findIndex((c) => c.id === course.id) + 1] ?? coursesOf(SETUPS.slice(SETUPS.indexOf(setup!) + 1).flatMap((s) => s.courseIds))[0]
 }
 
+function positionsOf(course: Course) {
+  const out: { id: string; ply: number; move: string }[] = []
+  const walk = (node: JosekiNode, ply: number, move: string, explained: boolean) => {
+    if (explained || node.comment || node.commentEn || node.figures?.length || node.branches.length !== 1) out.push({ id: node.id, ply, move })
+    for (const branch of node.branches) if (branch.child) walk(branch.child, ply + 1, moveText(node.sfen, branch.usi), !!(branch.note || branch.noteEn))
+  }
+  walk(course.root, 0, '', true)
+  return out
+}
+
 type LessonPaneProps = {
   lesson: Lesson
   mistake: ShownMistake | null
@@ -124,12 +134,15 @@ type LessonPaneProps = {
 
 export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPlayReply, lastNote, endRate, onBack }: LessonPaneProps) {
   const { t } = useTranslation()
-  const { course, liveSfen: sfen, userSide, lastMove, prevSfen, playing, preview, atEnd, flipped } = useSession()
+  const { course, cursor, liveSfen: sfen, userSide, lastMove, prevSfen, playing, preview, atEnd, flipped } = useSession()
   const { lessonMode, score, justRight, checking, progress, done, asking, offBook, good, showAnswer, jumped } = lesson
   useCourseVersion()
   useEffect(() => {
-    if (done && course) markChapterFinished(course.id)
-  }, [done, course])
+    if (!done || !course || !lesson.readingComplete) return
+    let end = course.root
+    for (let branch = mainBranch(end); branch?.child; branch = mainBranch(end)) end = branch.child
+    if (lesson.node?.id === end.id) markChapterFinished(course.id)
+  }, [done, course, lesson.readingComplete, lesson.node?.id])
   if (!course && !catalogLoaded()) return <PanelSkeleton />
   if (!course) return <OpeningPicker onOpen={lesson.open} level={level} setupId={lesson.pickerSetup} setSetupId={lesson.setPickerSetup} />
   const side = sideMark(userSide)
@@ -137,8 +150,11 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
   const nextCourse = series ? null : nextCourseAfter(course)
   const whatIf = preview && !mistake ? preview.title : null
   const theirs = reply ?? mainBranch(lesson.node)
-  const endComment = done ? lesson.node?.comment : undefined
+  const endComment = done ? lessonText(lesson.node?.comment, lesson.node?.commentEn, i18n.language, course) : undefined
   const card = paneCard({ study: lessonMode === 'study' })
+  const setup = setupOf(course)
+  const courseTitle = i18n.language === 'ja' ? course.title : (course.titleEn ?? course.title)
+  const chapterTitle = courseTitle.replace(`${i18n.language === 'ja' ? setup?.ja : setup?.name}: `, '')
   if (setupOf(course)?.path && lessonMode === 'study' && !(mistakePreview && mistake) && !offBook && !whatIf)
     return (
       <NarrowColumn>
@@ -147,6 +163,11 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
     )
   return (
     <NarrowColumn>
+      {setup?.path && lessonMode === 'quiz' && (
+        <styled.h3 m="0 0 {spacing.2}" fontFamily="mincho" fontSize="lg" lineHeight="snug" _narrow={{ order: '-3' }}>
+          {chapterTitle}
+        </styled.h3>
+      )}
       {series && (
         <styled.nav display="flex" flexWrap="wrap" alignItems="center" gap="2" mb="2" fontSize="sm" fontWeight="bold" aria-label={t('lesson.series')}>
           <BackLink flexBasis="100%" textAlign="left" onClick={series.back}>
@@ -169,6 +190,39 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
             </Button>
           )}
         </styled.nav>
+      )}
+      {lessonMode === 'study' && (
+        <styled.select
+          aria-label={i18n.language === 'ja' ? '解説の局面を選んで移動' : 'Jump to an explained position'}
+          value={lesson.node?.id ?? ''}
+          minH="11"
+          w="100%"
+          minW="0"
+          mb="2"
+          px="2"
+          border="1px solid {colors.border}"
+          borderRadius="md"
+          bg="panel"
+          color="fg.default"
+          fontSize="sm"
+          _narrow={{ order: '-2' }}
+          onChange={(event) => lesson.jumpTo(event.target.value)}
+        >
+          <option value={lesson.node?.id ?? ''}>
+            {i18n.language === 'ja' ? `局面を選ぶ・現在${cursor}手目` : `Choose a position · currently move ${cursor}`}
+          </option>
+          {positionsOf(course)
+            .filter((point) => point.id !== lesson.node?.id)
+            .map((point) => (
+              <option key={point.id} value={point.id}>
+                {point.ply === 0
+                  ? t('lessonMap.initialPosition')
+                  : i18n.language === 'ja'
+                    ? `${point.ply}手目 ${point.move}`
+                    : `Move ${point.ply} ${point.move}`}
+              </option>
+            ))}
+        </styled.select>
       )}
       {progress && progress.total > 0 && (
         <styled.span color="fg.muted" fontSize="xs" fontWeight="bold">
@@ -337,7 +391,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
               <strong>
                 <FlipMarks flipped={flipped}>{lesson.quizTask ?? t('lesson.yourMoveAsFindThe', { side })}</FlipMarks>
               </strong>
-              <Button size="sm" variant="ghost" alignSelf="flex-start" mt="2" onClick={lesson.revealAnswer}>
+              <Button minH="11" variant="ghost" alignSelf="flex-start" mt="2" onClick={lesson.revealAnswer}>
                 {t('lesson.showMeTheAnswer')}
               </Button>
             </>
@@ -393,7 +447,7 @@ export function LessonPane({ lesson, mistake, mistakePreview, level, reply, onPl
           </styled.p>
         </Box>
       )}
-      {!lastMove && course.root.comment && (
+      {!lastMove && !lesson.hidesAnswer && course.root.comment && (
         <styled.p m="{spacing.3} 0 0" fontFamily="mincho" fontSize="sm" lineHeight="mincho">
           <SquareText text={lessonText(course.root.comment, course.root.commentEn, i18n.language, course) ?? ''} />
         </styled.p>

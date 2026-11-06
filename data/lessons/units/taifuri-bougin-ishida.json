@@ -207,24 +207,45 @@
         {
           "from": 1,
           "moves": [
-            "7f7e",
-            "7a6b",
-            "2h7h",
-            "2b8h+",
-            "7i8h",
-            "B*4e",
-            "B*5e"
+            "7f7e"
           ],
           "text": {
-            "ja": "ただし、△４二玉の前に別の手を挟むと反撃されます。たとえば△６二銀とすると、△４五角に▲５五角が厳しくなります。△４二玉と上がっていれば、△３三桂と受けられるのです。",
-            "en": "If Gote inserts another move before △4二玉, Sente has a counterattack. For example after △6二銀, the answer ▲5五角 to △4五角 is severe. With the king already on 4b, Gote could defend with △3三桂."
+            "ja": "▲７五歩に対し、玉を４二へ動かす準備を省いた例を比較します。",
+            "en": "After ▲7五歩, compare omitting the preparatory king move to 4b."
           },
-          "marks": {
-            "last": "5e",
-            "boxes": [
-              "5e"
-            ]
-          }
+          "kind": "alt",
+          "steps": [
+            {
+              "moves": [
+                "7a6b",
+                "2h7h",
+                "2b8h+",
+                "7i8h"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "△６二銀を先に指し、角交換まで進めました。玉は５一に残っています。",
+                "en": "Gote plays △6二銀 first and continues through the bishop exchange. Its king remains on 5a."
+              }
+            },
+            {
+              "moves": [
+                "B*4e",
+                "B*5e"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "ただし、△４二玉の前に別の手を挟むと反撃されます。たとえば△６二銀とすると、△４五角に▲５五角が厳しくなります。△４二玉と上がっていれば、△３三桂と受けられるのです。",
+                "en": "If Gote inserts another move before △4二玉, Sente has a counterattack. For example after △6二銀, the answer ▲5五角 to △4五角 is severe. With the king already on 4b, Gote could defend with △3三桂."
+              },
+              "marks": {
+                "last": "5e",
+                "boxes": [
+                  "5e"
+                ]
+              }
+            }
+          ]
         },
         {
           "from": 4,
@@ -256,7 +277,7 @@
             "6b7c"
           ],
           "text": {
-            "ja": "そこから▲７三歩と打たれても、△同銀で構いません。逆に先手の飛車の前を攻める形になり、銀を進めて飛車を封じれば後手が良くなります。",
+            "ja": "そこから▲７三歩と歩を取られても、△同銀で構いません。逆に先手の飛車の前を攻める形になり、銀を進めて飛車を封じれば後手が良くなります。",
             "en": "Against the follow-up ▲7三歩, △同銀 turns on the opposing rook file. Pushing the silver forward to press the rook down gives Gote the better game."
           },
           "marks": {

@@ -174,8 +174,8 @@
             "5i5h"
           ],
           "text": {
-            "ja": "後手は△３三角と角を上げました。この角が３四の飛車の前に立ち、飛車に当たっています。ふつうなら飛車を引く場面ですが、先手は飛車を３四に残して▲５八玉と玉を一歩寄せます。これが青野流の第一手です。同じ形から▲６八玉と指すのは、勇気流という別の戦法です。",
-            "en": "Gote lifts the bishop with △3三角, which stands in front of the rook and attacks it. Normally Sente would retreat the rook, but here Sente leaves it on 3d and moves the king one square with ▲5八玉. This is the first move of the Aono style. Playing ▲6八玉 from the same position is a different strategy, the Yuuki style."
+            "ja": "後手は△３三角と角を上げました。角の利きは斜めなので、同じ筋の３四にいる飛車へ直接当たってはいません。先手は飛車を３四に残して▲５八玉と上がります。これが青野流の入り方です。▲３六飛と引いて７六歩を守る手や、▲６八玉と指す勇気流は別の構想です。",
+            "en": "Gote lifts the bishop with △3三角. Its diagonal movement does not directly attack the rook on 3d on the same file. Sente leaves the rook on 3d and lifts the king with ▲5八玉, entering Aono style. Retreating ▲3六飛 to guard the pawn on 7f, or playing the Yuuki-style ▲6八玉, are different plans."
           },
           "marks": {
             "last": "5h",

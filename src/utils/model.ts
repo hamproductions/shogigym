@@ -66,7 +66,6 @@ export type Course = RawCourse & {
 }
 
 const files = {
-  ...import.meta.glob<string>('../../vendor/shiryu-joseki/src/data/joseki/*.json', { query: '?raw', import: 'default' }),
   ...import.meta.glob<string>('../data/joseki/*.json', { query: '?raw', import: 'default' }),
   ...import.meta.glob<string>('../data/lessons/*.json', { query: '?raw', import: 'default' }),
 }

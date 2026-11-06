@@ -82,7 +82,8 @@
           },
           "moves": [
             "5a5h+"
-          ]
+          ],
+          "kind": "deviation"
         },
         {
           "text": {
@@ -351,7 +352,8 @@
           },
           "moves": [
             "P*6e"
-          ]
+          ],
+          "kind": "deviation"
         },
         {
           "text": {
@@ -360,7 +362,8 @@
           },
           "moves": [
             "7d6e"
-          ]
+          ],
+          "kind": "deviation"
         },
         {
           "text": {
@@ -382,14 +385,26 @@
         {
           "from": 1,
           "moves": [
-            "5d6e",
-            "7h7d",
-            "7c7d"
+            "5d6e"
           ],
           "text": {
-            "ja": "△６五金なら銀は７四に残ります。▲７四飛には△同飛と取られ、先手の飛車が失われます。",
-            "en": "After △６五金 the silver stays on ７四. If ▲７四飛, △同飛 captures Sente’s rook."
-          }
+            "ja": "△６五金を選ぶ応手では、銀７四は残っています。飛車で銀を取る前に飛車７三の取り返しを確認します。",
+            "en": "After the selected △6五金, silver 7d remains. Before capturing that silver, inspect rook 7c’s recapture."
+          },
+          "kind": "alt",
+          "steps": [
+            {
+              "moves": [
+                "7h7d",
+                "7c7d"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "△６五金なら銀は７四に残ります。▲７四飛には△同飛と取られ、先手の飛車が失われます。",
+                "en": "After △６五金 the silver stays on ７四. If ▲７四飛, △同飛 captures Sente’s rook."
+              }
+            }
+          ]
         },
         {
           "from": 1,
@@ -450,7 +465,8 @@
           },
           "moves": [
             "P*4e"
-          ]
+          ],
+          "kind": "deviation"
         },
         {
           "text": {
@@ -477,7 +493,8 @@
           },
           "moves": [
             "9c9d"
-          ]
+          ],
+          "kind": "deviation"
         },
         {
           "text": {
@@ -587,7 +604,8 @@
           },
           "moves": [
             "9c9d"
-          ]
+          ],
+          "kind": "deviation"
         },
         {
           "text": {

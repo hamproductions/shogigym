@@ -105,8 +105,8 @@
             "1a2a"
           ],
           "text": {
-            "ja": "△２一玉と横へ逃げられます。王手はかかっていますが、この局面は詰みではありません。王手を見つけたら、玉の逃げ道や攻撃駒を取る手、長い利きを遮る手が残っているかを調べます。",
-            "en": "△２一玉 steps sideways out of the line. The king was in check, but this position was not mate. After finding a check, look for king escapes, captures of the checking piece, and blocks against a long-range attack."
+            "ja": "△２一玉と横へ逃げ、王手を外しました。飛車を打った直後も、この逃げ道があったので詰みではありません。王手を見つけたら、玉の移動、攻撃駒の捕獲、長い利きの遮断で受けられないかを調べます。",
+            "en": "△２一玉 escapes sideways and removes the check. The rook drop was not mate because this escape was available. After finding a check, test king moves, captures of the checking piece, and blocks against a long-range attack."
           }
         }
       ]

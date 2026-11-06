@@ -11,7 +11,7 @@
   },
   "intro": {
     "ja": "四間飛車で角を換えたあと、玉を穴熊へ潜らせる指し方です。守りが整うまで手を出さず、完成したら飛車を８筋へ回して攻め込みます。駒組み、攻めの手順、角の打ち込みへの対処を順に確かめます。",
-    "en": "A plan that starts as Bishop Exchange Fourth File Rook and builds an Anaguma. Gote first finishes a solid castle, then the rook swings to the opposing-rook file for an attack down the eighth file. Learn the setup, the standard attack, and how to handle a bishop dropped into your camp."
+    "en": "A plan that starts as Bishop Exchange Fourth File Rook and builds an Anaguma. Sente first finishes a solid castle, then the rook swings to the opposing-rook file for an attack down the eighth file. Learn the setup, the standard attack, and how to handle a bishop dropped into your camp."
   },
   "check": {
     "question": {
@@ -281,8 +281,8 @@
         },
         {
           "text": {
-            "ja": "覚える点は四つです。最初に角を交換して、飛車は６八、銀は７七に構えること。玉は３八、２八、１九と動かし、香を１八へ上げて場所を空けること。銀は２八、金は３九と３八と４八に寄せること。守りが完成するまで攻めないこと。",
-            "en": "Four points to remember. Trade bishops first, then place the rook on 6h and the silver on 7g. Walk the king through 3h and 2h to 1i, lifting the lance to 1h to make room. Put the silver on 2h and the golds on 3i, 3h and 4h. Do not attack until the castle is complete."
+            "ja": "覚える点は四つです。最初に角を交換して、飛車は６八、銀は７七に構えること。玉は３八、２八、１九と動かし、香を１八へ上げて場所を空けること。銀は２八、金は３九と３八に置く。３八へ向かう金は４八を通ること。守りが完成するまで攻めないこと。",
+            "en": "Four points to remember. Trade bishops first, then place the rook on 6h and the silver on 7g. Walk the king through 3h and 2h to 1i, lifting the lance to 1h to make room. Put the silver on 2h and the golds on 3i and 3h; 4h is a transit square for the gold heading to 3h. Do not attack until the castle is complete."
           },
           "marks": {
             "boxes": [

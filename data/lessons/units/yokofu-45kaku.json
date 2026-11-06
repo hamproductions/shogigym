@@ -447,8 +447,8 @@
             "6h5h"
           ],
           "text": {
-            "ja": "後手は持ち駒の桂と銀を打ち、先手の金に絡んできます。△６七銀に対しては▲５八金左と金を寄せてかわすのが手筋です。△同銀▲同金、または△６七金▲５六銀で、後手の攻めは続きません。５八の金は△４七桂成という手もふさいでいます。",
-            "en": "Gote drops a knight and silver to go after the gold. Against △6七銀, ▲5八金左 is the key dodge. After △同銀 ▲同金, or △6七金 ▲5六銀, Gote's attack runs out. The gold on 5h also covers the △4七桂成 idea."
+            "ja": "△５五桂と△６七銀で金を狙われ、▲５八金左とかわしました。ここで後手の銀は６七にあり、持ち金はありません。△５八銀成▲同金と交換した場合には、後手が得た金を△６七金と打ち、先手は得た銀を▲５六銀と使う順を考えられます。現在すぐ△６七金と打てるわけではありません。",
+            "en": "After △5五桂 and △6七銀 target the gold, ▲5八金左 dodges. Gote’s silver is still on 6g and Gote has no gold in hand. Only after △5八銀成 ▲同金 does Gote gain the gold for a possible △6七金, while Sente gains a silver for ▲5六銀. The gold drop is conditional on that exchange, not available immediately."
           },
           "marks": {
             "last": "5h",
@@ -641,8 +641,8 @@
             "3g3f"
           ],
           "text": {
-            "ja": "△３六角と香を取りにくる手も、実戦でよく指されます。▲同歩と取り返すと、後手は持ち駒の桂や香を足して攻めを続けます。先手は玉を▲６八玉と寄せて構えるのが定跡とされています。",
-            "en": "Gote may also capture the lance with △3六角. After ▲同歩, Gote adds knight and lance drops to keep attacking, and Sente defends by moving the king over with ▲6八玉, the standard approach."
+            "ja": "△３六角で香を取られても、▲同歩で角を取り返せます。この時点で後手の持ち駒は飛車・銀・香です。これらの打ち込みに備えつつ、先手は▲６八玉と玉を寄せる構想を考えます。",
+            "en": "After △3六角 captures the lance, ▲同歩 recaptures the bishop. Gote now holds a rook, silver and lance. Prepare for drops using those pieces while considering the plan of moving Sente's king to 6h."
           },
           "steps": []
         },

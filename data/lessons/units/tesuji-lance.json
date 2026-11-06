@@ -77,12 +77,13 @@
           },
           "moves": [
             "3d7h+"
-          ]
+          ],
+          "kind": "deviation"
         },
         {
           "text": {
-            "ja": "▲同香で馬を取り返します。この局面では玉で馬を取る手も合法です。後手は角を取らず別の手を選べます。",
-            "en": "▲同香 recaptures the horse. Here the king can also capture it. Gote may instead choose a different reply."
+            "ja": "▲同香で馬を取り返します。この局面では玉で馬を取る手も合法です。後手には、角で７八の金を取る代わりに別の手を選ぶ余地がありました。",
+            "en": "▲同香 recaptures the horse. Here the king can also capture it. Gote was not forced to capture the gold on 7h with the bishop and could have chosen another reply."
           },
           "moves": [
             "7i7h"
@@ -157,7 +158,8 @@
           },
           "moves": [
             "4d5e"
-          ]
+          ],
+          "kind": "deviation"
         },
         {
           "text": {
@@ -243,7 +245,8 @@
           },
           "moves": [
             "2c2d"
-          ]
+          ],
+          "kind": "deviation"
         },
         {
           "text": {
@@ -261,7 +264,8 @@
           },
           "moves": [
             "3c2d"
-          ]
+          ],
+          "kind": "deviation"
         },
         {
           "text": {
@@ -277,16 +281,37 @@
         {
           "from": 1,
           "moves": [
-            "3a2b",
-            "2g2c+",
-            "2b2c",
-            "2h2c+",
-            "3b2c"
+            "3a2b"
           ],
           "text": {
-            "ja": "△２二銀と受けられた後に▲２三香成、△同銀、▲同飛成と進むと、△同金で飛車も取られます。重ねた駒だけでなく最後の受け駒まで数えます。",
-            "en": "After △２二銀, the sequence ▲２三香成, △同銀, ▲同飛成, △同金 loses the rook as well. Count the final defender, not just the stacked pieces."
-          }
+            "ja": "△２二銀と受ける手を比べます。２三への銀の利きが加わりました。",
+            "en": "Compare △2二銀, adding the silver’s control of 2c."
+          },
+          "kind": "alt",
+          "steps": [
+            {
+              "moves": [
+                "2g2c+",
+                "2b2c"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "▲２三香成は△同銀で香を取られる手です。続く飛車の取り返しにも金の利きが残っています。",
+                "en": "▲2三香成 allows △同銀 to capture the lance. The gold still guards the rook’s possible recapture square."
+              }
+            },
+            {
+              "moves": [
+                "2h2c+",
+                "3b2c"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "△２二銀と受けられた後に▲２三香成、△同銀、▲同飛成と進むと、△同金で飛車も取られます。重ねた駒だけでなく最後の受け駒まで数えます。",
+                "en": "After △２二銀, the sequence ▲２三香成, △同銀, ▲同飛成, △同金 loses the rook as well. Count the final defender, not just the stacked pieces."
+              }
+            }
+          ]
         }
       ]
     }

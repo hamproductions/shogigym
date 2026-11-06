@@ -234,7 +234,7 @@
                                                                                          "branches": [
                                                                                           {
                                                                                            "usi": "6e7f",
-                                                                                           "kind": "alt",
+                                                                                           "kind": "deviation",
                                                                                            "note": "後手銀が７六へ出る一例。７六は先手６七銀の斜め前にある。",
                                                                                            "child": {
                                                                                             "id": "nb0_0",
@@ -256,7 +256,7 @@
                                                                                           },
                                                                                           {
                                                                                            "usi": "6e5f",
-                                                                                           "kind": "alt",
+                                                                                           "kind": "deviation",
                                                                                            "note": "後手銀が５六へ進む場合。５六は５七の先手歩の正面にある。",
                                                                                            "child": {
                                                                                             "id": "nb1_0",

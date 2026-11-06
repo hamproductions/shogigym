@@ -169,17 +169,30 @@
         {
           "from": 4,
           "moves": [
-            "6c6d",
-            "9e9d"
+            "6c6d"
           ],
-          "text": {
-            "ja": "仮に▲５六歩を省いて、すぐ▲９四歩と仕掛けたとします。△同歩▲同香と進むので、下手が良い形に見えます。",
-            "en": "What if Sente attacks at once with ▲9四歩, skipping ▲5六歩? After △同歩 ▲同香 Sente seems to be doing well."
-          },
           "steps": [
             {
               "moves": [
-                "9c9d",
+                "9e9d"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "仮に▲５六歩を省いて、すぐ▲９四歩と仕掛けたとします。△同歩▲同香と進むので、下手が良い形に見えます。",
+                "en": "What if Sente attacks at once with ▲9四歩, skipping ▲5六歩? After △同歩 ▲同香 Sente seems to be doing well."
+              }
+            },
+            {
+              "moves": [
+                "9c9d"
+              ],
+              "text": {
+                "ja": "△同歩と端の歩を取る応手です。角の逃げ道はまだ用意できていません。",
+                "en": "△同歩 captures the edge pawn. Sente still has not prepared the bishop’s retreat."
+              }
+            },
+            {
+              "moves": [
                 "9i9d",
                 "6d6e"
               ],
@@ -192,7 +205,8 @@
                 "arrows": [
                   "6e6f"
                 ]
-              }
+              },
+              "kind": "deviation"
             },
             {
               "moves": [
@@ -208,9 +222,15 @@
                 "arrows": [
                   "9c9d"
                 ]
-              }
+              },
+              "kind": "deviation"
             }
-          ]
+          ],
+          "kind": "alt",
+          "text": {
+            "ja": "△６四歩に、角の逃げ道を準備せず攻める比較です。",
+            "en": "After △6四歩, compare attacking before preparing the bishop’s retreat."
+          }
         }
       ]
     },
@@ -344,8 +364,8 @@
                 "7b8c"
               ],
               "text": {
-                "ja": "ところが△８四金と上がられると、角と香の両取りになります。これでは下手が指しにくく、ただの歩に見えても取ってはいけません。",
-                "en": "But △8四金 forks the bishop and the lance. Sente is in trouble, so a pawn that looks free must not be taken."
+                "ja": "ところが△８三金と上がられると、角と香の両取りになります。これでは下手が指しにくく、ただの歩に見えても取ってはいけません。",
+                "en": "But △8三金 forks the bishop and the lance. Sente is in trouble, so a pawn that looks free must not be taken."
               },
               "marks": {
                 "last": "8c",

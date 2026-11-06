@@ -94,8 +94,8 @@
             "6i7h"
           ],
           "text": {
-            "ja": "▲７八金。左の金を一つ上げ、銀の斜め後ろに置きます。",
-            "en": "▲7八金 lifts the left gold and places it diagonally behind the silver."
+            "ja": "▲７八金。左の金を上げ、６八の銀と同じ段に並べます。この時点では金と銀が横に一枚ずつ並んでいます。",
+            "en": "▲7八金 lifts the left gold beside the silver on 6h. Gold and silver now occupy neighboring squares on the same rank."
           },
           "marks": {
             "last": "7h"
@@ -681,8 +681,8 @@
             "4h5g"
           ],
           "text": {
-            "ja": "▲５七銀。銀が囲いの一番右につきました。金銀四枚が、７七から５七まで一列に並びます。",
-            "en": "▲5七銀 attaches the silver at the right end. Four pieces now stand in a row from 7g to 5g."
+            "ja": "▲５七銀。前列の７七銀・６七金・５七銀が横に並びました。７八の金は一段後ろに残り、金銀四枚で囲いを構えています。",
+            "en": "▲5七銀 completes a front row of silver 7g, gold 6g and silver 5g. The other gold remains one rank behind on 7h, making four guards in the castle overall."
           },
           "marks": {
             "boxes": [
@@ -839,8 +839,8 @@
             "8h2b+"
           ],
           "text": {
-            "ja": "角を交換した形から始めます。後手は相手の角を取り返して、お互いに角を持ち駒にしました。盤上に角がいないので、八八が空いています。",
-            "en": "Start after the bishops were traded. Gote recaptured and both sides hold a bishop in hand. No bishop stands on 8h any more, so that square is free."
+            "ja": "先手が２二の角を取り、馬を２二に残した局面です。持ち角はまだ先手だけにあり、後手は次に銀で馬を取り返します。角交換を終えてから、玉を低く構える菊水矢倉を組みます。",
+            "en": "Sente has captured the bishop on 2b and left a promoted bishop there. Only Sente has a bishop in hand so far; Gote will recapture with the silver next. After completing the exchange, build the low-king Kikusui Yagura."
           },
           "marks": {
             "boxes": [
@@ -854,8 +854,8 @@
             "6g6f"
           ],
           "text": {
-            "ja": "▲６六歩。金の上がる場所を空けます。",
-            "en": "▲6六歩 clears a square for a gold."
+            "ja": "後手の△２二銀で馬が取られ、双方に持ち角ができました。▲６六歩。金の上がる場所を空けます。",
+            "en": "Gote's △2二銀 recaptures the promoted bishop, so each side now has a bishop in hand. ▲6六歩 clears a square for a gold."
           },
           "marks": {
             "boxes": [
@@ -928,8 +928,8 @@
             "8i7g"
           ],
           "text": {
-            "ja": "▲７七桂。桂馬を跳ねて、八九を空けます。この桂が七七の守りになります。",
-            "en": "▲7七桂 jumps the knight and empties 8i. The knight also guards 7g."
+            "ja": "▲７七桂。桂を跳ねて８九を空けました。桂は７七を占め、そこから６五と８五へ利いています。空いた８九は、あとで玉を入れる場所です。",
+            "en": "▲7七桂 jumps the knight and clears 8i. The knight occupies 7g and controls 6e and 8e from there. The vacated square 8i is the king's later destination."
           },
           "marks": {
             "boxes": [
@@ -1328,8 +1328,8 @@
             "5g6f"
           ],
           "text": {
-            "ja": "▲６六銀。銀が前に出ました。六五の歩と七六の歩に支えられた、囲いの一番前の駒です。",
-            "en": "▲6六銀 arrives at the front, backed by the pawns on 6e and 7f, as the leading piece of the castle."
+            "ja": "▲６六銀。銀が囲いの前へ出ました。この銀を守っているのは７七の銀と６七の金です。６五と７六の歩は、それぞれ前の６四と７五へ利いており、６六の銀は支えていません。",
+            "en": "▲6六銀 places the silver at the front. It is supported by the silver on 7g and gold on 6g. The pawns on 6e and 7f control 6d and 7e respectively, not the silver on 6f."
           },
           "marks": {
             "boxes": [
@@ -1426,8 +1426,8 @@
             "8h2b+"
           ],
           "text": {
-            "ja": "角を交換した形です。後手は角を取り返し、お互いに持ち駒に角があります。この形でよく使うのが、低く構えるへこみ矢倉です。",
-            "en": "The bishops have been traded and each side holds one. In this situation a low shape, Hekomi Yagura, is often used."
+            "ja": "先手が２二の角を取って成った直後です。２二には先手の馬が残り、後手の取り返しはまだです。次に銀で馬を取り返して角交換を終え、低いへこみ矢倉を組みます。",
+            "en": "Sente has just captured the bishop on 2b and promoted. The promoted bishop remains on 2b, awaiting Gote's recapture. Next the silver completes the bishop exchange, followed by the low Hekomi Yagura setup."
           },
           "marks": {
             "boxes": [
@@ -1441,8 +1441,8 @@
             "7i6h"
           ],
           "text": {
-            "ja": "▲６八銀。左の銀を上げます。",
-            "en": "▲6八銀 lifts the left silver."
+            "ja": "後手の△２二銀で馬が取られ、双方に持ち角ができました。▲６八銀。左の銀を上げます。",
+            "en": "Gote's △2二銀 recaptures the promoted bishop, so each side now has a bishop in hand. ▲6八銀 lifts the left silver."
           },
           "marks": {
             "last": "6h"
@@ -1581,8 +1581,8 @@
             "8h2b+"
           ],
           "text": {
-            "ja": "角を交換した形です。ここで組むのがカブト囲いです。矢倉のように時間をかけず、早く戦いに入れます。",
-            "en": "Bishops have been traded. Here the Kabuto (helmet) castle is built, which gets into the fight faster than a full Yagura."
+            "ja": "先手が角を取り、２二に馬を残したところです。後手は次に銀で馬を取り返します。交換を終えたあと、玉を６八に置くカブト囲いを組みます。",
+            "en": "Sente has captured a bishop and left a promoted bishop on 2b. Gote will recapture it with the silver next. After that exchange, build the Kabuto castle with the king on 6h."
           },
           "marks": {
             "boxes": [
@@ -1596,8 +1596,8 @@
             "7i6h"
           ],
           "text": {
-            "ja": "▲６八銀。左の銀を上げます。",
-            "en": "▲6八銀 lifts the left silver."
+            "ja": "後手の△２二銀で馬が取られ、双方に持ち角ができました。▲６八銀。左の銀を上げます。",
+            "en": "Gote's △2二銀 recaptures the promoted bishop, so each side now has a bishop in hand. ▲6八銀 lifts the left silver."
           },
           "marks": {
             "last": "6h"
@@ -1693,8 +1693,8 @@
             "8h2b+"
           ],
           "text": {
-            "ja": "角を交換した形です。ここから、金二枚を玉の右に並べ、さらに手数を省くボナンザ囲いを組みます。",
-            "en": "The bishops have been traded. From here the Bonanza castle saves even more moves by lining both golds up on the king's right."
+            "ja": "２二に先手の馬があり、先手だけが持ち角を得た段階です。後手の銀による取り返しは次の手です。角交換を終えたあと、玉の右に金を二枚並べる形へ進みます。",
+            "en": "Sente's promoted bishop is on 2b, and only Sente has a bishop in hand at this stage. Gote's silver recapture comes next. After completing the exchange, arrange two golds to the king's right."
           },
           "marks": {
             "boxes": [
@@ -1708,8 +1708,8 @@
             "7i6h"
           ],
           "text": {
-            "ja": "▲６八銀。左の銀を上げます。",
-            "en": "▲6八銀 lifts the left silver."
+            "ja": "後手の△２二銀で馬が取られ、双方に持ち角ができました。▲６八銀。左の銀を上げます。",
+            "en": "Gote's △2二銀 recaptures the promoted bishop, so each side now has a bishop in hand. ▲6八銀 lifts the left silver."
           },
           "marks": {
             "last": "6h"
@@ -1825,8 +1825,8 @@
             "8h2b+"
           ],
           "text": {
-            "ja": "角を交換した形から始めます。ここから、金を五八に残したままの、バランスの良い矢倉を組みます。",
-            "en": "Start after the bishop trade. A well-balanced Yagura is built from here, leaving a gold on 5h."
+            "ja": "先手が２二で角を取り、馬を残した局面から見ます。後手はまだ角を持っておらず、次に銀でこの馬を取ります。交換後は、右の金を５八に置く土居矢倉へ進みます。",
+            "en": "Start just after Sente captures the bishop on 2b and leaves a promoted bishop there. Gote has no bishop in hand yet and will take that promoted bishop with the silver next. After the exchange, build Doi Yagura with the right gold on 5h."
           },
           "marks": {
             "boxes": [
@@ -1840,8 +1840,8 @@
             "6g6f"
           ],
           "text": {
-            "ja": "▲６六歩。金が上がる場所を空けます。",
-            "en": "▲6六歩 opens the square for a gold."
+            "ja": "後手の△２二銀で馬が取られ、双方に持ち角ができました。▲６六歩。金が上がる場所を空けます。",
+            "en": "Gote's △2二銀 recaptures the promoted bishop, so each side now has a bishop in hand. ▲6六歩 opens the square for a gold."
           },
           "marks": {
             "boxes": [

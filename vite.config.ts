@@ -4,6 +4,7 @@ import pandacss from '@pandacss/vite'
 import { reactRouter } from '@react-router/dev/vite'
 import { defineConfig, type Plugin } from 'vite'
 import { positionHash } from './src/utils/positionHash.ts'
+import { lessonLeadIn } from './src/utils/lessonLeadIn.ts'
 import { DERIVED, derive } from './src/utils/derivedCourses.ts'
 
 const crossOriginIsolation = {
@@ -57,11 +58,12 @@ type IndexCourse = {
 
 type IndexLesson = { check?: unknown; source?: string; courses: IndexCourse[] }
 
-function trainableOf(root: IndexNode) {
+function trainableOf(root: IndexNode, leadIn = 0) {
   const trainable: Record<'sente' | 'gote', string[]> = { sente: [], gote: [] }
-  const walk = (node: IndexNode) => {
-    if (node.branches.some((b) => b.kind !== 'deviation')) trainable[node.sfen.split(' ')[1] === 'b' ? 'sente' : 'gote'].push(positionHash(node.sfen))
-    for (const branch of node.branches) if (branch.child) walk(branch.child)
+  const walk = (node: IndexNode, depth = 0) => {
+    if (depth >= leadIn && node.branches.some((b) => b.kind !== 'deviation'))
+      trainable[node.sfen.split(' ')[1] === 'b' ? 'sente' : 'gote'].push(positionHash(node.sfen))
+    for (const branch of node.branches) if (branch.child) walk(branch.child, depth + 1)
   }
   walk(root)
   return trainable
@@ -180,7 +182,7 @@ const courseIndex = (): Plugin => {
         })
       if (source === `\0${trainableId}`) {
         const courses = [...josekiRaws.map(({ raw }) => raw), ...lessonFiles.flatMap(({ lesson }) => lesson.courses)]
-        return `export default JSON.parse(${JSON.stringify(JSON.stringify(Object.fromEntries(courses.map((course) => [course.id, trainableOf(course.root)]))))})`
+        return `export default JSON.parse(${JSON.stringify(JSON.stringify(Object.fromEntries(courses.map((course) => [course.id, trainableOf(course.root, course.id.startsWith('lesson-') ? lessonLeadIn(course.root).length : 0)]))))})`
       }
       const joseki = josekiRaws.map(({ raw, file, ...rest }) => ({ ...indexCourse(raw, file), ...rest }))
       const lessons = lessonFiles.map(({ file, lesson: { check: _check, source: _source, courses, ...lesson } }) => ({

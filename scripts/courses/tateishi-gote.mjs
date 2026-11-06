@@ -13,6 +13,8 @@ export default {
   goalSfen: 'lns2g1nl/1kg4b1/1pppps1pp/p4r3/5pPP1/P1PPP4/1P1S1P2P/1B1KGS1R1/LN1G3NL b P 1',
   rootComment:
     '後手の四間飛車は４二に置く。４五歩で４四を空けて飛車を浮かせ、３五歩で隣の筋も動かす。先手が３五の歩を取るかどうかで、飛車４四から３四への横移動を選び直す。',
+  rootCommentEn:
+    'Gote places the rook on 4b, advances the pawn to 4e and floats the rook on the vacated 4d square. The push to 3e creates contact on the neighboring file. Whether Sente captures that pawn changes the choice of shifting the rook from 4d to 3d.',
   line: {
     moves: '7g7f 4c4d 2g2f 8b4b 2f2e 4d4e 6g6f 4b4d 3g3f 3c3d 3i4h 3d3e',
     notes: {
@@ -22,6 +24,14 @@ export default {
       7: '△４四飛。後手の飛車は４五歩の後ろに浮く。',
       9: '△３四歩で３三を空ける。さらに歩が進めば飛車の横移動先も生まれる。',
       11: '△３五歩で３四が空く。先手歩３六に接し、次の応手で飛車の行き先が変わる。',
+    },
+    notesEn: {
+      1: 'Gote advances the fourth-file pawn first, keeping the rook’s later route to 4b clear.',
+      3: '△4二飛 places Gote’s rook on the fourth file.',
+      5: '△4五歩 clears 4d, making room for the rook to float behind the pawn.',
+      7: '△4四飛 floats the rook behind the pawn on 4e.',
+      9: '△3四歩 clears 3c. Advancing this pawn again will also clear a neighboring square for the rook.',
+      11: '△3五歩 clears 3d and meets Sente’s pawn on 3f. Sente’s reply changes the rook’s available destination.',
     },
     branches: [
       {
@@ -37,12 +47,28 @@ export default {
           8: '先手銀６七。６六歩の後ろに銀を置く。',
           9: '後手銀４三。４五歩の後ろで飛車とともに中央を支える。',
           10: '先手玉６八。角８八が残るので８八への移動はまだできない。',
-          11: '後手玉８二。飛車４四と玉の距離を取り、３四の升が空くかを見続ける。',
+          11: '後手玉８二。３四は空いているが、３五の先手歩が守っている。飛車４四から寄る前に、この歩の利きが変わるかを確認する。',
           12: '先手５六歩。中央の歩を進め、３筋の歩だけに頼らず活動する。',
           13: '後手金７二。玉８二の隣を補強し、４四飛を維持する。',
         },
+        notesEn: {
+          0: 'Sente captures Gote’s pawn on 3e. The Sente pawn now controls 3d, so shifting the rook there would lose it.',
+          1: 'Gote leaves the rook on 4d and plays △6二玉. Check the opposing pawn’s control before shifting to the third file.',
+          3: '△7二玉 continues the castle while the rook stays on 4d.',
+          4: '▲5八金 prepares Sente’s king development.',
+          6: '▲9六歩 answers the edge pawn. The third-file exchange alone does not decide the opening.',
+          7: '△3二銀 develops the silver toward the center while the rook remains on 4d.',
+          8: '▲6七銀 places the silver behind the pawn on 6f.',
+          9: '△4三銀 develops behind the pawn on 4e, alongside the central rook.',
+          10: '▲6八玉 moves Sente’s king. The bishop still occupies 8h, so the king cannot enter that square yet.',
+          11: '△8二玉 moves Gote’s king farther from the rook. Square 3d is empty, but Sente’s pawn on 3e controls it; check that control before shifting the rook.',
+          12: '▲5六歩 advances a central pawn, developing beyond the third-file exchange.',
+          13: '△7二金 reinforces the square beside the king on 8b while the rook stays on 4d.',
+        },
         comment:
           '先手歩３五がある限り、４四飛から３四飛と寄れば歩に取られる。後手は無理に定型へ進めず、４筋の浮き飛車と玉・銀の配置を使いながら次の接触を待つ。',
+        commentEn:
+          'With Sente’s pawn on 3e, shifting the rook from 4d to 3d allows a pawn capture. Gote keeps the floating rook on the fourth file and develops the king and silver while watching for the next contact.',
       },
       {
         kind: 'deviation',
@@ -53,8 +79,16 @@ export default {
           2: '先手が３五の歩を取ると、先手歩が３五に残る。',
           3: '後手飛車３四が３五の先手歩を取り返す。双方が歩を一枚持ち、後手飛車は３五へ出た。',
         },
+        notesEn: {
+          0: 'Sente chooses ▲6八玉, leaving Gote’s pawn on 3e for now.',
+          1: 'Gote shifts the rook to the empty 3d square. Gote’s own pawn is still on 3e.',
+          2: 'Sente captures the pawn on 3e and leaves a Sente pawn there.',
+          3: 'The rook on 3d recaptures on 3e. Both sides now hold a pawn, and Gote’s rook has reached 3e.',
+        },
         punishNote: '先手が３筋の接触を一手遅らせると、後手は飛車を３四へ寄せてから歩を取り返せる。',
         comment: '３筋の歩の位置が一手違うだけで、後手飛車の横移動が合法でも安全性が変わる。交換後の飛車３五と先手２五歩も比べる。',
+        commentEn:
+          'Delaying the third-file capture lets Gote shift the rook before recapturing the pawn. Compare the rook on 3e with Sente’s pawn on 2e, and distinguish an empty destination from a safe one.',
       },
     ],
   },

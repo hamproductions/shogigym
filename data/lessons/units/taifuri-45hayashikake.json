@@ -10,8 +10,8 @@
     "en": "The early ▲4五歩 push: breaking through against Fourth File Rook"
   },
   "intro": {
-    "ja": "四間飛車の３三の角をどかして２筋を突破する、居飛車の急戦です。舟囲いから▲４五歩と突き出し、後手が△同歩と△同角のどちらで受けても、居飛車が主導権を握れます。基本図を初手から組み、二つの受けに対する手順を覚えます。",
-    "en": "A Static Rook rush that dislodges the bishop on 3c to break through on the second file against Fourth File Rook. Sente pushes ▲4五歩 from the Boat Castle and keeps the initiative whether Gote answers with △同歩 or △同角. Build the basic position from move one and learn the lines against both replies."
+    "ja": "四間飛車の３三の角へ働きかけ、２筋から飛車を進出させる居飛車の急戦です。舟囲いから▲４五歩と動き、続く▲２四歩を△同歩、△同角と取る二つの変化を比べます。初手から基本図を組み、角交換や持ち駒の打ち込みへつながる手順を確かめましょう。",
+    "en": "This Static Rook attack works on the bishop on 3c and seeks rook activity on the second file against Fourth File Rook. Build the Boat Castle, play ▲4五歩, and compare the later replies △同歩 and △同角 to ▲2四歩. Follow the setup from move one and examine the bishop exchanges and drops that follow."
   },
   "check": {
     "question": {
@@ -564,7 +564,7 @@
           "marks": {
             "last": "3b",
             "arrows": [
-              "3b4a",
+              "3b4c",
               "3b2a"
             ],
             "boxes": [

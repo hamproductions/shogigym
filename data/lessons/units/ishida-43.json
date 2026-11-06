@@ -357,8 +357,8 @@
             "7i8h"
           ],
           "text": {
-            "ja": "△同歩▲同飛に△８八角成と交換します。今度は▲同銀と取られたあとに△３三角と打っても、両取りになりません。玉が７二にいるので、８八の銀にひもが付いているからです。前の章との違いはここです。",
-            "en": "△同歩 ▲同飛 △8八角成 trades bishops again. But this time, even if Gote drops △3三角 after ▲同銀, it does not fork anything. The king on 7b backs up the silver on 8h. This is the difference from the previous chapter."
+            "ja": "△同歩▲同飛に△８八角成と交換します。今度は▲同銀と取られたあとに△３三角と打っても、両取りになりません。先手玉が７八にいるので、８八の銀にひもが付いているからです。前の章との違いはここです。",
+            "en": "△同歩 ▲同飛 △8八角成 trades bishops again. But this time, even if Gote drops △3三角 after ▲同銀, it does not fork anything. Sente’s king on 7h backs up the silver on 8h. This is the difference from the previous chapter."
           },
           "marks": {
             "last": "8h",

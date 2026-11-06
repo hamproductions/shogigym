@@ -51,7 +51,7 @@ writeFileSync(
 )
 
 // Offline precache: list every file the app needs so the service worker can store them ahead of use, and stamp the cache name with a hash of that list so each build gets its own cache.
-const optional = ['books/peta233-full-v1/', 'eval/']
+const optional = ['books/peta233-full-v1/', 'eval/', 'engines/models/']
 const skip = new Set(['coi-sw.js', 'precache.json', 'sitemap.xml', 'robots.txt', '404.html', 'og.png', '_headers'])
 const files = []
 const list = (dir, path) => {

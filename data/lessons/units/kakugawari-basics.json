@@ -231,7 +231,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "kind": "alt"
         },
         {
           "from": 5,
@@ -346,18 +347,27 @@
           "from": 0,
           "moves": [
             "2f2e",
-            "6a5b",
-            "3g3f",
-            "5a4a",
-            "3h3g",
-            "4a3a",
-            "3g4f"
+            "6a5b"
           ],
           "text": {
-            "ja": "二つ目は早繰り銀です。▲３六歩と突いて、銀を３七から４六へ繰り出します。",
-            "en": "The second plan is Hayakuri Gin. Sente pushes ▲3六歩 and brings the silver out via 3g to 4f."
+            "ja": "▲２五歩、△５二金まで共通に進めました。ここから右銀の経路を選びます。",
+            "en": "The shared preparation reaches ▲2五歩 △5二金. Now choose the right silver’s route."
           },
           "steps": [
+            {
+              "moves": [
+                "3g3f",
+                "5a4a",
+                "3h3g",
+                "4a3a",
+                "3g4f"
+              ],
+              "kind": "alt",
+              "text": {
+                "ja": "二つ目は早繰り銀です。▲３六歩と突いて、銀を３七から４六へ繰り出します。",
+                "en": "The second plan is Hayakuri Gin. Sente pushes ▲3六歩 and brings the silver out via 3g to 4f."
+              }
+            },
             {
               "text": {
                 "ja": "銀を３五へ進出させて、２筋を攻めるのが基本です。飛車の小鬢（飛車の斜め前）が空く形が弱点です。",
@@ -374,24 +384,34 @@
                 ]
               }
             }
-          ]
+          ],
+          "kind": "alt"
         },
         {
           "from": 0,
           "moves": [
             "2f2e",
-            "6a5b",
-            "4g4f",
-            "5a4a",
-            "3h4g",
-            "4a3a",
-            "4g5f"
+            "6a5b"
           ],
           "text": {
-            "ja": "三つ目は腰掛け銀です。▲４六歩と突いて、銀を４七から５六へ上げます。",
-            "en": "The third plan is Koshikake Gin. Sente pushes ▲4六歩 and moves the silver via 4g to 5f."
+            "ja": "▲２五歩、△５二金まで共通に進めました。ここから右銀の経路を選びます。",
+            "en": "The shared preparation reaches ▲2五歩 △5二金. Now choose the right silver’s route."
           },
           "steps": [
+            {
+              "moves": [
+                "4g4f",
+                "5a4a",
+                "3h4g",
+                "4a3a",
+                "4g5f"
+              ],
+              "kind": "alt",
+              "text": {
+                "ja": "三つ目は腰掛け銀です。▲４六歩と突いて、銀を４七から５六へ上げます。",
+                "en": "The third plan is Koshikake Gin. Sente pushes ▲4六歩 and moves the silver via 4g to 5f."
+              }
+            },
             {
               "text": {
                 "ja": "すぐに仕掛ける手は見えにくいものの、駒の配置が整い、長い戦いになる形です。プロの対局でも多く指されています。",
@@ -407,7 +427,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "kind": "alt"
         }
       ]
     },
@@ -597,8 +618,8 @@
                 "2h2a+"
               ],
               "text": {
-                "ja": "▲３三角成と角を切ります。後手が桂で取っても、▲２一飛成と龍を作れます。角と銀香の交換で駒の損得はほぼなく、龍を作った先手が優勢です。",
-                "en": "Sente sacrifices the bishop with ▲3三角成. Even if Gote takes with the knight, ▲2一飛成 makes a dragon. The trade of a bishop for a silver and lance leaves material about even, and Sente, with a dragon, is better."
+                "ja": "▲３三角成△同桂▲２一飛成まで、先手は角を渡して銀を得て、竜を２一に作りました。香１一はまだ盤上にあり、次の捕獲候補です。現時点の交換に、まだ取っていない香を加えて数えません。",
+                "en": "After ▲3三角成 △同桂 ▲2一飛成, Sente has given a bishop for a silver and made a dragon on 2a. The lance on 1a remains on the board as a possible next target. Do not count that uncaptured lance in the current exchange."
               },
               "marks": {
                 "last": "2a",

@@ -175,8 +175,8 @@
             "G*9b"
           ],
           "text": {
-            "ja": "▲９二金まで詰み。金は８一と８二も抑え、飛車が９二の金を守るので玉は取れません。桂や香の王手とは異なり、隣接する金の王手にも合駒はできません。",
-            "en": "▲９二金 is mate. The gold also covers ８一 and ８二, and the rook protects it. An adjacent gold check cannot be blocked."
+            "ja": "▲９二金まで詰み。金は８一と８二も抑え、飛車が９二の金を守るので玉は取れません。飛車・角・香が遠くからかける王手なら間を遮れる場合がありますが、この金は玉に隣接しているため合駒できません。",
+            "en": "▲９二金 is mate. The gold also covers ８一 and ８二, and the rook protects it. Checks delivered from a distance by a rook, bishop or lance may allow a block, but this gold is adjacent to the king, leaving no square to interpose."
           }
         },
         {

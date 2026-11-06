@@ -51,8 +51,8 @@
             "7c7d"
           ],
           "text": {
-            "ja": "ここまでは四間飛車のいつもの出だしです。▲７六歩で角道を開け、▲６六歩で止め、▲６八飛と振ります。後手は飛車先の歩を突かず、７筋と３筋を進めて右四間飛車を目指す構えを見せています。",
-            "en": "The usual Fourth File Rook opening: ▲7六歩 opens the bishop, ▲6六歩 stops it and ▲6八飛 swings the rook. Gote does not push the rook pawn and instead advances on the seventh and third files, showing the intent of Right Fourth File Rook."
+            "ja": "▲７六歩で角道を開け、▲６六歩で止め、▲６八飛と振りました。後手は飛車先を△８四歩と一度伸ばしたうえで、△７四歩と指しています。３筋と７筋の歩も進めたこの例から、６筋へ飛車と銀を集める右四間飛車の構えを見ます。",
+            "en": "▲7六歩 opens the bishop diagonal, ▲6六歩 closes it and ▲6八飛 ranges the rook. Gote has pushed the rook pawn once to 8d, then played △7四歩. From this example, with third- and seventh-file pawns advanced, follow the rook and silver toward the sixth file for Right Fourth File Rook."
           },
           "marks": {
             "last": "6h",
@@ -249,14 +249,11 @@
             "8f6d"
           ],
           "text": {
-            "ja": "後手には有効な攻めがなく、△５五銀と△同馬の交換で続けるしかありません。そこで先手は▲６四角と飛び出します。右四間飛車を受けるとき、この▲６四角は常に有力な手です。後手の飛車をにらみ、先手がよくなりました。",
-            "en": "Gote has no effective attack and can only continue with △5五銀 and the horse recapture. Sente then bursts out with ▲6四角. When defending against Right Fourth File Rook, this ▲6四角 is always a strong move. It eyes Gote's rook and Sente is better."
+            "ja": "△５五銀、▲同銀、△同馬と銀を交換したあと、▲６四角と進めます。角は８六から７五を通って６四へ移りました。６二の飛車とは同じ筋にいるため、角がその飛車に当たっているわけではありません。",
+            "en": "After △5五銀, ▲同銀 and △同馬 exchange the silvers, Sente plays ▲6四角. The bishop travels from 8f through 7e to 6d. It shares a file with the rook on 6b, so this move does not attack that rook."
           },
           "marks": {
-            "last": "6d",
-            "arrows": [
-              "6d6b"
-            ]
+            "last": "6d"
           }
         }
       ],
@@ -411,10 +408,7 @@
             "en": "Gote makes a horse with △9九角成, and Sente cannot defend with ▲7九金 because the gold is on 5h. Sente races instead with ▲6四角. Sente is not clearly better this time; the position is razor thin. Play ▲5八金 when Gote's camp has a loose piece or is thin during a castle rebuild."
           },
           "marks": {
-            "last": "6d",
-            "arrows": [
-              "6d6b"
-            ]
+            "last": "6d"
           }
         }
       ]

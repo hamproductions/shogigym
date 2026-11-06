@@ -322,7 +322,7 @@
           ],
           "text": {
             "ja": "先手は▲５二馬と金を取り、△同金と馬を取り返されます。そこで▲７五金と打って、こちらの角を捕まえます。お互いに大駒を取り合う形で、互角の勝負です。先手は好きな時に角を取れるので、まだ難しい展開が続きます。",
-            "en": "Sente takes the gold with ▲5二馬 and Gote takes the promoted bishop with △同金. Sente then drops ▲7五金, trapping Gote's bishop as well. Both sides have traded major pieces, and the game is level. Sente can take the bishop whenever he likes, so the position stays difficult."
+            "en": "Sente takes the gold with ▲5二馬, and Gote captures the horse with △同金. ▲7五金 then traps Gote’s bishop on 7d. That bishop has not yet been captured: the reciprocal major-piece capture is still pending."
           },
           "marks": {
             "last": "7e",
@@ -402,8 +402,8 @@
             "B*6e"
           ],
           "text": {
-            "ja": "△７五歩と取ると、先手は再び▲６五角。今度は△７四角と打ち返せません。７筋の歩がなくなって打つ場所がないからです。さて、持ち駒の歩を使った切り返しはないでしょうか。",
-            "en": "Gote takes with △7五歩 and Sente again drops ▲6五角. This time △7四角 is not possible, because the bishop has nowhere to land. Is there an answer using the pawn in hand?"
+            "ja": "△７五歩に先手は再び▲６五角と打ちました。△７四角と合わせる手自体は合法ですが、▲同角に歩で取り返せません。後手の７筋の歩は７五まで進み、７四へは戻れないからです。そこで、持ち歩を使う別の手を考えます。",
+            "en": "After △7五歩, Sente again drops ▲6五角. Replying △7四角 is legal, but after ▲同角 Gote cannot recapture with the pawn. That pawn has advanced to 7e and cannot move backward to 7d. Instead, look for another use of Gote’s pawn in hand."
           },
           "marks": {
             "last": "6e",
@@ -478,18 +478,18 @@
             "B*4d"
           ],
           "text": {
-            "ja": "先手が▲２六飛と歩を取ると、△４四角。飛車と銀に同時に当たる両取りで、向かい飛車側が優勢になります。相手の飛車が２筋にいたことを逆手に取った手筋です。",
-            "en": "Sente takes the pawn with ▲2六飛 and Gote drops △4四角, forking rook and silver. Gote is now better. The trick turns Sente's rook on the second file against itself."
+            "ja": "▲２六飛と歩を取ると、△４四角の両取りです。角は２六の飛車と、５五、６六、７七を通った先の８八の銀に当たります。銀の位置を確認し、二つの斜めの道をたどってください。",
+            "en": "After ▲2六飛 captures the pawn, △4四角 forks the rook on 2f and the silver on 8h. Trace the second diagonal through 5e, 6f and 7g to the silver."
           },
           "marks": {
             "last": "4d",
             "arrows": [
               "4d2f",
-              "4d7g"
+              "4d8h"
             ],
             "boxes": [
               "2f",
-              "7g"
+              "8h"
             ]
           }
         },
@@ -507,8 +507,8 @@
             "6h7h"
           ],
           "text": {
-            "ja": "先手が▲７八玉と寄り、７七の銀に玉の支えをつける指し方もあります。こうすると△４四角の両取りは使えません。ここでも、相手の角に自分の角をぶつけるのが答えです。",
-            "en": "Instead Sente can play ▲7八玉 to protect the silver on 7g. Then the rook-and-silver fork is gone, but the answer is again to meet the bishop with a bishop."
+            "ja": "▲７八玉と寄って、８八の銀を玉で守る例です。△４四角と両取りに打たれても、銀を取る角を玉で取り返せる違いがあります。ここでは後手が△５四角と先手の角に合わせる手を見ます。",
+            "en": "▲7八玉 protects the silver on 8h. If a bishop on 4d captures that silver, the king can recapture. Here, examine Gote’s alternative △5四角, meeting Sente’s bishop."
           },
           "steps": [
             {
@@ -548,7 +548,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "kind": "alt"
         }
       ]
     },
@@ -592,14 +593,34 @@
             "6h7g"
           ],
           "text": {
-            "ja": "後手が△３四歩と角道を開けたら、▲２二角成と角を換え、△同銀の後に▲７七銀。先手の飛車は初めから２筋にあるので、このまま向かい飛車の形になります。",
-            "en": "When Gote opens the bishop line with △3四歩, Sente trades with ▲2二角成, △同銀 and then ▲7七銀. The opposing rook formation follows; Sente's rook is already on the second file and stays put."
+            "ja": "△３四歩に▲２二角成、△同銀、▲７七銀と進みました。飛車はまだ２八です。次の例で８筋へ振り、８二の後手飛車と同じ筋に向かい合わせます。",
+            "en": "After △3四歩, ▲2二角成, △同銀 and ▲7七銀, Sente’s rook is still on 2h. The next example swings it to the eighth file, facing Gote’s rook on 8b."
           },
           "marks": {
             "last": "7g",
             "boxes": [
               "7g",
               "2h"
+            ]
+          }
+        },
+        {
+          "moves": [
+            "8d8e",
+            "2h8h"
+          ],
+          "text": {
+            "ja": "後手が△８五歩と飛車先を伸ばす例です。▲８八飛と飛車を８筋へ振りました。角と銀が空けた８八に飛車が入り、後手の８二の飛車と向かい合います。",
+            "en": "In this example Gote pushes the rook pawn with △8五歩. Sente then plays ▲8八飛, swinging the rook to the square cleared by the bishop and silver. It now faces Gote’s rook on 8b along the eighth file."
+          },
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h",
+              "8b"
+            ],
+            "arrows": [
+              "2h8h"
             ]
           }
         }
@@ -625,13 +646,33 @@
                 "8h7g"
               ],
               "text": {
-                "ja": "この場合も先手から角を交換して▲８八銀、▲７七銀と進めれば、同じ局面になります。ただし、後手の囲い方が決まる前に角を換えるので、相振り飛車になる可能性も残ります。",
-                "en": "Sente trades bishops at once here too, then plays ▲8八銀 and ▲7七銀, reaching the same position as before. Because the trade happens before Gote has chosen a formation, a double Ranging Rook game is also possible."
+                "ja": "先手から角を交換し、▲８八銀、▲７七銀と進めました。ここでも飛車はまだ２八です。次に同じ例で▲８八飛まで進めます。",
+                "en": "Sente trades bishops and develops the silver with ▲8八銀 and ▲7七銀. The rook is still on 2h. Continue with the same example to reach ▲8八飛."
               },
               "marks": {
                 "last": "7g",
                 "boxes": [
                   "7g"
+                ]
+              }
+            },
+            {
+              "moves": [
+                "8d8e",
+                "2h8h"
+              ],
+              "text": {
+                "ja": "後手が△８五歩と飛車先を伸ばす例です。▲８八飛と飛車を８筋へ振りました。角と銀が空けた８八に飛車が入り、後手の８二の飛車と向かい合います。",
+                "en": "In this example Gote pushes the rook pawn with △8五歩. Sente then plays ▲8八飛, swinging the rook to the square cleared by the bishop and silver. It now faces Gote’s rook on 8b along the eighth file."
+              },
+              "marks": {
+                "last": "8h",
+                "boxes": [
+                  "8h",
+                  "8b"
+                ],
+                "arrows": [
+                  "2h8h"
                 ]
               }
             }

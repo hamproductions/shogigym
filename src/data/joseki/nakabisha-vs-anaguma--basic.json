@@ -1,0 +1,605 @@
+{
+ "id": "nakabisha-vs-anaguma--basic",
+ "title": "後手中飛車：穴熊を見て銀冠へ組み替える",
+ "titleEn": "Gote Central Rook: Reshaping to Silver Crown against Anaguma",
+ "myStrategy": "nakabisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "gote",
+ "userSide": "gote",
+ "source": "角道を止めた後手中飛車と、居飛車穴熊に対する美濃から銀冠への標準的な組み替えから独立して構成。新ペタショック定跡（MIT）の候補手を照合し、説明はこのアプリ用に新しく執筆。",
+ "goalFormation": "後手中飛車は飛車５二、玉８二、銀７二・４三、金６二・３二。先手の穴熊に対し４五歩を置く。比較枝で８四歩・８三銀・７二金と銀冠へ組み替える。",
+ "goalLabel": "中央の歩と玉側の銀を別々に使う",
+ "goalSfen": "ln5nl/1ksgr1g2/1p3sbpp/p1ppp1p2/5p1P1/P1P1P1P2/1PBPSP2P/LSG4R1/KNG4NL b - 1",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "後手の飛車を５二へ振り、角道を止めた中飛車で先手の穴熊に向き合います。中央の銀４三と、玉を守る銀７二は別の役割です。銀冠への組み替えでは、８三の歩を先に動かして銀の行き先を空けます。",
+  "commentEn": "Use Gote’s closed-diagonal Central Rook on 5b against Sente’s Anaguma. The central silver on 4c and defensive silver on 7b have different roles. To reshape into Silver Crown, move the pawn off 8c before bringing the defensive silver there.",
+  "branches": [
+   {
+    "usi": "2g2f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/7P1/PPPPPPP1P/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/7P1/PPPPPPP1P/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "7g7f",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "4c4d",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/ppppp2pp/5pp2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "2f2e",
+                "kind": "main",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/ppppp2pp/5pp2/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "8b5b",
+                   "kind": "main",
+                   "note": "△５二飛で中央へ飛車を置きます。４四の自分の歩が角２二の道を止めています。",
+                   "noteEn": "△5二飛 places the rook centrally. Gote’s pawn on 4d blocks the bishop on 2b.",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/4r2b1/ppppp2pp/5pp2/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "8h7g",
+                      "kind": "main",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/4r2b1/ppppp2pp/5pp2/7P1/2P6/PPBPPPP1P/7R1/LNSGKGSNL w - 1",
+                       "branches": [
+                        {
+                         "usi": "6c6d",
+                         "kind": "main",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsgkgsnl/4r2b1/ppp1p2pp/3p1pp2/7P1/2P6/PPBPPPP1P/7R1/LNSGKGSNL b - 1",
+                          "branches": [
+                           {
+                            "usi": "5i6h",
+                            "kind": "main",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsgkgsnl/4r2b1/ppp1p2pp/3p1pp2/7P1/2P6/PPBPPPP1P/3K3R1/LNSG1GSNL w - 1",
+                             "branches": [
+                              {
+                               "usi": "7a6b",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "ln1gkgsnl/3sr2b1/ppp1p2pp/3p1pp2/7P1/2P6/PPBPPPP1P/3K3R1/LNSG1GSNL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "6h7h",
+                                  "kind": "main",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "ln1gkgsnl/3sr2b1/ppp1p2pp/3p1pp2/7P1/2P6/PPBPPPP1P/2K4R1/LNSG1GSNL w - 1",
+                                   "branches": [
+                                    {
+                                     "usi": "6b6c",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "ln1gkgsnl/4r2b1/pppsp2pp/3p1pp2/7P1/2P6/PPBPPPP1P/2K4R1/LNSG1GSNL b - 1",
+                                      "branches": [
+                                       {
+                                        "usi": "9i9h",
+                                        "kind": "main",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "ln1gkgsnl/4r2b1/pppsp2pp/3p1pp2/7P1/2P6/PPBPPPP1P/L1K4R1/1NSG1GSNL w - 1",
+                                         "branches": [
+                                          {
+                                           "usi": "5a6b",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "ln1g1gsnl/3kr2b1/pppsp2pp/3p1pp2/7P1/2P6/PPBPPPP1P/L1K4R1/1NSG1GSNL b - 1",
+                                            "branches": [
+                                             {
+                                              "usi": "7h8h",
+                                              "kind": "main",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "ln1g1gsnl/3kr2b1/pppsp2pp/3p1pp2/7P1/2P6/PPBPPPP1P/LK5R1/1NSG1GSNL w - 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "6b7b",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "ln1g1gsnl/2k1r2b1/pppsp2pp/3p1pp2/7P1/2P6/PPBPPPP1P/LK5R1/1NSG1GSNL b - 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "8h9i",
+                                                    "kind": "main",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "ln1g1gsnl/2k1r2b1/pppsp2pp/3p1pp2/7P1/2P6/PPBPPPP1P/L6R1/KNSG1GSNL w - 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "7b8b",
+                                                       "kind": "main",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "ln1g1gsnl/1k2r2b1/pppsp2pp/3p1pp2/7P1/2P6/PPBPPPP1P/L6R1/KNSG1GSNL b - 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "7i8h",
+                                                          "kind": "main",
+                                                          "child": {
+                                                           "id": "n_18",
+                                                           "sfen": "ln1g1gsnl/1k2r2b1/pppsp2pp/3p1pp2/7P1/2P6/PPBPPPP1P/LS5R1/KN1G1GSNL w - 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "6c7b",
+                                                             "kind": "main",
+                                                             "note": "△７二銀。６二・６三を経由した銀が玉８二の隣へ戻りました。",
+                                                             "noteEn": "△7二銀 brings the silver back beside king 8b after developing through 6b and 6c.",
+                                                             "child": {
+                                                              "id": "n_19",
+                                                              "sfen": "ln1g1gsnl/1ks1r2b1/ppp1p2pp/3p1pp2/7P1/2P6/PPBPPPP1P/LS5R1/KN1G1GSNL b - 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "6i7i",
+                                                                "kind": "main",
+                                                                "child": {
+                                                                 "id": "n_20",
+                                                                 "sfen": "ln1g1gsnl/1ks1r2b1/ppp1p2pp/3p1pp2/7P1/2P6/PPBPPPP1P/LS5R1/KNG2GSNL w - 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "3a4b",
+                                                                   "kind": "main",
+                                                                   "child": {
+                                                                    "id": "n_21",
+                                                                    "sfen": "ln1g1g1nl/1ks1rs1b1/ppp1p2pp/3p1pp2/7P1/2P6/PPBPPPP1P/LS5R1/KNG2GSNL b - 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "4i5h",
+                                                                      "kind": "main",
+                                                                      "child": {
+                                                                       "id": "n_22",
+                                                                       "sfen": "ln1g1g1nl/1ks1rs1b1/ppp1p2pp/3p1pp2/7P1/2P6/PPBPPPP1P/LS2G2R1/KNG3SNL w - 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "4a3b",
+                                                                         "kind": "main",
+                                                                         "child": {
+                                                                          "id": "n_23",
+                                                                          "sfen": "ln1g3nl/1ks1rsgb1/ppp1p2pp/3p1pp2/7P1/2P6/PPBPPPP1P/LS2G2R1/KNG3SNL b - 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "5g5f",
+                                                                            "kind": "main",
+                                                                            "child": {
+                                                                             "id": "n_24",
+                                                                             "sfen": "ln1g3nl/1ks1rsgb1/ppp1p2pp/3p1pp2/7P1/2P1P4/PPBP1PP1P/LS2G2R1/KNG3SNL w - 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "4b4c",
+                                                                               "kind": "main",
+                                                                               "note": "△４三銀。もう一枚の銀を中央へ出します。",
+                                                                               "noteEn": "△4三銀 develops the other silver centrally.",
+                                                                               "child": {
+                                                                                "id": "n_25",
+                                                                                "sfen": "ln1g3nl/1ks1r1gb1/ppp1ps1pp/3p1pp2/7P1/2P1P4/PPBP1PP1P/LS2G2R1/KNG3SNL b - 1",
+                                                                                "branches": [
+                                                                                 {
+                                                                                  "usi": "5h6h",
+                                                                                  "kind": "main",
+                                                                                  "child": {
+                                                                                   "id": "n_26",
+                                                                                   "sfen": "ln1g3nl/1ks1r1gb1/ppp1ps1pp/3p1pp2/7P1/2P1P4/PPBP1PP1P/LS1G3R1/KNG3SNL w - 1",
+                                                                                   "branches": [
+                                                                                    {
+                                                                                     "usi": "6a6b",
+                                                                                     "kind": "main",
+                                                                                     "note": "△６二金で金を玉側へ寄せます。",
+                                                                                     "noteEn": "△6二金 brings a gold toward the king.",
+                                                                                     "child": {
+                                                                                      "id": "n_27",
+                                                                                      "sfen": "ln5nl/1ksgr1gb1/ppp1ps1pp/3p1pp2/7P1/2P1P4/PPBP1PP1P/LS1G3R1/KNG3SNL b - 1",
+                                                                                      "branches": [
+                                                                                       {
+                                                                                        "usi": "6h7h",
+                                                                                        "kind": "main",
+                                                                                        "child": {
+                                                                                         "id": "n_28",
+                                                                                         "sfen": "ln5nl/1ksgr1gb1/ppp1ps1pp/3p1pp2/7P1/2P1P4/PPBP1PP1P/LSG4R1/KNG3SNL w - 1",
+                                                                                         "branches": [
+                                                                                          {
+                                                                                           "usi": "9c9d",
+                                                                                           "kind": "main",
+                                                                                           "child": {
+                                                                                            "id": "n_29",
+                                                                                            "sfen": "ln5nl/1ksgr1gb1/1pp1ps1pp/p2p1pp2/7P1/2P1P4/PPBP1PP1P/LSG4R1/KNG3SNL b - 1",
+                                                                                            "branches": [
+                                                                                             {
+                                                                                              "usi": "9g9f",
+                                                                                              "kind": "main",
+                                                                                              "child": {
+                                                                                               "id": "n_30",
+                                                                                               "sfen": "ln5nl/1ksgr1gb1/1pp1ps1pp/p2p1pp2/7P1/P1P1P4/1PBP1PP1P/LSG4R1/KNG3SNL w - 1",
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "5c5d",
+                                                                                                 "kind": "main",
+                                                                                                 "child": {
+                                                                                                  "id": "n_31",
+                                                                                                  "sfen": "ln5nl/1ksgr1gb1/1pp2s1pp/p2pppp2/7P1/P1P1P4/1PBP1PP1P/LSG4R1/KNG3SNL b - 1",
+                                                                                                  "branches": [
+                                                                                                   {
+                                                                                                    "usi": "3i4h",
+                                                                                                    "kind": "main",
+                                                                                                    "child": {
+                                                                                                     "id": "n_32",
+                                                                                                     "sfen": "ln5nl/1ksgr1gb1/1pp2s1pp/p2pppp2/7P1/P1P1P4/1PBP1PP1P/LSG2S1R1/KNG4NL w - 1",
+                                                                                                     "branches": [
+                                                                                                      {
+                                                                                                       "usi": "2b3c",
+                                                                                                       "kind": "main",
+                                                                                                       "note": "△３三角で２四を守ります。",
+                                                                                                       "noteEn": "△3三角 guards 2d.",
+                                                                                                       "child": {
+                                                                                                        "id": "n_33",
+                                                                                                        "sfen": "ln5nl/1ksgr1g2/1pp2sbpp/p2pppp2/7P1/P1P1P4/1PBP1PP1P/LSG2S1R1/KNG4NL b - 1",
+                                                                                                        "branches": [
+                                                                                                         {
+                                                                                                          "usi": "4h5g",
+                                                                                                          "kind": "main",
+                                                                                                          "child": {
+                                                                                                           "id": "n_34",
+                                                                                                           "sfen": "ln5nl/1ksgr1g2/1pp2sbpp/p2pppp2/7P1/P1P1P4/1PBPSPP1P/LSG4R1/KNG4NL w - 1",
+                                                                                                           "branches": [
+                                                                                                            {
+                                                                                                             "usi": "7c7d",
+                                                                                                             "kind": "main",
+                                                                                                             "child": {
+                                                                                                              "id": "n_35",
+                                                                                                              "sfen": "ln5nl/1ksgr1g2/1p3sbpp/p1ppppp2/7P1/P1P1P4/1PBPSPP1P/LSG4R1/KNG4NL b - 1",
+                                                                                                              "branches": [
+                                                                                                               {
+                                                                                                                "usi": "3g3f",
+                                                                                                                "kind": "main",
+                                                                                                                "child": {
+                                                                                                                 "id": "n_36",
+                                                                                                                 "sfen": "ln5nl/1ksgr1g2/1p3sbpp/p1ppppp2/7P1/P1P1P1P2/1PBPSP2P/LSG4R1/KNG4NL w - 1",
+                                                                                                                 "branches": [
+                                                                                                                  {
+                                                                                                                   "usi": "4d4e",
+                                                                                                                   "kind": "main",
+                                                                                                                   "note": "△４五歩は４六へ利きます。先手銀５七が４六へ出る場合は、この歩に取られることも読みます。",
+                                                                                                                   "noteEn": "△4五歩 controls 4f. If Sente’s silver on 5g enters 4f, include this pawn’s capture in the calculation.",
+                                                                                                                   "child": {
+                                                                                                                    "id": "n_37",
+                                                                                                                    "sfen": "ln5nl/1ksgr1g2/1p3sbpp/p1ppp1p2/5p1P1/P1P1P1P2/1PBPSP2P/LSG4R1/KNG4NL b - 1",
+                                                                                                                    "branches": [
+                                                                                                                     {
+                                                                                                                      "usi": "5g6f",
+                                                                                                                      "kind": "alt",
+                                                                                                                      "note": "比較枝では先手が銀を６六へ運びます。",
+                                                                                                                      "noteEn": "This comparison develops Sente’s silver to 6f.",
+                                                                                                                      "child": {
+                                                                                                                       "id": "nb0_0",
+                                                                                                                       "sfen": "ln5nl/1ksgr1g2/1p3sbpp/p1ppp1p2/5p1P1/P1PSP1P2/1PBP1P2P/LSG4R1/KNG4NL w - 1",
+                                                                                                                       "branches": [
+                                                                                                                        {
+                                                                                                                         "usi": "8c8d",
+                                                                                                                         "kind": "main",
+                                                                                                                         "note": "△８四歩で８三を空けます。玉８二の前の歩も動いたことを確認します。",
+                                                                                                                         "noteEn": "△8四歩 clears 8c. Notice that the pawn in front of king 8b has moved too.",
+                                                                                                                         "child": {
+                                                                                                                          "id": "nb0_1",
+                                                                                                                          "sfen": "ln5nl/1ksgr1g2/5sbpp/ppppp1p2/5p1P1/P1PSP1P2/1PBP1P2P/LSG4R1/KNG4NL b - 1",
+                                                                                                                          "branches": [
+                                                                                                                           {
+                                                                                                                            "usi": "8g8f",
+                                                                                                                            "kind": "main",
+                                                                                                                            "child": {
+                                                                                                                             "id": "nb0_2",
+                                                                                                                             "sfen": "ln5nl/1ksgr1g2/5sbpp/ppppp1p2/5p1P1/PPPSP1P2/2BP1P2P/LSG4R1/KNG4NL w - 1",
+                                                                                                                             "branches": [
+                                                                                                                              {
+                                                                                                                               "usi": "7b8c",
+                                                                                                                               "kind": "main",
+                                                                                                                               "note": "△８三銀。７二銀が玉の前へ出ます。",
+                                                                                                                               "noteEn": "△8三銀 brings the silver from 7b in front of the king.",
+                                                                                                                               "child": {
+                                                                                                                                "id": "nb0_3",
+                                                                                                                                "sfen": "ln5nl/1k1gr1g2/1s3sbpp/ppppp1p2/5p1P1/PPPSP1P2/2BP1P2P/LSG4R1/KNG4NL b - 1",
+                                                                                                                                "branches": [
+                                                                                                                                 {
+                                                                                                                                  "usi": "7h8g",
+                                                                                                                                  "kind": "main",
+                                                                                                                                  "child": {
+                                                                                                                                   "id": "nb0_4",
+                                                                                                                                   "sfen": "ln5nl/1k1gr1g2/1s3sbpp/ppppp1p2/5p1P1/PPPSP1P2/1GBP1P2P/LS5R1/KNG4NL w - 1",
+                                                                                                                                   "branches": [
+                                                                                                                                    {
+                                                                                                                                     "usi": "6b7b",
+                                                                                                                                     "kind": "main",
+                                                                                                                                     "note": "△７二金で銀が空けた升へ金を置きます。銀８三・金７二と玉８二が銀冠の配置です。",
+                                                                                                                                     "noteEn": "△7二金 uses the square vacated by the silver. Silver 8c, gold 7b and king 8b form this Silver Crown arrangement.",
+                                                                                                                                     "child": {
+                                                                                                                                      "id": "nb0_5",
+                                                                                                                                      "sfen": "ln5nl/1kg1r1g2/1s3sbpp/ppppp1p2/5p1P1/PPPSP1P2/1GBP1P2P/LS5R1/KNG4NL b - 1",
+                                                                                                                                      "branches": [
+                                                                                                                                       {
+                                                                                                                                        "usi": "1g1f",
+                                                                                                                                        "kind": "alt",
+                                                                                                                                        "note": "先手が端歩を進める応手を選び、後手桂の活動を比べます。",
+                                                                                                                                        "noteEn": "This comparison selects Sente’s edge-pawn advances while developing Gote’s knight.",
+                                                                                                                                        "child": {
+                                                                                                                                         "id": "nb0b0_0",
+                                                                                                                                         "sfen": "ln5nl/1kg1r1g2/1s3sbpp/ppppp1p2/5p1P1/PPPSP1P1P/1GBP1P3/LS5R1/KNG4NL w - 1",
+                                                                                                                                         "branches": [
+                                                                                                                                          {
+                                                                                                                                           "usi": "8a7c",
+                                                                                                                                           "kind": "main",
+                                                                                                                                           "note": "△７三桂。先に７四歩と動いて７三を空けたため跳べます。９四歩は別の端の接触を用意しており、桂の進路を直接空ける歩ではありません。",
+                                                                                                                                           "noteEn": "△7三桂 uses the square cleared by the earlier △7四歩. The pawn on 9d prepares separate edge contact; it did not clear the knight’s path.",
+                                                                                                                                           "child": {
+                                                                                                                                            "id": "nb0b0_1",
+                                                                                                                                            "sfen": "l6nl/1kg1r1g2/1sn2sbpp/ppppp1p2/5p1P1/PPPSP1P1P/1GBP1P3/LS5R1/KNG4NL b - 1",
+                                                                                                                                            "branches": [
+                                                                                                                                             {
+                                                                                                                                              "usi": "1f1e",
+                                                                                                                                              "kind": "main",
+                                                                                                                                              "child": {
+                                                                                                                                               "id": "nb0b0_2",
+                                                                                                                                               "sfen": "l6nl/1kg1r1g2/1sn2sbpp/ppppp1p2/5p1PP/PPPSP1P2/1GBP1P3/LS5R1/KNG4NL w - 1",
+                                                                                                                                               "branches": [
+                                                                                                                                                {
+                                                                                                                                                 "usi": "7c6e",
+                                                                                                                                                 "kind": "main",
+                                                                                                                                                 "note": "△６五桂で先手角７七へ利かせます。",
+                                                                                                                                                 "noteEn": "△6五桂 controls Sente’s bishop on 7g.",
+                                                                                                                                                 "child": {
+                                                                                                                                                  "id": "nb0b0_3",
+                                                                                                                                                  "sfen": "l6nl/1kg1r1g2/1s3sbpp/ppppp1p2/3n1p1PP/PPPSP1P2/1GBP1P3/LS5R1/KNG4NL b - 1",
+                                                                                                                                                  "branches": [
+                                                                                                                                                   {
+                                                                                                                                                    "usi": "7g6h",
+                                                                                                                                                    "kind": "main",
+                                                                                                                                                    "note": "この例では▲６八角と引きます。６八が空いていることを確認します。",
+                                                                                                                                                    "noteEn": "This example retreats with ▲6八角. Verify that 6h is empty.",
+                                                                                                                                                    "child": {
+                                                                                                                                                     "id": "nb0b0_4",
+                                                                                                                                                     "sfen": "l6nl/1kg1r1g2/1s3sbpp/ppppp1p2/3n1p1PP/PPPSP1P2/1G1P1P3/LS1B3R1/KNG4NL w - 1",
+                                                                                                                                                     "branches": [],
+                                                                                                                                                     "comment": "銀冠の銀８三と金７二を残し、桂を７三・６五へ使いました。角への当たりで相手の置き場所が変わりましたが、桂６五も今後の取り返しを読む必要があります。",
+                                                                                                                                                     "commentEn": "Gote keeps the Silver Crown guards on 8c and 7b while developing the knight through 7c to 6e. The attack changed the bishop’s square, but captures of the advanced knight still need to be read."
+                                                                                                                                                    }
+                                                                                                                                                   }
+                                                                                                                                                  ]
+                                                                                                                                                 }
+                                                                                                                                                }
+                                                                                                                                               ]
+                                                                                                                                              }
+                                                                                                                                             }
+                                                                                                                                            ]
+                                                                                                                                           }
+                                                                                                                                          }
+                                                                                                                                         ]
+                                                                                                                                        }
+                                                                                                                                       }
+                                                                                                                                      ],
+                                                                                                                                      "comment": "後手の銀冠と先手の穴熊が向かい合います。先手金８七も前へ進みました。組み替えに使った手数と、中央の歩４五・５四を両方見て、攻め始める前に相手の取り合いを確かめます。",
+                                                                                                                                      "commentEn": "Gote has reshaped to Silver Crown against Sente’s Anaguma, with Sente’s gold also developed to 8g. Consider the moves spent on the reshape together with central pawns 4e and 5d, and check the opponent’s captures before attacking."
+                                                                                                                                     }
+                                                                                                                                    }
+                                                                                                                                   ]
+                                                                                                                                  }
+                                                                                                                                 }
+                                                                                                                                ]
+                                                                                                                               }
+                                                                                                                              }
+                                                                                                                             ]
+                                                                                                                            }
+                                                                                                                           }
+                                                                                                                          ]
+                                                                                                                         }
+                                                                                                                        }
+                                                                                                                       ]
+                                                                                                                      }
+                                                                                                                     },
+                                                                                                                     {
+                                                                                                                      "usi": "1g1f",
+                                                                                                                      "kind": "alt",
+                                                                                                                      "note": "先手が端歩を進める比較から、後手がすぐ中央を動かす例を見ます。",
+                                                                                                                      "noteEn": "After a selected edge-pawn reply by Sente, compare Gote immediately initiating central contact.",
+                                                                                                                      "child": {
+                                                                                                                       "id": "nb1_0",
+                                                                                                                       "sfen": "ln5nl/1ksgr1g2/1p3sbpp/p1ppp1p2/5p1P1/P1P1P1P1P/1PBPSP3/LSG4R1/KNG4NL w - 1",
+                                                                                                                       "branches": [
+                                                                                                                        {
+                                                                                                                         "usi": "5d5e",
+                                                                                                                         "kind": "main",
+                                                                                                                         "note": "△５五歩で先手歩５六と接触します。",
+                                                                                                                         "noteEn": "△5五歩 meets Sente’s pawn on 5f.",
+                                                                                                                         "child": {
+                                                                                                                          "id": "nb1_1",
+                                                                                                                          "sfen": "ln5nl/1ksgr1g2/1p3sbpp/p1pp2p2/4pp1P1/P1P1P1P1P/1PBPSP3/LSG4R1/KNG4NL b - 1",
+                                                                                                                          "branches": [
+                                                                                                                           {
+                                                                                                                            "usi": "5f5e",
+                                                                                                                            "kind": "main",
+                                                                                                                            "note": "▲同歩で先手が歩を持ち、５五に先手歩が残ります。",
+                                                                                                                            "noteEn": "▲同歩 gains a pawn in hand and leaves Sente’s pawn on 5e.",
+                                                                                                                            "child": {
+                                                                                                                             "id": "nb1_2",
+                                                                                                                             "sfen": "ln5nl/1ksgr1g2/1p3sbpp/p1pp2p2/4Pp1P1/P1P3P1P/1PBPSP3/LSG4R1/KNG4NL w P 1",
+                                                                                                                             "branches": [
+                                                                                                                              {
+                                                                                                                               "usi": "4c4d",
+                                                                                                                               "kind": "main",
+                                                                                                                               "note": "後手が△４四銀と出る応手を選びます。",
+                                                                                                                               "noteEn": "This example selects Gote’s development △4四銀.",
+                                                                                                                               "child": {
+                                                                                                                                "id": "nb1_3",
+                                                                                                                                "sfen": "ln5nl/1ksgr1g2/1p4bpp/p1pp1sp2/4Pp1P1/P1P3P1P/1PBPSP3/LSG4R1/KNG4NL b P 1",
+                                                                                                                                "branches": [
+                                                                                                                                 {
+                                                                                                                                  "usi": "5g5f",
+                                                                                                                                  "kind": "main",
+                                                                                                                                  "note": "▲５六銀で先手銀も前へ出ます。この銀は５五の自分の歩を守ります。",
+                                                                                                                                  "noteEn": "▲5六銀 also develops Sente’s silver and protects its own pawn on 5e.",
+                                                                                                                                  "child": {
+                                                                                                                                   "id": "nb1_4",
+                                                                                                                                   "sfen": "ln5nl/1ksgr1g2/1p4bpp/p1pp1sp2/4Pp1P1/P1P1S1P1P/1PBP1P3/LSG4R1/KNG4NL w P 1",
+                                                                                                                                   "branches": [],
+                                                                                                                                   "comment": "後手が歩を動かした結果、先手は歩を一枚得て銀５六も使えました。飛車５二だけで５五を取るなら、銀５六の取り返しがあります。穴熊へ中央から動いたことだけで攻めの成功とはせず、渡した歩と相手の銀の活動も数えます。",
+                                                                                                                                   "commentEn": "Gote’s pawn move gave Sente a pawn in hand and development of the silver to 5f. A rook capture on 5e would allow that silver to recapture. Initiating central play against Anaguma alone is not a successful attack: count the pawn conceded and the opponent’s silver activity."
+                                                                                                                                  }
+                                                                                                                                 }
+                                                                                                                                ]
+                                                                                                                               }
+                                                                                                                              }
+                                                                                                                             ]
+                                                                                                                            }
+                                                                                                                           }
+                                                                                                                          ]
+                                                                                                                         }
+                                                                                                                        }
+                                                                                                                       ]
+                                                                                                                      }
+                                                                                                                     }
+                                                                                                                    ],
+                                                                                                                    "comment": "先手玉は９九の穴熊、後手玉は８二です。中央では後手歩５四・４五と銀４三があり、先手銀５七が残っています。囲いの名前だけで有利不利を決めず、どの筋で接触が起こるか見て次を選びます。",
+                                                                                                                    "commentEn": "Sente’s king is in Anaguma on 9i, while Gote’s king stands on 8b. Gote has central pawns on 5d and 4e and a silver on 4c; Sente’s silver remains on 5g. Choose the next move from actual contact squares rather than judging the position from castle names."
+                                                                                                                   }
+                                                                                                                  }
+                                                                                                                 ]
+                                                                                                                }
+                                                                                                               }
+                                                                                                              ]
+                                                                                                             }
+                                                                                                            }
+                                                                                                           ]
+                                                                                                          }
+                                                                                                         }
+                                                                                                        ]
+                                                                                                       }
+                                                                                                      }
+                                                                                                     ]
+                                                                                                    }
+                                                                                                   }
+                                                                                                  ]
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
+                                                                                              }
+                                                                                             }
+                                                                                            ]
+                                                                                           }
+                                                                                          }
+                                                                                         ]
+                                                                                        }
+                                                                                       }
+                                                                                      ]
+                                                                                     }
+                                                                                    }
+                                                                                   ]
+                                                                                  }
+                                                                                 }
+                                                                                ]
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

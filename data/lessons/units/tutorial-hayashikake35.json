@@ -485,7 +485,8 @@
             "arrows": [
               "3d3c"
             ]
-          }
+          },
+          "kind": "deviation"
         },
         {
           "text": {

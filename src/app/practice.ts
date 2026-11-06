@@ -1,4 +1,6 @@
 import i18n from '@/utils/i18n'
+import { setupOf } from '@/utils/book'
+import { lessonLeadIn } from '@/utils/lessonLeadIn'
 import { analyze, engineSupported } from '@/utils/engine'
 import { COURSES, SETUPS, courseLoaded, loadedCourses, trainableHashes, findPath, sideToMove, walkNodes, type Course, type JosekiNode } from '@/utils/model'
 import { positionHash } from '@/utils/positionHash'
@@ -125,7 +127,7 @@ export async function judgeTsumeMove(problem: Problem, line: string[], sfen: str
 export async function defenderMove(problem: Problem, line: string[], sfen: string, onBook: boolean): Promise<string | null> {
   if (onBook && problem.pv[line.length]) return problem.pv[line.length]
   if (!engineSupported()) return null
-  const result = await analyze(`position sfen ${sfen}`, { multipv: 1, movetime: 600 })
+  const result = await analyze(`position sfen ${sfen}`, { multipv: 1, movetime: 600, purpose: 'playing' })
   return result.bestmove && !['resign', 'win'].includes(result.bestmove) ? result.bestmove : null
 }
 
@@ -150,14 +152,17 @@ function trainablePositions() {
   const cached = positionsCache.get(key)
   if (cached) return cached
   const seen = new Map<string, Spot>()
-  for (const course of coursesForMain(main))
+  for (const course of coursesForMain(main)) {
+    const leadIn = setupOf(course)?.path ? lessonLeadIn(course.root).length : 0
     walkNodes(course.root, (node, path) => {
+      if (path.length < leadIn) return
       if (sideToMove(node) !== course.userSide || !node.branches.some((b) => b.kind !== 'deviation')) return
       const key = positionKey(node.sfen)
       const hit = seen.get(key)
       if (hit) hit.alts.push({ course, node, depth: path.length })
       else seen.set(key, { key, course, node, depth: path.length, alts: [{ course, node, depth: path.length }] })
     })
+  }
   const spots = [...seen.values()]
   positionsCache.set(key, spots)
   return spots
@@ -183,7 +188,9 @@ export function courseProgress(course: Course) {
   }
   let total = 0
   let learned = 0
-  walkNodes(course.root, (node) => {
+  const leadIn = setupOf(course)?.path ? lessonLeadIn(course.root).length : 0
+  walkNodes(course.root, (node, path) => {
+    if (path.length < leadIn) return
     if (sideToMove(node) !== course.userSide || !node.branches.some((b) => b.kind !== 'deviation')) return
     total++
     if (isLearned(getCard(positionKey(node.sfen)))) learned++

@@ -5,6 +5,7 @@ import type { Layout } from '@/app/hooks/useLayout'
 import { useSettings } from '@/appearance/settings'
 import { TABS, isGameMode, type Tab } from '@/app/types'
 import { useSession } from '@/app/hooks/session'
+import { setupOf } from '@/utils/book'
 import { cachedReview, useReviewVersion } from '@/app/memory'
 import { Button } from '@/app/ui/Button'
 import { Tabs } from '@/app/ui/Tabs'
@@ -113,12 +114,21 @@ function LeftPanel({
 
 export function SidePanels({ dock, layout, tab, setTab, sheetOpen, model, canAutoplay, picking }: SidePanelsProps) {
   const { t } = useTranslation()
-  const { mode, game } = useSession()
+  const { mode, game, course, preview } = useSession()
   const reportable = isGameMode(mode) && game.moves.length > 0
   const ja = useSettings().lang === 'ja'
   const { compact, zones, twoPanels, setPanel } = layout
   const rightTab = mode === 'tsume' || (twoPanels && tab === 'moves') || (tab === 'report' && !reportable) ? 'coach' : tab
   const labelClass = ja ? 'app-ja' : 'app-en'
+  const guided =
+    mode === 'lesson' &&
+    !!course &&
+    !!setupOf(course)?.path &&
+    model.lesson.lessonMode === 'study' &&
+    rightTab === 'coach' &&
+    !preview &&
+    !model.lesson.offBook &&
+    !model.mistakes.previewing
   return (
     <>
       {twoPanels && zones && !picking && <LeftPanel zone={zones.under} tab={tab} setTab={setTab} model={model} labelClass={labelClass} />}
@@ -168,7 +178,7 @@ export function SidePanels({ dock, layout, tab, setTab, sheetOpen, model, canAut
             <ReviewStatus model={model} />
           </>
         }
-        footer={!picking && mode !== 'tsume' && <NavFooter canAutoplay={canAutoplay} watch={model.watch} lesson={model.lesson} />}
+        footer={!picking && mode !== 'tsume' && !guided && <NavFooter canAutoplay={canAutoplay} watch={model.watch} lesson={model.lesson} />}
       >
         <PanelBody tab={rightTab} model={model} />
       </SidePanel>
@@ -265,7 +275,16 @@ export function SidePanel({
     suppressSheetClick.current = !cancelled && gesture.moved
   }
   return (
-    <PanelAside className="app-panel" hidden={(zoned && panelPrefsHidden) || undefined} style={zoned && !panelPrefsHidden ? floatingRect : undefined}>
+    <PanelAside
+      className="app-panel"
+      hidden={(zoned && panelPrefsHidden) || undefined}
+      style={zoned && !panelPrefsHidden ? floatingRect : undefined}
+      onClickCapture={(event) => {
+        const target = event.target instanceof Element ? event.target.closest('summary')?.parentElement : null
+        if (compact && !layout.panelSide && target instanceof HTMLDetailsElement && !target.open && target.hasAttribute('data-engine-settings'))
+          layout.setSheetOpen(true)
+      }}
+    >
       {layout.panelSide && (
         <styled.div
           className="app-panel-resize"

@@ -94,7 +94,7 @@ export const STRATEGY_PAGES: StrategyPage[] = [
     wing: 'furibisha',
     name: { ja: '四間飛車', en: 'Fourth File Rook' },
     about: { ja: '飛車を４筋へ振り、美濃囲いで固めてから相手の攻めをさばく。', en: 'Swing the rook to the fourth file, castle in Mino and counter the opponent’s attack.' },
-    units: ['shiken-basics', 'shiken-castles', 'shiken-patterns', 'shiken-vs-igyoku-bougin', 'shiken-vs-funa-bougin', 'shiken-vs-yagura', 'shiken-vs-migishiken', 'shiken-vs-anaguma', 'shiken-tateishi'],
+    units: ['shiken-basics', 'shiken-castles', 'shiken-patterns', 'shiken-vs-igyoku-bougin', 'shiken-vs-funa-bougin', 'shiken-vs-yagura', 'shiken-vs-migishiken', 'shiken-vs-anaguma'],
     mains: ['shikenbisha'],
   },
   {
@@ -141,7 +141,7 @@ export const STRATEGY_PAGES: StrategyPage[] = [
     id: 'mukaibisha',
     wing: 'furibisha',
     name: { ja: '向かい飛車', en: 'Opposing Rook' },
-    about: { ja: '飛車を２筋（後手は８筋）へ振り、相手の飛車と向かい合って戦う。', en: "Swing the rook to the second file (eighth for Gote) to face the opponent's rook directly." },
+    about: { ja: '先手は飛車を８筋、後手は２筋へ振り、相手の飛車と向かい合って戦う。', en: "Swing Sente’s rook to the eighth file, or Gote’s to the second, to face the opponent’s rook directly." },
     units: ['mukai-build', 'mukai-attack'],
     mains: ['mukaibisha'],
   },
@@ -251,7 +251,7 @@ export const STAGES: Stage[] = [
   },
 ]
 
-export type Tutorial = { name: Text; unit: string; page: string }
+export type Tutorial = { name: Text; unit?: string; setup?: string; page: string }
 
 const tutorial = (ja: string, en: string, unit: string, page: string): Tutorial => ({ name: { ja, en }, unit, page })
 
@@ -300,7 +300,7 @@ export const TUTORIALS: Tutorial[] = [
   tutorial('超速▲３七銀', 'Super-fast ▲3七銀', 'taifuri-chousoku', 'taifuri'),
   tutorial('丸山ワクチン', 'Maruyama Vaccine', 'tutorial-maruyama', 'taifuri'),
   tutorial('四間飛車', 'Fourth File Rook', 'shiken-basics', 'shikenbisha'),
-  tutorial('立石流', 'Tateishi style', 'shiken-tateishi', 'shikenbisha'),
+  { name: { ja: '立石流', en: 'Tateishi style' }, setup: 'shikenbisha-tateishi', page: 'shikenbisha' },
   tutorial('藤井システム', 'Fujii System', 'fujii-build', 'fujii'),
   tutorial('角交換四間飛車', 'Bishop-Exchange Fourth File Rook', 'kakukoukan-shiken', 'kakukoukan'),
   tutorial('逆棒銀', 'Reverse Climbing Silver', 'kakukoukan-gyakubougin', 'kakukoukan'),

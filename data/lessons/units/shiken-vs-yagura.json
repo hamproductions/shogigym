@@ -19,8 +19,8 @@
       "en": "When Gote strikes with △8六歩 ▲同歩 △同角, what is Fourth File Rook's defensive technique?"
     },
     "answer": {
-      "ja": "▲８八飛と飛車を８筋へ回ります。８六の角に飛車と角の二枚が利くので、後手が何もしなければ角をただで取れます。",
-      "en": "▲8八飛, swinging the rook to the eighth file. Rook and bishop both attack the bishop on 8f, so if Gote does nothing it is simply lost."
+      "ja": "▲８八飛と飛車を８筋へ回ります。角８六は後手飛車８二が守っていますが、▲同角△同飛▲同飛まで進むと、先手は角を交換しながら後手の飛車を取れます。最初の角取りだけで交換を止めず、取り返しまで数えます。",
+      "en": "▲8八飛 swings the rook to the eighth file. Rook8b guards Bishop8f, but ▲同角 △同飛 ▲同飛 completes the exchanges and wins Gote’s rook while exchanging bishops. Count both recaptures rather than treating the first bishop capture as free."
     }
   },
   "references": [
@@ -214,8 +214,8 @@
             "6h8h"
           ],
           "text": {
-            "ja": "▲８八飛と飛車を８筋へ回ります。８六の角に、７七の角と８八の飛車が両方から利きました。後手がこのまま何もしなければ、▲同角から角をただで取れます。早く６七へ上げておいた銀が、ここで飛車の通り道を空けているのです。",
-            "en": "▲8八飛 swings the rook to the eighth file. The bishop on 8f is now hit by both the bishop on 7g and the rook on 8h. If Gote does nothing, ▲同角 wins it for free. The silver raised early to 6g is what keeps the rook's path clear."
+            "ja": "▲８八飛と飛車を８筋へ回ります。角８六は後手飛車８二が守っていますが、▲同角△同飛▲同飛まで進むと、先手は角を交換しながら後手の飛車を取れます。最初の角取りだけで交換を止めず、取り返しまで数えます。",
+            "en": "▲8八飛 swings the rook to the eighth file. Rook8b guards Bishop8f, but ▲同角 △同飛 ▲同飛 completes the exchanges and wins Gote’s rook while exchanging bishops. Count both recaptures rather than treating the first bishop capture as free."
           },
           "marks": {
             "last": "8h",
@@ -405,8 +405,8 @@
             "6g5f"
           ],
           "text": {
-            "ja": "▲６五歩と角道を開け、▲５六銀と銀を上げます。５六の銀は攻めの駒として、４五や４四へ利いています。５筋の歩を突かないでおいたのは、この銀が通る道を空けておくためでした。",
-            "en": "▲6五歩 opens the bishop line and ▲5六銀 brings the silver up. The silver on 5f serves the attack, reaching 4e and 4d. The fifth-file pawn was left alone to keep this route clear for it."
+            "ja": "▲６五歩と角道を開け、▲５六銀と銀を上げます。５六の銀は攻めの駒として、４五へ利いています。５筋の歩を突かないでおいたのは、この銀が通る道を空けておくためでした。",
+            "en": "▲6五歩 opens the bishop line and ▲5六銀 brings the silver up. The silver on 5f serves the attack, reaching 4e. The fifth-file pawn was left alone to keep this route clear for it."
           },
           "marks": {
             "last": "5f",
@@ -475,8 +475,8 @@
             "4g3g"
           ],
           "text": {
-            "ja": "次に▲４四歩と取られると金が当たるので、後手は△５三角と４四の守りを増やします。そこで先手は▲４八飛と、飛車を４筋へ移して攻撃力を貯めます。△１二玉と角の利きから逃げても、４筋に集まった駒は止められず、５六の銀も加勢します。矢倉は一気に崩れます。後手が左美濃の場合にも、同じ手筋が使えます。",
-            "en": "If Sente takes ▲4四歩 the gold is attacked, so Gote adds a defender to 4d with △5三角. Sente then moves the rook to the fourth file with ▲4八飛 to gather strength. Even if the king steps out of the bishop's line with △1二玉, the pieces massed on the fourth file cannot be stopped, and the silver on 5f joins in. The Yagura collapses at once. The same technique works when Gote has a Left Mino."
+            "ja": "△５三角は４四を守り、▲４八飛は４筋へ飛車を移します。△１二玉で玉が角筋から離れると、４四の歩のピンは解け、△４五歩と取る手も再び合法になります。▲３七金のあとも、銀５六の支えと相手の取り方を確認して攻めを選びます。",
+            "en": "△5三角 guards 4d, and ▲4八飛 transfers the rook to the fourth file. When △1二玉 leaves the bishop diagonal, Pawn4d is no longer pinned: △4五歩 becomes legal again. After ▲3七金, recalculate the captures and Silver5f’s support before continuing the attack."
           },
           "marks": {
             "last": "3g",

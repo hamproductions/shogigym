@@ -96,12 +96,12 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "lns2g1nl/r1R2gsk1/pppp1pppp/9/b1B6/P8/NPPPPPPPP/1S7/KG3GSNL b lp 1",
+      "start": "lns2g1nl/2R2gsk1/pppp1pppp/r8/b1B6/P8/NPPPPPPPP/1S7/KG3GSNL b lp 1",
       "steps": [
         {
           "text": {
-            "ja": "飛車７二が横から金４二を狙います。金４一も４二を支えるため、飛車だけなら交換になります。角７五の斜め筋が６四・５三を通って４二へ届くか、盤上で追ってください。先手玉は９九で金銀と歩に守られています。",
-            "en": "The rook on ７二 attacks the gold on ４二 along the second rank. A second gold on ４一 supports it, so the rook alone would be exchanged. Trace the bishop's diagonal from ７五 through ６四 and ５三 to ４二. Sente's king on ９九 is covered by a gold, a silver and pawns."
+            "ja": "飛車７二が横から金４二を狙います。金４一も４二を支えるため、飛車だけなら交換になります。角７五の斜め筋が６四・５三を通って４二へ届くか、盤上で追ってください。先手玉は９九で金銀と歩に守られています。 この練習図の後手飛車は９四です。９二に飛車がある配置では、先手飛車が７二を離れた後に４二まで横に取り返されるため、同じ交換の数にはなりません。",
+            "en": "The rook on ７二 attacks the gold on ４二 along the second rank. A second gold on ４一 supports it, so the rook alone would be exchanged. Trace the bishop's diagonal from ７五 through ６四 and ５三 to ４二. Sente's king on ９九 is covered by a gold, a silver and pawns. Gote’s rook is on 9d in this teaching position. A rook on 9b would gain a recapture along the second rank after Sente’s rook left 7b, changing the exchange."
           }
         },
         {
@@ -111,8 +111,8 @@
             "7e4b+"
           ],
           "text": {
-            "ja": "▲４二飛成で金を取り、後手が△同金と応じた場合、▲同角成で二枚目の金を取ります。飛車を渡して金二枚を得て、馬が残る例です。後手は飛車を打てますが、先手玉が囲われているので、王手と馬取りを同時に掛ける打ち込みはありません。△同金は強制ではなく、取る順番も他にあります。金を取る前に、角の通り道と、渡した駒で打たれる反撃を確認します。",
-            "en": "After ▲４二飛成 takes the first gold, this sample has Gote reply △同金. ▲同角成 then takes the second gold. Sente gives up the rook for two golds and keeps a horse. Gote can drop the rook, but Sente's king is sheltered, so no drop checks the king and attacks the horse at once. The gold recapture is optional, and this is not the only capturing order. Before taking the gold, verify the bishop's route and the counterattack the handed-over piece allows."
+            "ja": "▲４二飛成で金を取り、後手が△同金と応じる例です。▲同角成で二枚目の金を取り、飛車と金二枚を交換して馬４二が残ります。△同金は強制ではありません。金を取る前に角の通り道と、相手の飛車や持ち駒による取り返しも確認します。",
+            "en": "In this example ▲４二飛成 takes a gold, Gote selects △同金, and ▲同角成 takes the second gold. Sente exchanges the rook for two golds and retains a horse on 4b. Gote’s gold capture is not forced. Check the bishop’s route and recaptures by the opposing rook or pieces in hand before committing."
           }
         }
       ],

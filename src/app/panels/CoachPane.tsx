@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { SquareText } from '@/app/modes/lesson/SquareText'
 import { useTranslation } from 'react-i18next'
 import { styled } from 'styled-system/jsx'
-import { LABELS, type MoveReview } from '@/utils/analysis'
+import { LABELS, bestMoveReasons, reviewReasons, type MoveReview } from '@/utils/analysis'
 import { moveCoaching } from '@/utils/coaching'
 import type { Course } from '@/utils/model'
 import i18n from '@/utils/i18n'
@@ -10,6 +10,7 @@ import { moveText } from '@/utils/shogi'
 import { FlipMarks, Marks } from '@/app/ui/SideMark'
 import { useFlipped } from '@/app/hooks/session'
 import type { BookHit, BookMove } from '@/utils/book'
+import { lessonText } from '@/utils/book'
 import { isWeak } from '@/utils/mistake'
 import { weaknessOf } from '@/utils/learning'
 import { LabelBadge, Muted, Note, VerdictHead, VerdictTitle } from './panels.styles'
@@ -51,8 +52,7 @@ function Verdict({
   bookLast,
   ai,
   you,
-  showReasons,
-}: Pick<CoachPaneProps, 'review' | 'bookLast' | 'ai' | 'you'> & { lastMove: string; prevSfen: string; showReasons: boolean }) {
+}: Pick<CoachPaneProps, 'review' | 'bookLast' | 'ai' | 'you'> & { lastMove: string; prevSfen: string }) {
   const { t } = useTranslation()
   const flipped = useFlipped()
   const played = moveText(prevSfen, lastMove)
@@ -65,7 +65,11 @@ function Verdict({
             {you ? t('coach.yourMove') : ''}
             <FlipMarks flipped={flipped}>{played}</FlipMarks>
           </VerdictTitle>
-          <VerdictLabel style={{ ['--label' as string]: LABELS[review.label].color }}>{LABELS[review.label].text}</VerdictLabel>
+          <VerdictLabel style={{ ['--label' as string]: LABELS[review.label].color }}>
+            {review.reply && 'mate' in review.reply.score && review.reply.score.mate > 0 && 'mate' in review.best.score && review.best.score.mate < 0
+              ? t('coach.relativeRating', { rating: LABELS[review.label].text })
+              : LABELS[review.label].text}
+          </VerdictLabel>
         </VerdictHead>
         {bookLast?.branch.note && (
           <Note>
@@ -77,7 +81,12 @@ function Verdict({
             <Marks>{bookLast.branch.punishNote}</Marks>
           </Note>
         )}
-        {(showReasons ? review.reasons.slice(0, 2) : []).map((r) => (
+        {review.reply && 'mate' in review.reply.score && review.reply.score.mate > 0 && (
+          <Note tone="warn">
+            <strong>{t('coach.matingReply')}</strong>
+          </Note>
+        )}
+        {review.reasons.slice(0, 2).map((r) => (
           <styled.p key={r} m="0 0 {spacing.1.5}" fontSize="sm">
             <Marks>{r}</Marks>
           </styled.p>
@@ -89,11 +98,7 @@ function Verdict({
             <strong>
               <FlipMarks flipped={flipped}>{moveText(prevSfen, review.best.move)}</FlipMarks>
             </strong>
-            <Marks>
-              {review.bestReasons[0] && !review.bestReasons[0].startsWith(prefixOf('moveFacts.engineLine'))
-                ? `: ${review.bestReasons[0]}`
-                : t('coach.betterWasEnd')}
-            </Marks>
+            <Marks>{review.bestReasons[0] ? `: ${review.bestReasons[0]}` : t('coach.betterWasEnd')}</Marks>
           </styled.p>
         )}
       </>
@@ -142,16 +147,28 @@ function Verdict({
 export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen, course, onPlay, canPlay, ai, showBook, you }: CoachPaneProps) {
   const { t, i18n } = useTranslation()
   const flipped = useFlipped()
-  const feedback = useMemo(() => (lastMove && prevSfen ? moveCoaching(prevSfen, lastMove) : null), [lastMove, prevSfen, i18n.language])
+  const localizedReview = useMemo(() => {
+    if (!review || !prevSfen || review.usi !== lastMove) return null
+    return {
+      ...review,
+      reasons: reviewReasons(prevSfen, review),
+      bestReasons: review.best.move === review.usi ? [] : bestMoveReasons(prevSfen, review.best),
+    }
+  }, [review, prevSfen, lastMove, i18n.language])
+  const feedback = useMemo(() => (lastMove && prevSfen ? moveCoaching(prevSfen, lastMove, { review }) : null), [lastMove, prevSfen, review, i18n.language])
   return (
     <div className="app-coach">
       {lastMove && prevSfen ? (
         <div className="app-verdict">
-          <Verdict review={review} lastMove={lastMove} prevSfen={prevSfen} bookLast={bookLast} ai={ai} you={you} showReasons={!feedback} />
+          <Verdict review={localizedReview} lastMove={lastMove} prevSfen={prevSfen} bookLast={bookLast} ai={ai} you={you} />
         </div>
       ) : (
         <Muted>
-          <Marks>{course ? (course.root.comment ?? course.goalFormation ?? '') : t('coach.makeAMoveTheCoach')}</Marks>
+          <Marks>
+            {course
+              ? (lessonText(course.root.comment, course.root.commentEn, i18n.language, course) ?? course.goalFormation ?? '')
+              : t('coach.makeAMoveTheCoach')}
+          </Marks>
         </Muted>
       )}
       {feedback && (
@@ -162,12 +179,18 @@ export function CoachPane({ review, lastMove, prevSfen, bookLast, bookHere, sfen
           <styled.p m="0 0 {spacing.2}">
             <SquareText text={feedback.summary} context={`${feedback.summary}\n${feedback.detail}`} />
           </styled.p>
-          <styled.details fontSize="sm">
-            <styled.summary cursor="pointer">{t('coach.live.more')}</styled.summary>
-            <styled.p m="{spacing.2} 0">
+          {review?.reply ? (
+            <styled.p m="0" fontSize="sm">
               <SquareText text={feedback.detail} context={`${feedback.summary}\n${feedback.detail}`} />
             </styled.p>
-          </styled.details>
+          ) : feedback.detail ? (
+            <styled.details fontSize="sm">
+              <styled.summary cursor="pointer">{t('coach.live.more')}</styled.summary>
+              <styled.p m="{spacing.2} 0">
+                <SquareText text={feedback.detail} context={`${feedback.summary}\n${feedback.detail}`} />
+              </styled.p>
+            </styled.details>
+          ) : null}
         </styled.section>
       )}
       {showBook && bookHere.length > 0 && (

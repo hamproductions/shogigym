@@ -690,17 +690,26 @@
         {
           "moves": [
             "1e1d",
-            "1c1d",
+            "1c1d"
+          ],
+          "text": {
+            "ja": "▲１四歩△同歩まで端で接触しました。今度は玉４三と金二枚・銀二枚の現在地を確認してから、次の歩打ちを選びます。",
+            "en": "▲1四歩 △同歩 makes edge contact. Before choosing the next drop, inspect king 4c and the current gold and silver defenders."
+          }
+        },
+        {
+          "moves": [
             "P*1b",
             "4b3c"
           ],
           "text": {
-            "ja": "同じ調子で▲１四歩△同歩▲１二歩と垂れ歩を打っても、△３三金右と受けられて、続く攻めがありません。しっかり囲われると、棒銀と端攻めの組み合わせでも通らないことがあります。この形への対策は、別の研究が要ります。",
-            "en": "Playing the same ▲1四歩 △同歩 ▲1二歩 dangling pawn now meets △3三金右 and Sente has nothing more. When Gote builds a firm defence, even the combination of climbing silver and edge attack can fail. This case needs further study."
+            "ja": "▲１二歩打を同じ調子で繰り返す失敗例です。△３三金は２四・２三を守り、銀２五の２筋からの進出を受けます。以前の攻めをそのまま成功と決めず、金銀の守りを確認して攻め方を考え直します。合法な攻めが一切ないという意味ではありません。",
+            "en": "This is a failed attempt to repeat ▲1二歩打 automatically. △3三金 guards 2d and 2c, meeting the silver’s second-file advance. Reassess the gold-and-silver defense rather than assuming the earlier attack succeeds unchanged. This does not mean every legal attack is ruled out."
           },
           "marks": {
             "last": "3c"
-          }
+          },
+          "kind": "deviation"
         },
         {
           "text": {

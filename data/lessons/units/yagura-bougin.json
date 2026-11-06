@@ -530,11 +530,11 @@
             "2c2d",
             "1e2d",
             "3c2d",
-            "2h2d"
+            "6h2d"
           ],
           "text": {
-            "ja": "△同歩、▲同銀、△同銀、▲同飛。銀と銀の交換になりました。先手は銀と歩を持ち駒にしています。持ち駒の銀は、盤上の銀より自由に使えるので、価値が高い駒です。",
-            "en": "△同歩, ▲同銀, △同銀, ▲同飛: the silvers are traded. Sente now holds a silver and a pawn. A silver in hand can be placed anywhere, so it is worth more than one on the board."
+            "ja": "△同歩、▲同銀、△同銀に▲同角と取り返す例です。角６八から２四へ出て、双方が銀を一枚ずつ持ちました。飛車で先に取ると△同角▲同角まで飛車と角の交換になるため、取り返す駒を区別します。",
+            "en": "This example continues △同歩, ▲同銀, △同銀, ▲同角. Bishop 6h recaptures on 2d and both sides gain a silver in hand. Recapturing with the rook first would allow △同角 ▲同角, exchanging Sente’s rook for a bishop; distinguish the two recapturing pieces."
           },
           "marks": {
             "last": "2d",
@@ -546,14 +546,14 @@
         {
           "moves": [
             "P*2c",
-            "2d2h"
+            "2d6h"
           ],
           "text": {
-            "ja": "△２三歩と受けられたら、▲２八飛と引きます。持ち駒の銀と歩を使った端攻めなどの攻めは、棒銀の中盤の講座で見ます。",
-            "en": "After △2三歩, ▲2八飛 retreats the rook. Attacks using the silver and pawn in hand, such as the edge attack, are covered in the Bogin middlegame lesson."
+            "ja": "△２三歩は角２四へ当たります。▲６八角と引く応手を選びます。持ち駒の銀と歩を使う攻めも、盤上の守りと相手の取り返しを確認してから考えます。",
+            "en": "△2三歩 attacks bishop 2d. This example retreats it with ▲6八角. Before using the acquired silver and pawn, inspect the board’s defenders and the opponent’s recaptures."
           },
           "marks": {
-            "last": "2h"
+            "last": "6h"
           }
         }
       ]

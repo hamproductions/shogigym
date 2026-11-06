@@ -1,0 +1,436 @@
+{
+ "id": "shikenbisha-vs-ibisha--basic",
+ "title": "後手四間飛車：角道を開き、囲いを組み替える",
+ "titleEn": "Gote Fourth File Rook: Open a Bishop Line and Reorganize the Castle",
+ "myStrategy": "shikenbisha",
+ "opponentStrategy": "ibisha",
+ "mySide": "gote",
+ "userSide": "gote",
+ "source": "四間飛車の美濃・４五歩と銀４四・銀冠への組み替えという標準的な構想を、新ペタショック定跡（MIT）の候補手と照合して独立に選択。説明と待機の比較枝を新しく執筆。",
+ "goalFormation": "後手は飛車４二・玉８二の美濃から４五歩と伸ばし、銀４四で支える。比較枝では８四歩、銀８三、金７二へ組み替えて銀冠の配置を作る。",
+ "goalLabel": "動かした駒の元の守りも確認する",
+ "goalSfen": "ln1g3nl/1ks1gr3/ppppp1bpp/5sp2/3P1p1P1/2P1P1P2/PP2SP2P/1BK1GS1R1/LN1G3NL b - 1",
+ "root": {
+  "id": "n0",
+  "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
+  "comment": "後手四間飛車で玉を美濃へ運び、そのあと角道と囲いを調整する例です。４五歩で斜線を開く手と、銀を４四へ進めて歩を守る手は別々に数えます。相手が接触を急がない比較枝では、銀冠への組み替えも確認します。",
+  "commentEn": "Build Gote Fourth File Rook with Mino, then examine changes to the bishop diagonal and castle. Count opening the diagonal with △4五歩 separately from developing the silver to 4d to support that pawn. A comparison with no immediate opposing contact also demonstrates a Silver Crown reorganization.",
+  "branches": [
+   {
+    "usi": "2g2f",
+    "kind": "main",
+    "child": {
+     "id": "n_0",
+     "sfen": "lnsgkgsnl/1r5b1/ppppppppp/9/9/7P1/PPPPPPP1P/1B5R1/LNSGKGSNL w - 1",
+     "branches": [
+      {
+       "usi": "3c3d",
+       "kind": "main",
+       "child": {
+        "id": "n_1",
+        "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/7P1/PPPPPPP1P/1B5R1/LNSGKGSNL b - 1",
+        "branches": [
+         {
+          "usi": "7g7f",
+          "kind": "main",
+          "child": {
+           "id": "n_2",
+           "sfen": "lnsgkgsnl/1r5b1/pppppp1pp/6p2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+           "branches": [
+            {
+             "usi": "4c4d",
+             "kind": "main",
+             "child": {
+              "id": "n_3",
+              "sfen": "lnsgkgsnl/1r5b1/ppppp2pp/5pp2/9/2P4P1/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+              "branches": [
+               {
+                "usi": "2f2e",
+                "kind": "main",
+                "child": {
+                 "id": "n_4",
+                 "sfen": "lnsgkgsnl/1r5b1/ppppp2pp/5pp2/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL w - 1",
+                 "branches": [
+                  {
+                   "usi": "2b3c",
+                   "kind": "main",
+                   "child": {
+                    "id": "n_5",
+                    "sfen": "lnsgkgsnl/1r7/ppppp1bpp/5pp2/7P1/2P6/PP1PPPP1P/1B5R1/LNSGKGSNL b - 1",
+                    "branches": [
+                     {
+                      "usi": "3i4h",
+                      "kind": "main",
+                      "child": {
+                       "id": "n_6",
+                       "sfen": "lnsgkgsnl/1r7/ppppp1bpp/5pp2/7P1/2P6/PP1PPPP1P/1B3S1R1/LNSGKG1NL w - 1",
+                       "branches": [
+                        {
+                         "usi": "8b4b",
+                         "kind": "main",
+                         "note": "△４二飛は先手の２筋とは違う筋へ飛車を置く手です。",
+                         "noteEn": "△4二飛 places the rook on a different file from Sente’s second-file rook.",
+                         "child": {
+                          "id": "n_7",
+                          "sfen": "lnsgkgsnl/5r3/ppppp1bpp/5pp2/7P1/2P6/PP1PPPP1P/1B3S1R1/LNSGKG1NL b - 1",
+                          "branches": [
+                           {
+                            "usi": "5g5f",
+                            "kind": "main",
+                            "child": {
+                             "id": "n_8",
+                             "sfen": "lnsgkgsnl/5r3/ppppp1bpp/5pp2/7P1/2P1P4/PP1P1PP1P/1B3S1R1/LNSGKG1NL w - 1",
+                             "branches": [
+                              {
+                               "usi": "3a3b",
+                               "kind": "main",
+                               "child": {
+                                "id": "n_9",
+                                "sfen": "lnsgkg1nl/5rs2/ppppp1bpp/5pp2/7P1/2P1P4/PP1P1PP1P/1B3S1R1/LNSGKG1NL b - 1",
+                                "branches": [
+                                 {
+                                  "usi": "5i6h",
+                                  "kind": "main",
+                                  "child": {
+                                   "id": "n_10",
+                                   "sfen": "lnsgkg1nl/5rs2/ppppp1bpp/5pp2/7P1/2P1P4/PP1P1PP1P/1B1K1S1R1/LNSG1G1NL w - 1",
+                                   "branches": [
+                                    {
+                                     "usi": "5a6b",
+                                     "kind": "main",
+                                     "child": {
+                                      "id": "n_11",
+                                      "sfen": "lnsg1g1nl/3k1rs2/ppppp1bpp/5pp2/7P1/2P1P4/PP1P1PP1P/1B1K1S1R1/LNSG1G1NL b - 1",
+                                      "branches": [
+                                       {
+                                        "usi": "6h7h",
+                                        "kind": "main",
+                                        "child": {
+                                         "id": "n_12",
+                                         "sfen": "lnsg1g1nl/3k1rs2/ppppp1bpp/5pp2/7P1/2P1P4/PP1P1PP1P/1BK2S1R1/LNSG1G1NL w - 1",
+                                         "branches": [
+                                          {
+                                           "usi": "6b7b",
+                                           "kind": "main",
+                                           "child": {
+                                            "id": "n_13",
+                                            "sfen": "lnsg1g1nl/2k2rs2/ppppp1bpp/5pp2/7P1/2P1P4/PP1P1PP1P/1BK2S1R1/LNSG1G1NL b - 1",
+                                            "branches": [
+                                             {
+                                              "usi": "4i5h",
+                                              "kind": "main",
+                                              "child": {
+                                               "id": "n_14",
+                                               "sfen": "lnsg1g1nl/2k2rs2/ppppp1bpp/5pp2/7P1/2P1P4/PP1P1PP1P/1BK1GS1R1/LNSG3NL w - 1",
+                                               "branches": [
+                                                {
+                                                 "usi": "7b8b",
+                                                 "kind": "main",
+                                                 "child": {
+                                                  "id": "n_15",
+                                                  "sfen": "lnsg1g1nl/1k3rs2/ppppp1bpp/5pp2/7P1/2P1P4/PP1P1PP1P/1BK1GS1R1/LNSG3NL b - 1",
+                                                  "branches": [
+                                                   {
+                                                    "usi": "7i6h",
+                                                    "kind": "main",
+                                                    "child": {
+                                                     "id": "n_16",
+                                                     "sfen": "lnsg1g1nl/1k3rs2/ppppp1bpp/5pp2/7P1/2P1P4/PP1P1PP1P/1BKSGS1R1/LN1G3NL w - 1",
+                                                     "branches": [
+                                                      {
+                                                       "usi": "7a7b",
+                                                       "kind": "main",
+                                                       "note": "△７二銀で玉８二の隣を守ります。",
+                                                       "noteEn": "△7二銀 guards beside king 8b.",
+                                                       "child": {
+                                                        "id": "n_17",
+                                                        "sfen": "ln1g1g1nl/1ks2rs2/ppppp1bpp/5pp2/7P1/2P1P4/PP1P1PP1P/1BKSGS1R1/LN1G3NL b - 1",
+                                                        "branches": [
+                                                         {
+                                                          "usi": "6h5g",
+                                                          "kind": "main",
+                                                          "child": {
+                                                           "id": "n_18",
+                                                           "sfen": "ln1g1g1nl/1ks2rs2/ppppp1bpp/5pp2/7P1/2P1P4/PP1PSPP1P/1BK1GS1R1/LN1G3NL w - 1",
+                                                           "branches": [
+                                                            {
+                                                             "usi": "4a5b",
+                                                             "kind": "main",
+                                                             "note": "△５二金を置き、美濃の玉・銀・金の位置を確認します。",
+                                                             "noteEn": "△5二金 completes the king, silver and gold arrangement of Mino.",
+                                                             "child": {
+                                                              "id": "n_19",
+                                                              "sfen": "ln1g3nl/1ks1grs2/ppppp1bpp/5pp2/7P1/2P1P4/PP1PSPP1P/1BK1GS1R1/LN1G3NL b - 1",
+                                                              "branches": [
+                                                               {
+                                                                "usi": "3g3f",
+                                                                "kind": "main",
+                                                                "child": {
+                                                                 "id": "n_20",
+                                                                 "sfen": "ln1g3nl/1ks1grs2/ppppp1bpp/5pp2/7P1/2P1P1P2/PP1PSP2P/1BK1GS1R1/LN1G3NL w - 1",
+                                                                 "branches": [
+                                                                  {
+                                                                   "usi": "3b4c",
+                                                                   "kind": "main",
+                                                                   "note": "△４三銀が４四歩を守ります。",
+                                                                   "noteEn": "△4三銀 guards pawn 4d.",
+                                                                   "child": {
+                                                                    "id": "n_21",
+                                                                    "sfen": "ln1g3nl/1ks1gr3/pppppsbpp/5pp2/7P1/2P1P1P2/PP1PSP2P/1BK1GS1R1/LN1G3NL b - 1",
+                                                                    "branches": [
+                                                                     {
+                                                                      "usi": "6g6f",
+                                                                      "kind": "main",
+                                                                      "note": "▲６六歩と相手が角道を自分の歩で止める例です。",
+                                                                      "noteEn": "This example selects ▲6六歩, blocking Sente’s own bishop diagonal.",
+                                                                      "child": {
+                                                                       "id": "n_22",
+                                                                       "sfen": "ln1g3nl/1ks1gr3/pppppsbpp/5pp2/7P1/2PPP1P2/PP2SP2P/1BK1GS1R1/LN1G3NL w - 1",
+                                                                       "branches": [
+                                                                        {
+                                                                         "usi": "4d4e",
+                                                                         "kind": "main",
+                                                                         "note": "△４五歩で４四が空きます。角３三から４四・５五・６六へ道が通り、６六の先手歩に当たります。",
+                                                                         "noteEn": "△4五歩 clears 4d, letting bishop 3c reach Sente’s pawn on 6f through 4d and 5e.",
+                                                                         "child": {
+                                                                          "id": "n_23",
+                                                                          "sfen": "ln1g3nl/1ks1gr3/pppppsbpp/6p2/5p1P1/2PPP1P2/PP2SP2P/1BK1GS1R1/LN1G3NL b - 1",
+                                                                          "branches": [
+                                                                           {
+                                                                            "usi": "6f6e",
+                                                                            "kind": "main",
+                                                                            "note": "▲６五歩でその歩が動き、６六も空きました。",
+                                                                            "noteEn": "▲6五歩 moves that pawn and clears 6f too.",
+                                                                            "child": {
+                                                                             "id": "n_24",
+                                                                             "sfen": "ln1g3nl/1ks1gr3/pppppsbpp/6p2/3P1p1P1/2P1P1P2/PP2SP2P/1BK1GS1R1/LN1G3NL w - 1",
+                                                                             "branches": [
+                                                                              {
+                                                                               "usi": "4c4d",
+                                                                               "kind": "main",
+                                                                               "note": "△４四銀は４五歩を正面から守ります。同時に角３三の斜め前に自分の銀を置くため、角道はこの銀で再び止まります。",
+                                                                               "noteEn": "△4四銀 guards pawn 4e directly ahead. It also places a friendly silver diagonally in front of bishop 3c, blocking that bishop line again.",
+                                                                               "child": {
+                                                                                "id": "n_25",
+                                                                                "sfen": "ln1g3nl/1ks1gr3/ppppp1bpp/5sp2/3P1p1P1/2P1P1P2/PP2SP2P/1BK1GS1R1/LN1G3NL b - 1",
+                                                                                "branches": [
+                                                                                 {
+                                                                                  "usi": "9g9f",
+                                                                                  "kind": "alt",
+                                                                                  "note": "先手が端の▲９六歩を選ぶ比較です。",
+                                                                                  "noteEn": "This comparison selects Sente’s edge move ▲9六歩.",
+                                                                                  "child": {
+                                                                                   "id": "nb0_0",
+                                                                                   "sfen": "ln1g3nl/1ks1gr3/ppppp1bpp/5sp2/3P1p1P1/P1P1P1P2/1P2SP2P/1BK1GS1R1/LN1G3NL w - 1",
+                                                                                   "branches": [
+                                                                                    {
+                                                                                     "usi": "8c8d",
+                                                                                     "kind": "main",
+                                                                                     "note": "△８四歩で銀を置く８三を空けます。",
+                                                                                     "noteEn": "△8四歩 clears 8c for the silver.",
+                                                                                     "child": {
+                                                                                      "id": "nb0_1",
+                                                                                      "sfen": "ln1g3nl/1ks1gr3/p1ppp1bpp/1p3sp2/3P1p1P1/P1P1P1P2/1P2SP2P/1BK1GS1R1/LN1G3NL b - 1",
+                                                                                      "branches": [
+                                                                                       {
+                                                                                        "usi": "1g1f",
+                                                                                        "kind": "main",
+                                                                                        "note": "先手が▲１六歩と接触を急がない例です。",
+                                                                                        "noteEn": "Sente selects ▲1六歩 without immediate contact.",
+                                                                                        "child": {
+                                                                                         "id": "nb0_2",
+                                                                                         "sfen": "ln1g3nl/1ks1gr3/p1ppp1bpp/1p3sp2/3P1p1P1/P1P1P1P1P/1P2SP3/1BK1GS1R1/LN1G3NL w - 1",
+                                                                                         "branches": [
+                                                                                          {
+                                                                                           "usi": "7b8c",
+                                                                                           "kind": "main",
+                                                                                           "note": "△８三銀で玉８二の前へ銀を置きます。元の７二は空きました。",
+                                                                                           "noteEn": "△8三銀 develops in front of king 8b and clears 7b.",
+                                                                                           "child": {
+                                                                                            "id": "nb0_3",
+                                                                                            "sfen": "ln1g3nl/1k2gr3/psppp1bpp/1p3sp2/3P1p1P1/P1P1P1P1P/1P2SP3/1BK1GS1R1/LN1G3NL b - 1",
+                                                                                            "branches": [
+                                                                                             {
+                                                                                              "usi": "7f7e",
+                                                                                              "kind": "main",
+                                                                                              "child": {
+                                                                                               "id": "nb0_4",
+                                                                                               "sfen": "ln1g3nl/1k2gr3/psppp1bpp/1p3sp2/2PP1p1P1/P3P1P1P/1P2SP3/1BK1GS1R1/LN1G3NL w - 1",
+                                                                                               "branches": [
+                                                                                                {
+                                                                                                 "usi": "5b6b",
+                                                                                                 "kind": "main",
+                                                                                                 "note": "先手の▲７五歩に、後手は△６二金と寄せる手を選びます。",
+                                                                                                 "noteEn": "After ▲7五歩, Gote selects △6二金.",
+                                                                                                 "child": {
+                                                                                                  "id": "nb0_5",
+                                                                                                  "sfen": "ln1g3nl/1k1g1r3/psppp1bpp/1p3sp2/2PP1p1P1/P3P1P1P/1P2SP3/1BK1GS1R1/LN1G3NL b - 1",
+                                                                                                  "branches": [
+                                                                                                   {
+                                                                                                    "usi": "4g4f",
+                                                                                                    "kind": "main",
+                                                                                                    "child": {
+                                                                                                     "id": "nb0_6",
+                                                                                                     "sfen": "ln1g3nl/1k1g1r3/psppp1bpp/1p3sp2/2PP1p1P1/P3PPP1P/1P2S4/1BK1GS1R1/LN1G3NL w - 1",
+                                                                                                     "branches": [
+                                                                                                      {
+                                                                                                       "usi": "6b7b",
+                                                                                                       "kind": "main",
+                                                                                                       "note": "▲４六歩に△７二金。銀が空けた升を金で埋めます。４筋の接触は残っています。",
+                                                                                                       "noteEn": "▲4六歩 is met here by △7二金, filling the square vacated by the silver. Fourth-file contact remains unresolved.",
+                                                                                                       "child": {
+                                                                                                        "id": "nb0_7",
+                                                                                                        "sfen": "ln1g3nl/1kg2r3/psppp1bpp/1p3sp2/2PP1p1P1/P3PPP1P/1P2S4/1BK1GS1R1/LN1G3NL b - 1",
+                                                                                                        "branches": [
+                                                                                                         {
+                                                                                                          "usi": "6i6h",
+                                                                                                          "kind": "main",
+                                                                                                          "child": {
+                                                                                                           "id": "nb0_8",
+                                                                                                           "sfen": "ln1g3nl/1kg2r3/psppp1bpp/1p3sp2/2PP1p1P1/P3PPP1P/1P2S4/1BKGGS1R1/LN5NL w - 1",
+                                                                                                           "branches": [
+                                                                                                            {
+                                                                                                             "usi": "9c9d",
+                                                                                                             "kind": "main",
+                                                                                                             "note": "▲６八金△９四歩まで、玉側の配置を比較しました。",
+                                                                                                             "noteEn": "▲6八金 △9四歩 completes this comparison of the king-side arrangement.",
+                                                                                                             "child": {
+                                                                                                              "id": "nb0_9",
+                                                                                                              "sfen": "ln1g3nl/1kg2r3/1sppp1bpp/pp3sp2/2PP1p1P1/P3PPP1P/1P2S4/1BKGGS1R1/LN5NL b - 1",
+                                                                                                              "branches": [
+                                                                                                               {
+                                                                                                                "usi": "1f1e",
+                                                                                                                "kind": "main",
+                                                                                                                "child": {
+                                                                                                                 "id": "nb0_10",
+                                                                                                                 "sfen": "ln1g3nl/1kg2r3/1sppp1bpp/pp3sp2/2PP1p1PP/P3PPP2/1P2S4/1BKGGS1R1/LN5NL w - 1",
+                                                                                                                 "branches": [
+                                                                                                                  {
+                                                                                                                   "usi": "9a9b",
+                                                                                                                   "kind": "main",
+                                                                                                                   "note": "先手が▲１五歩を選ぶ比較で、後手は△９二香と１段上げます。９一が空き、香９二は玉８二の隣に置かれます。",
+                                                                                                                   "noteEn": "After the selected ▲1五歩, △9二香 lifts the lance, clearing 9a and placing it beside king 8b.",
+                                                                                                                   "child": {
+                                                                                                                    "id": "nb0_11",
+                                                                                                                    "sfen": "1n1g3nl/lkg2r3/1sppp1bpp/pp3sp2/2PP1p1PP/P3PPP2/1P2S4/1BKGGS1R1/LN5NL b - 1",
+                                                                                                                    "branches": [],
+                                                                                                                    "comment": "玉８二・銀８三・金７二の銀冠です。銀を前へ出したため、最初の銀７二による守りとは利きが変わりました。この枝では相手がすぐ取り合わない手を選んでおり、どの局面でも囲いの組み替えを優先するという意味ではありません。",
+                                                                                                                    "commentEn": "King 8b, silver 8c and gold 7b form Silver Crown. The advanced silver controls different squares from its original post on 7b. Sente selected replies without immediate exchanges here; the example does not recommend prioritizing castle reorganization in every position."
+                                                                                                                   }
+                                                                                                                  }
+                                                                                                                 ]
+                                                                                                                }
+                                                                                                               }
+                                                                                                              ]
+                                                                                                             }
+                                                                                                            }
+                                                                                                           ]
+                                                                                                          }
+                                                                                                         }
+                                                                                                        ]
+                                                                                                       }
+                                                                                                      }
+                                                                                                     ]
+                                                                                                    }
+                                                                                                   }
+                                                                                                  ]
+                                                                                                 }
+                                                                                                }
+                                                                                               ]
+                                                                                              }
+                                                                                             }
+                                                                                            ]
+                                                                                           }
+                                                                                          }
+                                                                                         ]
+                                                                                        }
+                                                                                       }
+                                                                                      ]
+                                                                                     }
+                                                                                    }
+                                                                                   ]
+                                                                                  }
+                                                                                 }
+                                                                                ],
+                                                                                "comment": "銀４四で４五歩を支える形になりました。角道を一度開けたあとも、自分の銀が新しい壁になったことを確認します。玉８二・銀７二・金５二の美濃は、次の比較で銀冠へ組み替えます。",
+                                                                                "commentEn": "Silver 4d supports pawn 4e. Although the pawn advance opened the diagonal, your own silver has now become a new blocker. The comparison reorganizes the Mino arrangement of king 8b, silver 7b and gold 5b toward Silver Crown."
+                                                                               }
+                                                                              }
+                                                                             ]
+                                                                            }
+                                                                           }
+                                                                          ]
+                                                                         }
+                                                                        }
+                                                                       ]
+                                                                      }
+                                                                     }
+                                                                    ]
+                                                                   }
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               }
+                                                              ]
+                                                             }
+                                                            }
+                                                           ]
+                                                          }
+                                                         }
+                                                        ]
+                                                       }
+                                                      }
+                                                     ]
+                                                    }
+                                                   }
+                                                  ]
+                                                 }
+                                                }
+                                               ]
+                                              }
+                                             }
+                                            ]
+                                           }
+                                          }
+                                         ]
+                                        }
+                                       }
+                                      ]
+                                     }
+                                    }
+                                   ]
+                                  }
+                                 }
+                                ]
+                               }
+                              }
+                             ]
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

@@ -31,6 +31,7 @@ function buildSegment(position, segment, lastMove, idPrefix) {
     const notes = segment.notes ?? {}
     const branch = { usi: move.usi, kind: i === 0 ? (segment.kind ?? 'main') : 'main' }
     if (notes[i]) branch.note = notes[i]
+    if (segment.notesEn?.[i]) branch.noteEn = segment.notesEn[i]
     if (i === 0 && segment.punishNote) branch.punishNote = segment.punishNote
     if (i === 0 && segment.aim) branch.aim = segment.aim
     p.doMove(move)
@@ -39,6 +40,7 @@ function buildSegment(position, segment, lastMove, idPrefix) {
     node = branch.child
   })
   if (segment.comment) node.comment = segment.comment
+  if (segment.commentEn) node.commentEn = segment.commentEn
   ;(segment.branches ?? []).forEach((child, i) => {
     const sub = buildSegment(p, child, moves.at(-1), `${idPrefix}b${i}`)
     mergeInto(node, sub.head.branches)
@@ -56,9 +58,10 @@ function mergeInto(node, branches) {
       continue
     }
     if (RANK[branch.kind] < RANK[existing.kind]) existing.kind = branch.kind
-    for (const key of ['note', 'aim', 'punishNote']) if (!existing[key] && branch[key]) existing[key] = branch[key]
+    for (const key of ['note', 'noteEn', 'aim', 'punishNote']) if (!existing[key] && branch[key]) existing[key] = branch[key]
     if (branch.child) {
       if (!existing.child.comment && branch.child.comment) existing.child.comment = branch.child.comment
+      if (!existing.child.commentEn && branch.child.commentEn) existing.child.commentEn = branch.child.commentEn
       mergeInto(existing.child, branch.child.branches)
     }
   }
@@ -79,7 +82,12 @@ if (vendorArg > 0) {
 }
 
 mkdirSync(OUT_DIR, { recursive: true })
-for (const file of readdirSync(SPEC_DIR).filter((f) => f.endsWith('.mjs'))) {
+const onlyArg = process.argv.indexOf('--only')
+const selected = onlyArg > 0 ? new Set((process.argv[onlyArg + 1] ?? '').split(',').filter(Boolean)) : null
+const specs = readdirSync(SPEC_DIR).filter((file) => file.endsWith('.mjs'))
+if (selected && (!selected.size || [...selected].some((id) => !specs.includes(`${id}.mjs`))))
+  throw new Error('--only requires existing course spec names separated by commas')
+for (const file of specs.filter((file) => !selected || selected.has(file.slice(0, -4)))) {
   const { default: spec } = await import(pathToFileURL(`${SPEC_DIR}/${file}`).href)
   const start = Position.newBySFEN(spec.startSfen ?? InitialPositionSFEN.STANDARD)
   if (!start) throw new Error(`${spec.id}: invalid startSfen`)
@@ -87,8 +95,12 @@ for (const file of readdirSync(SPEC_DIR).filter((f) => f.endsWith('.mjs'))) {
   const meta = { ...spec }
   delete meta.line
   delete meta.startSfen
-  const course = { ...meta, root: { id: 'n0', sfen: start.sfen, comment: spec.rootComment, branches: head.branches } }
+  const course = {
+    ...meta,
+    root: { id: 'n0', sfen: start.sfen, comment: spec.rootComment, ...(spec.rootCommentEn ? { commentEn: spec.rootCommentEn } : {}), branches: head.branches },
+  }
   delete course.rootComment
+  delete course.rootCommentEn
   writeFileSync(`${OUT_DIR}/${spec.id}.json`, JSON.stringify(course, null, 1) + '\n')
   console.log(`built ${spec.id}`)
 }

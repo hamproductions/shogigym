@@ -1,0 +1,128 @@
+[
+  {
+    "id": "suisho5",
+    "engine": "halfkp",
+    "fvScale": 24,
+    "size": 64217066,
+    "source": "https://github.com/yaneurao/YaneuraOu/releases/tag/suisho5",
+    "parts": [
+      {
+        "name": "nn.bin.000",
+        "size": 33554432,
+        "sha256": "c9e54ac6a5b1c14a07c404b858749158a21f1110f3c508d2c60f57a8b4597a7d"
+      },
+      {
+        "name": "nn.bin.001",
+        "size": 30662634,
+        "sha256": "5a965cf9af8b783072e5a8b2888d028858b8cb90be88b03df7623d022da19e70"
+      }
+    ]
+  },
+  {
+    "id": "tanuki-hao",
+    "engine": "halfkp",
+    "fvScale": 20,
+    "size": 64217066,
+    "source": "https://github.com/nodchip/tanuki-/releases/tag/tanuki-.halfkp_256x2-32-32.2023-05-08",
+    "parts": [
+      {
+        "name": "nn.bin.000",
+        "size": 33554432,
+        "sha256": "16c498cd5d34103d2ffac36695b35e9e8167df10836e8a21c159fd4c1af189d2"
+      },
+      {
+        "name": "nn.bin.001",
+        "size": 30662634,
+        "sha256": "c3a454700196bf97b88315c2479113d02f96b3727bd97985f3c5ce50d12a14a9"
+      }
+    ]
+  },
+  {
+    "id": "tanuki-li",
+    "engine": "tanuki-li",
+    "fvScale": 20,
+    "size": 256814475,
+    "source": "https://github.com/nodchip/tanuki-/releases/tag/tanuki-wcsc33-2023-05-04",
+    "parts": [
+      {
+        "name": "nn.bin.000",
+        "size": 33554432,
+        "sha256": "9e0552084edfc4fe0861b5cfc48f7dc8ca4055774c78e8226a98db89bfc46dc2"
+      },
+      {
+        "name": "nn.bin.001",
+        "size": 33554432,
+        "sha256": "ea06a4873447f1b3e03168b529c19e9aaa3d976b31b49b7ba2351361897d7990"
+      },
+      {
+        "name": "nn.bin.002",
+        "size": 33554432,
+        "sha256": "600bc5d3d8ca23492dfd526562164ec239a93529d851999b9a1f78cfa2d48baf"
+      },
+      {
+        "name": "nn.bin.003",
+        "size": 33554432,
+        "sha256": "634f192c5c86ed34c0b7a56eda9051e66c6bf60eaf776c50d7c52ccc340913ab"
+      },
+      {
+        "name": "nn.bin.004",
+        "size": 33554432,
+        "sha256": "42dcefcdba09c96133567e5e4b86c10949bfe99cde6cb57e52a00e7094e5e647"
+      },
+      {
+        "name": "nn.bin.005",
+        "size": 33554432,
+        "sha256": "deaaa630215d100dffe7ddae9905c2ad6d68e4f5193718794388ed80d6e33402"
+      },
+      {
+        "name": "nn.bin.006",
+        "size": 33554432,
+        "sha256": "10c0edeb740e060e1fccccf8f53ea29910ee99f4fad7ca90a83e6dd653dc5b89"
+      },
+      {
+        "name": "nn.bin.007",
+        "size": 21933451,
+        "sha256": "f1cc001584bb4fa1228bbb7ab1f591264ec2c75aa6f597cf975d80dc25d23907"
+      }
+    ]
+  },
+  {
+    "id": "aobannue",
+    "engine": "aobannue",
+    "fvScale": 40,
+    "size": 192624720,
+    "source": "https://github.com/yssaya/AobaNNUE/releases/tag/v1.1",
+    "parts": [
+      {
+        "name": "nn.bin.000",
+        "size": 33554432,
+        "sha256": "865b8b85a47db58bfb2c0a5f1202c61fb8c5aa12ee62fac23ef6a28cbd12ecea"
+      },
+      {
+        "name": "nn.bin.001",
+        "size": 33554432,
+        "sha256": "62c8aae2c01feaf086a3fd9d75862862426c5c5d84bc6c623b0c64f4b04ac7ba"
+      },
+      {
+        "name": "nn.bin.002",
+        "size": 33554432,
+        "sha256": "de7a04a4808fdf9142d1b354b7e4b30102fc3fbdd8439b333f7e39b82df442bb"
+      },
+      {
+        "name": "nn.bin.003",
+        "size": 33554432,
+        "sha256": "9c60bdf67c1b16c248dae06cbcaade5a5c5b8f952c731099cfad2f79a496a6f1"
+      },
+      {
+        "name": "nn.bin.004",
+        "size": 33554432,
+        "sha256": "62d1975a100fcb91cfce4e7d064eac71a934034d59cf0daef0ebfda93d62bb2e"
+      },
+      {
+        "name": "nn.bin.005",
+        "size": 24852560,
+        "sha256": "4e91979c4c89b9c98c40bf22954360dd0343e177229ff009f9e42e571336d377"
+      }
+    ]
+  }
+]

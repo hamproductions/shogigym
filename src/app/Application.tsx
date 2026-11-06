@@ -136,7 +136,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     needsPicking: (mode === 'lesson' && !course) || (mode === 'drill' && !drill.drill?.items.length),
     welcome: levels.welcome,
   })
-  const lesson = useLesson(session, { mistakes, load, setTab, closeSheet: () => layout.setSheetOpen(false), compact: layout.compact })
+  const lesson = useLesson(session, { mistakes, load, setTab, setSheetOpen: layout.setSheetOpen, compact: layout.compact })
   const tsume = useTsume(session, { mistakes, load, setTab })
   const tesuji = useTesuji(session, { mistakes, load, setTab })
   const analyze = useAnalyzeGames(session, {

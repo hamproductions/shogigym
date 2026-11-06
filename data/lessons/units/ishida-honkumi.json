@@ -60,7 +60,7 @@
             "7h7f"
           ],
           "text": {
-            "ja": "石田流本組みは、飛車を６六まで浮かせ、桂と角を使って７筋と６筋を攻める形です。本組みに組む前に、まず玉の守りを固めます。この章では、出発点の石田流の基本形から美濃囲いを組み上げます。",
+            "ja": "石田流本組みは、飛車を７六まで浮かせ、桂と角を使って７筋と６筋を攻める形です。本組みに組む前に、まず玉の守りを固めます。この章では、出発点の石田流の基本形から美濃囲いを組み上げます。",
             "en": "Ishida Honkumi floats the rook and uses the knight and bishop to attack on the seventh and sixth files. Before building it, Sente secures the king. This chapter starts from the basic Ishida shape and builds a Mino castle."
           },
           "marks": {
@@ -193,11 +193,11 @@
                 "last": "6g",
                 "arrows": [
                   "6g7f",
-                  "6g5h"
+                  "6g4i"
                 ],
                 "boxes": [
                   "7f",
-                  "5h"
+                  "4i"
                 ]
               }
             }
@@ -278,15 +278,14 @@
             "6h6g"
           ],
           "text": {
-            "ja": "桂のあとに銀を動かします。▲６八銀から▲６七銀と、銀は６七が定位置です。銀が前に出て、飛車と桂を後ろから支えます。",
-            "en": "After the knight, the silver moves: ▲6八銀 and ▲6七銀. 6g is the standard post. The silver steps forward and supports the rook and knight from behind."
+            "ja": "桂のあとに銀を動かします。▲６八銀から▲６七銀と、銀は６七が定位置です。銀が前に出て、７六の飛車を斜め前への利きで支えます。",
+            "en": "After the knight, the silver moves: ▲6八銀 and ▲6七銀. 6g is the standard post. The silver steps forward and supports the rook on 7f with its forward diagonal."
           },
           "marks": {
             "last": "6g",
             "boxes": [
               "6g",
-              "7f",
-              "7g"
+              "7f"
             ]
           }
         },

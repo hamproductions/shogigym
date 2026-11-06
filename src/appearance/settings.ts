@@ -17,7 +17,7 @@ export type TimeControl = 'none' | '10s' | '3m' | '10m' | '10m30s' | '30m60s' | 
 export type AiStrength = 'beginner' | 'club' | 'strong' | 'max'
 export type SparCoach = 'live' | 'after'
 export type Lang = 'en' | 'ja'
-export type EngineKind = 'yaneuraou' | 'nnue' | 'fairy'
+export type EngineKind = 'yaneuraou' | 'nnue' | 'fairy' | 'tsuyoura-mini' | 'tsuyoura-micro' | 'suisho5' | 'tanuki-hao' | 'tanuki-li' | 'aobannue'
 
 export type Settings = {
   sound: boolean
@@ -45,6 +45,10 @@ export type Settings = {
   timeControl: TimeControl
   lang: Lang
   engine: EngineKind
+  engineAnalysis: EngineKind | null
+  enginePlaying: EngineKind | null
+  engineSente: EngineKind | null
+  engineGote: EngineKind | null
   fvScale: number
   theme: Theme
   characters: boolean
@@ -92,6 +96,10 @@ const DEFAULTS: Settings = {
   timeControl: 'none',
   lang: navigatorLang(),
   engine: 'yaneuraou',
+  engineAnalysis: null,
+  enginePlaying: null,
+  engineSente: null,
+  engineGote: null,
   fvScale: 16,
   theme: 'system',
   characters: true,
@@ -134,6 +142,8 @@ export function setSettings(patch: Partial<Settings>) {
 }
 
 export const getSettings = () => current
+
+export const sideEngine = (side: 'sente' | 'gote', settings = current) => (side === 'sente' ? settings.engineSente : settings.engineGote) ?? settings.engine
 
 export const coordinatesVisible = (settings: Settings, playing = false) =>
   settings.coordinateMode === 'show' || (settings.coordinateMode === 'auto' && !playing)

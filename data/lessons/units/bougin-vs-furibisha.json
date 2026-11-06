@@ -10,8 +10,8 @@
     "en": "Bogin: attacking Furibisha"
   },
   "intro": {
-    "ja": "相手が四間飛車などの振り飛車に構えたときは、居飛車どうしのように端から銀を出す攻めは通りません。３三に構えた角の斜めに注意し、３筋から角頭の３四を狙うのが基本です。初手から基本形を組み、失敗する端攻めと成功する３筋攻めを比べて覚えます。",
-    "en": "Against a swung rook such as Fourth File Rook, the edge attack that works against another Ibisha does not. Mind the diagonal of the bishop on 3c, and aim at the bishop-head square 3d from the third file. Build the basic position from move one and compare the failing edge attack with the successful third-file attack."
+    "ja": "３三の角の利きを見ながら、銀と歩を進める手順を比べます。端からの銀出と３筋からの進出を実際に指し、駒を取る前に相手の王手も確認しましょう。",
+    "en": "Compare ways to advance the silver and pawns while watching the bishop on 3c. Play the edge advance and the third-file advance, and check for opposing checks before counting material gains."
   },
   "check": {
     "question": {
@@ -19,8 +19,8 @@
       "en": "Why does Bogin attack Furibisha from the third file rather than from the edge?"
     },
     "answer": {
-      "ja": "３三の角が１五まで利いていて、端から出た銀を取られるからです。３筋なら角頭の３四を攻められ、銀が５段目に出れば攻めが成功します。",
-      "en": "Because the bishop on 3c covers 1e and takes a silver that comes out on the edge. From the third file the bishop head on 3d can be attacked, and once the silver reaches the fifth rank the attack succeeds."
+      "ja": "この形では３三の角が１五に利いています。３筋から歩を交換すれば銀を３五へ進められますが、その後も相手の受けや王手を確認する必要があります。",
+      "en": "In this position, the bishop on 3c covers 1e. Exchanging pawns on the third file lets the silver reach 3e, but Gote’s defenses and checks still need examination."
     }
   },
   "references": [
@@ -81,7 +81,8 @@
             "arrows": [
               "3c1e"
             ]
-          }
+          },
+          "kind": "deviation"
         }
       ],
       "variations": [
@@ -169,8 +170,8 @@
             "2f3e"
           ],
           "text": {
-            "ja": "△同歩と取られたら、▲同銀。銀が５段目に出ました。こうなれば棒銀はうまくいっていると考えてよい形です。次に▲３四歩と角頭に歩を打たれると、後手は大きく崩れます。",
-            "en": "If Gote takes with △同歩, ▲同銀 follows. The silver is on the fifth rank, and from here Bogin can be considered a success. A pawn drop on 3d next would badly damage Gote."
+            "ja": "△同歩に▲同銀と取り返し、銀が３五へ進みました。銀は３四と２四を狙える位置です。ここまで進んだだけで攻めの成功が決まるわけではないので、後手の応手を見ていきます。",
+            "en": "After △同歩, ▲同銀 brings the silver to 3e, where it can attack 3d and 2d. Reaching this square alone does not settle the attack; examine Gote’s reply."
           },
           "marks": {
             "last": "3e",
@@ -218,8 +219,8 @@
             "2d2c+"
           ],
           "text": {
-            "ja": "△３五歩と銀を取られても、▲２三歩成。と金が角に当たり、次にどう受けても角を取れます。さらに飛車が２筋へ成り込む手も見えています。銀を失った代わりに、より大きな駒が取れる流れです。覚える点は四つ。端からは攻めない、３筋から角頭を狙う、銀が５段目に出れば成功、銀取りに構わず▲２四歩。",
-            "en": "Gote takes the silver with △3五歩, but ▲2三歩成 follows. The promoted pawn attacks the bishop, so whatever Gote does the bishop can be won, and the rook can also enter on the second file. The silver is the price for something bigger. Remember four things: do not attack from the edge, aim at the bishop head from the third file, a silver on the fifth rank means success, and ignore the attack on the silver with ▲2四歩."
+            "ja": "△３五歩で銀を取られ、▲２三歩成でと金を作りました。と金は３三の角に当たっていますが、角を必ず取れるとは限りません。変化の△１五角は王手です。駒得を数える前に、自玉への王手を確認してください。",
+            "en": "Gote captures the silver with △3五歩, and ▲2三歩成 creates a promoted pawn attacking the bishop on 3c. This does not guarantee winning the bishop. The variation △1五角 gives check: examine threats against your king before counting material gains."
           },
           "marks": {
             "last": "2c",
@@ -272,6 +273,25 @@
               }
             }
           ]
+        },
+        {
+          "from": 5,
+          "moves": [
+            "3c1e"
+          ],
+          "text": {
+            "ja": "△１五角は３三の角を逃がしながら、４八を通って５九玉へ王手をかけます。２三のと金は１五へ動けないため、角を取れません。先手はまず王手を受ける必要があります。",
+            "en": "△1五角 moves the bishop out of attack and checks the king on 5i along the diagonal through 4h. The promoted pawn on 2c cannot move to 1e to capture it. Sente must answer the check first."
+          },
+          "marks": {
+            "last": "1e",
+            "arrows": [
+              "1e5i"
+            ],
+            "boxes": [
+              "5i"
+            ]
+          }
         }
       ]
     }

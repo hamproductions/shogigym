@@ -106,8 +106,8 @@
             "6g6f"
           ],
           "text": {
-            "ja": "後手は△３四歩と自分の角道を開けました。こちらは▲６六歩と、角の前の歩を突いて角道を閉じます。角が交換されると、７八の飛車を守る駒がいなくなるためです。三間飛車では角を相手の飛車の攻めを受ける守りの駒として使うので、簡単には交換させません。",
-            "en": "Gote opens its own bishop line with △3四歩. Sente answers ▲6六歩, closing the bishop's diagonal. If bishops were exchanged, nothing would be left to protect the rook on 7h. In Third File Rook the bishop is a defender against the opposing rook, so it is not traded off lightly."
+            "ja": "△３四歩に▲６六歩と角道を閉じます。７八の飛車は銀７九と金６九が守っていますが、角交換に飛車で取り返すと飛車は７七へ移ります。ここでは角を７七に残し、８六を守る配置を保ちます。",
+            "en": "After △3四歩, ▲6六歩 closes the bishop diagonal. The rook on 7h is already guarded by Silver7i and Gold6i, but recapturing a bishop exchange with that rook would move it to 7g. This plan keeps the bishop on 7g to defend 8f."
           },
           "marks": {
             "last": "6f"
@@ -150,15 +150,20 @@
         {
           "from": 2,
           "moves": [
-            "8d8e",
-            "6g6f",
-            "8e8f"
+            "8d8e"
           ],
-          "text": {
-            "ja": "もし角を上げずに▲６六歩と指すとどうなるかを見ます。後手は△８六歩と突き込みます。",
-            "en": "Consider what happens if Sente skips the bishop move and plays ▲6六歩. Gote pushes in with △8六歩."
-          },
           "steps": [
+            {
+              "moves": [
+                "6g6f",
+                "8e8f"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "もし角を上げずに▲６六歩と指すとどうなるかを見ます。後手は△８六歩と突き込みます。",
+                "en": "Consider what happens if Sente skips the bishop move and plays ▲6六歩. Gote pushes in with △8六歩."
+              }
+            },
             {
               "moves": [
                 "8g8f",
@@ -178,7 +183,12 @@
                 ]
               }
             }
-          ]
+          ],
+          "kind": "alt",
+          "text": {
+            "ja": "△８五歩と飛車先を伸ばした局面です。次に角を上げない比較を見ます。",
+            "en": "Gote has pushed △8五歩. Next compare skipping the bishop development."
+          }
         },
         {
           "from": 3,

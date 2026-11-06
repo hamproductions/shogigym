@@ -150,8 +150,8 @@
             "N*5e"
           ],
           "text": {
-            "ja": "先手は取られる前に▲２一飛成と香を取り、後手は△８八角成と銀を取ります。そこで▲５五桂。この桂は後手の馬と飛車の利きを止め、次に▲６三桂成や▲４三桂成と成り込む狙いがあります。",
-            "en": "Sente promotes first with ▲2一飛成, Gote takes the silver with △8八角成, and then comes ▲5五桂. The knight blocks the lines of Gote's promoted bishop and rook and threatens to promote on 6c or 4c."
+            "ja": "先手は取られる前に▲２一飛成と桂を取り、後手は△８八角成と銀を取ります。取った桂を使って▲５五桂と打ちます。この桂は後手の馬と飛車の利きを止め、次に▲６三桂成や▲４三桂成と成り込む狙いがあります。",
+            "en": "Sente captures the knight and promotes with ▲2一飛成, Gote takes the silver with △8八角成, and Sente drops that knight with ▲5五桂. The knight blocks the lines of Gote's promoted bishop and rook and threatens to promote on 6c or 4c."
           },
           "marks": {
             "last": "5e",

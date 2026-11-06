@@ -301,17 +301,27 @@ export function PositionEditor({ games, onClose }: { games: AnalyzeGames; onClos
   const [keepMoves, setKeepMoves] = useState(games.positionDraft.hasMoves)
   return (
     <>
-      <Segmented
-        value={source}
-        onChange={(value) => {
-          setSource(value)
-          setKeepMoves(value === 'start' && games.positionDraft.hasMoves)
-        }}
-        options={[
-          { v: 'start', t: t('positionEditor.start') },
-          { v: 'current', t: t('positionEditor.current') },
-        ]}
-      />
+      <styled.label display="flex" alignItems="center" justifyContent="space-between" gap="2" p="2" bg="surface.2" borderRadius="md">
+        <styled.span fontSize="sm" color="fg.muted" fontWeight="medium">
+          {t('positionEditor.source')}
+        </styled.span>
+        <styled.select
+          aria-label={t('positionEditor.source')}
+          value={source}
+          onChange={(event) => {
+            const value = event.target.value as 'start' | 'current'
+            setSource(value)
+            setKeepMoves(value === 'start' && games.positionDraft.hasMoves)
+          }}
+          minH="44px"
+          px="2"
+          bg="surface.3"
+          borderRadius="md"
+        >
+          <option value="start">{t('positionEditor.start')}</option>
+          <option value="current">{t('positionEditor.current')}</option>
+        </styled.select>
+      </styled.label>
       {source === 'start' && games.positionDraft.hasMoves && (
         <Box mt="2">
           <Segmented

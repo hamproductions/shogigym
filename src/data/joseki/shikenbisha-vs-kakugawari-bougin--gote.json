@@ -232,21 +232,24 @@
                                                                      },
                                                                      {
                                                                       "usi": "B*6d",
-                                                                      "kind": "alt",
-                                                                      "note": "先手は歩打ちの代わりに角６四打。５五を通して４六飛に利かせる。",
+                                                                      "kind": "deviation",
+                                                                      "note": "▲６四角打は飛車４六を狙いますが、後手歩６三の利きへ角を打つ間違いです。",
+                                                                      "noteEn": "▲6四角 attacks rook 4f but mistakenly drops the bishop onto a square controlled by Gote’s pawn on 6c.",
                                                                       "child": {
                                                                        "id": "nb1_0",
                                                                        "sfen": "lnsg1g1nl/2k4s1/1ppp3pp/p2Bp1p2/7P1/P1P2r1S1/1P1PP1P1P/1S2G2R1/LN1GK2NL w Pbp 1",
                                                                        "branches": [
                                                                         {
-                                                                         "usi": "4f7f",
+                                                                         "usi": "6c6d",
                                                                          "kind": "main",
-                                                                         "note": "△７六飛。角６四の斜線から横へ外れながら７六の先手歩を取る。",
+                                                                         "note": "△同歩で角を取れます。飛車を逃がす前に、攻めてきた駒を取れるかを確認します。",
+                                                                         "noteEn": "△同歩 captures the bishop. Before retreating a rook, check whether its attacker can be captured.",
                                                                          "child": {
                                                                           "id": "nb1_1",
-                                                                          "sfen": "lnsg1g1nl/2k4s1/1ppp3pp/p2Bp1p2/7P1/P1r4S1/1P1PP1P1P/1S2G2R1/LN1GK2NL b Pb2p 1",
+                                                                          "sfen": "lnsg1g1nl/2k4s1/1pp4pp/p2pp1p2/7P1/P1P2r1S1/1P1PP1P1P/1S2G2R1/LN1GK2NL b P2bp 1",
                                                                           "branches": [],
-                                                                          "comment": "持ち角を使う別の追い方。角６四は飛車４六には当たるが、飛車７六には当たらない。"
+                                                                          "comment": "角６四の当たりだけを見て飛車を逃がす必要はありません。この図では△同歩で角を取り、先手に盤上の駒で直ちに取り返されません。",
+                                                                          "commentEn": "The bishop attack does not require a rook retreat here. △同歩 captures the bishop without an immediate recapture by a Sente board piece."
                                                                          }
                                                                         }
                                                                        ]

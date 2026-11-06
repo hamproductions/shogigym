@@ -49,8 +49,8 @@
       "steps": [
         {
           "text": {
-            "ja": "棒銀は、右の銀を飛車の前に出し、飛車・銀・歩を縦一列に並べて２筋を攻める戦法です。狙いは銀で道を作り、飛車を敵陣で成らせて龍にすること。まず初手から、この縦一列の形を作ります。",
-            "en": "Bogin sends the right-hand silver in front of the rook so that rook, silver and pawn stand in one column on the second file. The aim is for the silver to clear a path so the rook can promote in the enemy camp. First we build that column from move one."
+            "ja": "棒銀は、右銀を飛車の前へ運んで２筋を攻める構想です。まず原始棒銀の駒の並べ方を確認します。この教材では後手が△７二銀・△６四歩などの静かな手を選び、先手に銀を進める時間を与えています。実戦では後手の８五歩と飛車８二による８筋の接触も読み、銀の移動だけを続けないでください。",
+            "en": "Bogin develops the right silver in front of the rook to attack the second file. First inspect the primitive formation. This teaching example selects quiet Gote replies such as △7二銀 and △6四歩, allowing Sente time to advance the silver. In a game, also calculate eighth-file contact from Gote’s pawn on 8e and rook on 8b rather than continuing the silver route automatically."
           }
         },
         {
@@ -218,8 +218,8 @@
             "6c6d"
           ],
           "text": {
-            "ja": "前の章の基本図です。後手は３二の金で２筋を守っています。飛車で単独に攻めても止められるので、銀と飛車を組み合わせます。銀は一度端へ回り込みます。",
-            "en": "The basic position from the previous chapter. Gote guards the second file with the gold on 3b. A rook attack alone would be stopped, so the silver joins the rook by going around by way of the edge."
+            "ja": "前の章で静かな後手の応手を選んで作った基本図です。この章も、その比較用の配置から端の攻めを読みます。後手金３二は２三を守っています。銀を１五へ使う手と、歩交換後に開く飛車の道を合わせて見ます。実戦では８筋への対応も必要です。",
+            "en": "This is the preceding chapter’s formation, reached with selected quiet Gote replies. Continue from that illustrative position to examine the edge attack. Gold 3b guards 2c; read the silver route through 1e together with the rook line that opens after exchanges. Eighth-file threats also need attention in a game."
           },
           "marks": {
             "boxes": [
@@ -249,8 +249,8 @@
             "2e2d"
           ],
           "text": {
-            "ja": "△１四歩と銀に当てられても、▲２四歩と構わず突きます。２三の歩に歩を当てる攻めで、銀を取らせてもよいという覚悟の手です。銀を逃げて引き返すと、棒銀は成功しません。",
-            "en": "Even after △1四歩 attacks the silver, Sente pushes ▲2四歩 without worrying. The pawn challenges the one on 2c, and it accepts that the silver may be lost. Retreating the silver would end the plan."
+            "ja": "△１四歩と銀に当てられても、この枝では▲２四歩と突きます。銀を取らせたあとの歩成りを読む攻めです。▲２六銀と戻る手も合法ですが、ここで示す端からの攻めとは別の構想になります。次の章では３筋から銀を使う道を比べます。",
+            "en": "This branch answers △1四歩 with ▲2四歩, calculating a pawn promotion after the silver is captured. Retreating with ▲2六銀 is also legal, but changes the plan from this immediate edge attack. The next chapter compares using the silver through the third file."
           },
           "marks": {
             "last": "2d",
@@ -302,14 +302,14 @@
             "1e2d"
           ],
           "text": {
-            "ja": "△１五歩と銀を取らずに、△２四歩と歩を取り返してくる変化です。ここは単純に銀で取り返すだけで攻めが成功します。",
-            "en": "Gote may decline the silver and take the pawn instead with △2四歩. Sente simply recaptures with the silver and the attack works."
+            "ja": "銀を取る代わりに、後手が△２四歩と歩を取る比較です。▲同銀で取り返し、銀の後ろにいる飛車の道を確かめます。",
+            "en": "Compare Gote capturing the pawn with △2四歩 instead of taking the silver. After ▲同銀, inspect the rook line behind the silver."
           },
           "steps": [
             {
               "text": {
-                "ja": "▲同銀と進みました。２三のマスに利いているのは先手が飛車と銀の二枚、後手は金の一枚だけです。次の▲２三銀成、△同金、▲同飛成で飛車が成り込めます。攻める駒の数が受ける駒の数を上回っている点が決め手です。",
-                "en": "The silver recaptures on 2d. Two Sente pieces, rook and silver, aim at 2c while Gote has only the gold. The next sequence ▲2三銀成, △同金, ▲同飛成 gets the rook in. The decisive factor is that the attackers outnumber the defenders."
+                "ja": "銀２四は２三へ利き、後手金３二が２三を守っています。飛車２八の道は今、自分の銀２四で止まります。後手が別の手を選び、そのあと▲２三銀成△同金と進めば、銀が動いて空いた道を▲同飛成で使えます。今の利きと、交換後に開く飛車の道を分けて見てください。",
+                "en": "Silver 2d attacks 2c, which Gote’s gold on 3b guards. Sente’s rook on 2h is currently blocked by its own silver. If Gote plays elsewhere and the game continues ▲2三銀成 △同金, the rook can use the newly opened file with ▲同飛成. Distinguish current control from the rook line that opens after the exchange."
               },
               "marks": {
                 "last": "2d",

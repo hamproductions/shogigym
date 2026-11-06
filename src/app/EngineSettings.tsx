@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { styled } from 'styled-system/jsx'
+import { Box, styled } from 'styled-system/jsx'
 import { restartEngine } from '@/utils/engine'
 import { clearEvalFile, saveEvalFile, useEvalFile } from '@/utils/evalStore'
 import { downloadEvalFile, evalManifest, type EvalManifest } from '@/utils/evalDownload'
 import { clearBookDownloadCache, downloadFullBook, type BookProgress } from '@/utils/bookDownload'
 import { clearBookFile, saveBookFile, useBookFile } from '@/utils/openingBook'
-import { getSettings, setSettings, useSettings, type EngineKind } from '@/appearance/settings'
+import { setSettings, useSettings } from '@/appearance/settings'
 import { Button } from '@/app/ui/Button'
 import { FilePicker } from '@/app/ui/FilePicker'
+import { EngineModels, EngineSelect } from '@/app/EngineModels'
 import { SegmentedField, SettingRow } from '@/app/ui/Segmented'
 import { Text } from '@/components/ui'
+import { Dialog, DialogHeader } from '@/app/ui/Dialog'
 import { Muted, Result } from '@/app/panels/panels.styles'
 
 const SettingControl = styled('div', {
@@ -24,29 +26,102 @@ const SettingControl = styled('div', {
   },
 })
 
-export function EngineSettings() {
+export function EngineSettings({ compact = false }: { compact?: boolean }) {
+  const { t } = useTranslation()
+  const [open, setOpen] = useState(false)
+  if (compact)
+    return (
+      <Box mb="2" data-engine-settings="">
+        <EngineModels />
+        <Button size="sm" onClick={() => setOpen(true)}>
+          {t('settings.aiSettings')}
+        </Button>
+        {open && (
+          <Dialog label={t('settings.aiSettings')} w="min(560px, 100%)" onBackdrop={() => setOpen(false)}>
+            <DialogHeader title={t('settings.aiSettings')} closeLabel={t('app.close')} onClose={() => setOpen(false)} />
+            <AnalysisSearchSettings />
+            <EngineFileSettings />
+          </Dialog>
+        )}
+      </Box>
+    )
+  return (
+    <Box minW="0" mb="3">
+      <EngineModels />
+      <styled.details mt="1">
+        <styled.summary minH="44px" display="flex" alignItems="center" cursor="pointer" fontSize="sm" color="fg.muted">
+          {t('settings.customizeAnalysis')}
+        </styled.summary>
+        <AnalysisSearchSettings />
+        <EngineFileSettings />
+      </styled.details>
+      {!compact && (
+        <Text tone="muted" size="xs" m="0">
+          {t('settings.modelsHint')}
+        </Text>
+      )}
+    </Box>
+  )
+}
+
+function EngineFileSettings() {
+  const { t } = useTranslation()
+  return (
+    <styled.details mt="2">
+      <styled.summary minH="44px" py="3" cursor="pointer" fontSize="sm" color="fg.muted">
+        {t('settings.modelFiles')}
+      </styled.summary>
+      <EngineFiles />
+    </styled.details>
+  )
+}
+
+export function AnalysisSearchSettings() {
+  const { t } = useTranslation()
+  const st = useSettings()
+  return (
+    <Box display="grid" gridTemplateColumns="repeat(2, minmax(0, 1fr))" gap="2" py="2">
+      <styled.label fontSize="xs" display="grid" gap="1">
+        {t('settings.thinkingTime')}
+        <EngineSelect value={st.thinkMs} onChange={(event) => setSettings({ thinkMs: Number(event.target.value) })}>
+          {[
+            { value: 500, label: 'fast' },
+            { value: 1500, label: 'normal' },
+            { value: 4000, label: 'deep' },
+          ].map(({ value, label }) => (
+            <option key={value} value={value}>
+              {t(`settings.${label}`)}
+            </option>
+          ))}
+        </EngineSelect>
+      </styled.label>
+      <styled.label fontSize="xs" display="grid" gap="1">
+        {t('settings.candidateMovesShown')}
+        <EngineSelect value={st.candidates} onChange={(event) => setSettings({ candidates: Number(event.target.value) })}>
+          {[1, 2, 3, 5].map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </EngineSelect>
+      </styled.label>
+    </Box>
+  )
+}
+
+function EngineFiles() {
   const { t } = useTranslation()
   const st = useSettings()
   const evalFile = useEvalFile()
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const reload = () => {
-    if (getSettings().engine === 'nnue') restartEngine()
+    restartEngine()
   }
   return (
     <>
-      <SegmentedField<EngineKind>
-        label={t('settings.engine')}
-        value={st.engine}
-        options={[
-          { v: 'yaneuraou', t: t('settings.yaneuraou') },
-          { v: 'nnue', t: t('settings.yaneuraouNnue') },
-          { v: 'fairy', t: t('settings.fairyStockfish') },
-        ]}
-        onChange={(v) => setSettings({ engine: v })}
-      />
       <EvalDownload />
-      {st.engine === 'nnue' && (
+      {((st.engineAnalysis ?? st.engine) === 'nnue' || (st.enginePlaying ?? st.engine) === 'nnue') && (
         <>
           <SettingRow label={t('settings.evalFile')}>
             <SettingControl>
@@ -89,7 +164,7 @@ export function EngineSettings() {
       <Text tone="muted" size="2xs" mt="0" mb="2">
         {t('settings.engineHint')}
       </Text>
-      {st.engine !== 'fairy' && <OpeningBookSettings />}
+      <OpeningBookSettings />
     </>
   )
 }
@@ -117,8 +192,8 @@ function EvalDownload() {
     try {
       await downloadEvalFile(manifest, abort.signal, setProgress)
       const fvScale = manifest.fvScale ?? 24
-      const unchanged = st.engine === 'nnue' && st.fvScale === fvScale
-      setSettings({ engine: 'nnue', fvScale })
+      const unchanged = (st.engineAnalysis ?? st.engine) === 'nnue' && st.fvScale === fvScale
+      setSettings({ engineAnalysis: 'nnue', fvScale })
       if (unchanged) restartEngine()
     } catch (failure) {
       if (!abort.signal.aborted) setError(failure instanceof Error ? failure.message : String(failure))

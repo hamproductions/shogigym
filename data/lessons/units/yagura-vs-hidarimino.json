@@ -245,8 +245,8 @@
             "3c4d"
           ],
           "text": {
-            "ja": "桂を４五へ跳ねて、歩を持ち駒にします。後手は△４四銀と桂に当てます（本文は△３四銀と書いていますが、図の銀は４四です）。銀に桂を取られたら攻めが切れそうですが、先手にはまだ続きの手があります。",
-            "en": "▲4五桂 jumps and takes the pawn. Gote defends with △4四銀 (the article's text says 3d, but its diagram shows 4d). If the silver then takes the knight with △4五銀 the attack seems to stop, but this strategy has a follow-up."
+            "ja": "▲４五桂と跳ねて歩を取ります。後手は△４四銀と３三の銀を進め、４五の桂に当てました。次は桂取りへの対応と、２筋の歩交換を見ます。",
+            "en": "▲4五桂 captures the pawn. Gote advances the silver from 3c with △4四銀, attacking the knight on 4e. Next, examine the threat to the knight and the pawn exchange on the second file."
           },
           "marks": {
             "last": "4d",

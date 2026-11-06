@@ -69,7 +69,9 @@ export function useWatch(session: BoardSession, load: Load, reviewReady: boolean
     const analysis = (async () => {
       const planned = strategy ? await strategyReply(strategy, session.toMove, sfen, game.moves.length) : undefined
       if (cancelled) return { bestmove: '', candidates: [] }
-      return planned ? { bestmove: planned.usi, candidates: [] } : analyze(command, { multipv: level.pickFrom, movetime: level.movetime, book: !!strategy })
+      return planned
+        ? { bestmove: planned.usi, candidates: [] }
+        : analyze(command, { multipv: level.pickFrom, movetime: level.movetime, book: !!strategy, purpose: 'playing' })
     })()
     analysis
       .then((analysis) => {

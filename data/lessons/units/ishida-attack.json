@@ -114,8 +114,8 @@
             "7d7e"
           ],
           "text": {
-            "ja": "△７三歩と打たれたら、飛車を▲７五へ引きます。引いた飛車は、次の８筋への動きを見ています。一歩得をして、飛車が自由になりました。",
-            "en": "When Gote drops △7三歩, the rook retreats to 7e. The retreated rook now eyes the eighth file. Sente is a pawn up and the rook is free."
+            "ja": "△７三歩と打たれたら、飛車を▲７五へ引きます。引いた飛車は、次の８筋への動きを見ています。持ち歩を一枚得て、飛車を動かす余地ができました。",
+            "en": "When Gote drops △7三歩, the rook retreats to 7e. The retreated rook now eyes the eighth file. Sente has a pawn in hand and room to reposition the rook."
           },
           "marks": {
             "last": "7e",
@@ -167,8 +167,8 @@
                 "7f8f"
               ],
               "text": {
-                "ja": "後手が△８六歩と取れば▲同飛、△８五歩と受けても▲同飛です。どちらでも先手の飛車が前へ出て、飛車交換が避けられなくなります。",
-                "en": "△8六歩 ▲同飛 follows. Even △8五歩 is met by ▲同飛, so Gote has to accept the rook trade. The aim is the same: trade rooks."
+                "ja": "△８六歩には▲同飛と取り、８筋で飛車交換を持ちかけます。後手が交換に応じるか、飛車を動かして避けるかも確認しましょう。",
+                "en": "After △8六歩, ▲同飛 offers a rook exchange on the eighth file. Gote can consider accepting the exchange or moving the rook away."
               },
               "marks": {
                 "last": "8f",
@@ -181,7 +181,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "kind": "alt"
         },
         {
           "from": 0,
@@ -314,7 +315,7 @@
             "6e6d"
           ],
           "text": {
-            "ja": "▲７四歩△同銀に▲６四銀が手筋です。７七の角の利きが６四の銀を支え、後手の飛車を止めます。ここから▲７三銀成や▲５三銀成と、銀と角で攻めを続けられます。飛車で攻めると見せて角筋を生かす攻めです。",
+            "ja": "▲７四歩△同銀に▲６四銀が手筋です。９七の角の利きが６四の銀を支え、後手の飛車を止めます。ここから▲７三銀成や▲５三銀成と、銀と角で攻めを続けられます。飛車で攻めると見せて角筋を生かす攻めです。",
             "en": "▲7四歩 △同銀 ▲6四銀 is the key move. The bishop's line from 9g supports the silver and stops Gote's rook. Sente can continue with ▲7三銀成 or ▲5三銀成 using silver and bishop. It looks like a rook attack but it uses the bishop's diagonal."
           },
           "marks": {
@@ -354,8 +355,8 @@
                 "6e7c+"
               ],
               "text": {
-                "ja": "△６四歩と打たれたら、▲７三桂成と成り捨てます。△同桂と取られても、▲７四歩と攻めが続きます。一瞬は駒損ですが、すぐ取り返せます。",
-                "en": "After △6四歩, ▲7三桂成 promotes and gives up the knight. Even if Gote takes with △同桂, ▲7四歩 keeps the attack going. It costs material briefly but wins it back at once."
+                "ja": "△６四歩に▲７三桂成と進める比較です。△同桂なら▲７四歩と攻めを続ける狙いですが、桂を渡したあとの取り返しまで確認する必要があります。",
+                "en": "This comparison answers △6四歩 with ▲7三桂成. After △同桂, ▲7四歩 aims to continue the attack; recovering the sacrificed knight is not automatic."
               },
               "marks": {
                 "last": "7c",

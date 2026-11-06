@@ -4,7 +4,8 @@ Every lesson in 学ぶ (Learn) is written for this app. Do not edit `src/data/le
 
 ```sh
 bun run lessons                                   # data/lessons/units/*.json -> src/data/lessons/*.json, then scripts/validate-curriculum.mjs
-bun scripts/lessons/check-unit.ts <id> [--engine] # structure, legality, originality and opening-line checks for one unit
+bun scripts/lessons/check-unit.ts <id> [--engine] [--branches] # structure, legality, originality and opening-line checks for one unit
+bun scripts/lessons/check-course.ts <stem> [--engine] [--branches] # 定跡原稿の検証
 bun scripts/lessons/check-originality.ts         # originality check over every unit and course
 ```
 
@@ -76,9 +77,16 @@ GPLv3 は商用利用も認める。対象著作物を配布する場合は、�
 
 - Each step plays its `moves` (USI) from the previous step and then shows `text` on the resulting position; the guide pauses on every step. `marks` draw arrows (USI moves) and highlight squares (`last`, `boxes`, `dashed`, `ghosts`).
 - A variation branches from step `from` (index into `steps`), plays its moves, shows its text and may continue with its own steps.
+- `steps[].kind` と `variations[].kind` は `main`・`alt`・`deviation` を指定できます。省略時は通常のステップが `main`、変化の最初の手が `deviation` です。指定はその `moves` の最初の一手だけに付き、続く手は `main` になります。途中の失敗手を示す場合は、その手から新しいステップへ分けて `kind: "deviation"` を付けます。変化内の `steps` でも同じ指定が使えます。合法な別案を正解として扱う場合は `alt` を使い、本文で悪手と説明する学習者の手を正解のまま残しません。ステップを分けた際は、`variation.from` が手数ではなくステップ番号であることを確認して参照先を直します。
 - Partial positions (rule illustrations) are allowed; the side not to move must not be in check.
 - English is a translation of the Japanese written here.
 
 ## Build
 
 `scripts/lessons/build.ts` turns each unit into one library entry (`src/data/lessons/<id>.json`) whose chapters are standard courses (`RawCourse`, the same format as the joseki courses). `scripts/validate-curriculum.mjs` replays every chapter and variation and rejects illegal moves and positions.
+
+両チェッカーは本線と変化の各局面で、飛車・角・竜・馬を合法に取り、直後に盤上の駒で取り返されない候補を `NOTE` として出します。これは駒得や強制手順の認定ではありません。既に得た駒、別の大駒を取る反撃、王手、意図した駒捨てを実際の手順で確認し、相手の協力手や失敗例なら、見送った駒取りを具体的に説明してください。学習者の失敗手を正解の変化として扱わないよう、定跡原稿では実際の失敗手からセグメントを分けて `kind` を指定します。`kind` はそのセグメントの最初の手にだけ付きます。
+
+歩が歩以外の駒を合法に取れる場合は、取り返す駒がいても別の `NOTE` を出します。「守られている」だけで安全とはせず、歩で角・銀などを取られた後に何を取り返すかまで数えてください。これも駒得や強制手順の自動判定ではありません。
+
+`--engine --branches` を付けると、本線だけでなく変化の着手前後も400msで評価します。同一コマンド内の同じSFENは再探索せず、学習者・相手の区別と300cpを超える評価低下を表示し、その着手後の読み筋を合法手だけ最大6手添えます。定跡原稿では同じ着手経路を結合した後の種別、ユニットでは生成後の枝の種別を表示します。元の `deviation` が共有手順の結合で正解へ変わる場合は警告を確認し、実際の失敗手から分けてください。局面教材の詰みや全応手は、この探索では認定せず、従来の専用検証で確かめます。

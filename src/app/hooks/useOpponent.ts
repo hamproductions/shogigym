@@ -60,7 +60,7 @@ export function useOpponent(
       if (planned) return setPending({ key: base, usi: planned.usi, note: planned.note, source: 'book', until: landAt(true) })
       if (mode === 'lesson' || !engineSupported()) return
       const level = STRENGTH[sparGame.opponent]
-      const result = await analyze(usiPosition(base), { multipv: level.pickFrom, movetime: level.movetime, book: !!strategy })
+      const result = await analyze(usiPosition(base), { multipv: level.pickFrom, movetime: level.movetime, book: !!strategy, purpose: 'playing' })
       if (cancelled) return
       const top = result.candidates[0] ? scoreWinRate(result.candidates[0].score) : 0
       const pool = result.candidates.filter((c) => top - scoreWinRate(c.score) <= level.maxLoss)

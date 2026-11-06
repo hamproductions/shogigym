@@ -240,8 +240,8 @@
             "3a5c"
           ],
           "text": {
-            "ja": "後手は△５三角と角を使ってきました。この角は、次に△２六角と出て２筋の歩を取る狙いがあります。２筋の歩を取られると先手の攻めがなくなるので、うっかりできません。そこで先手は、銀を５六へ上げながら仕掛けの準備をします。",
-            "en": "Gote uses the bishop with △5三角. It aims at △2六角 next, taking the pawn on the second file. If that pawn is lost Sente's attack disappears, so it cannot be overlooked. Sente raises the silver to 5f and prepares to strike."
+            "ja": "後手は△５三角と角を使ってきました。この角は、次に△２六角と出て２筋の歩を取る狙いがあります。２筋の歩を取られると先手の攻めがなくなるので、うっかりできません。先手銀はすでに５六へ進んでいます。この銀と桂３七を確認してから、次の歩の接触を読みます。",
+            "en": "Gote uses the bishop with △5三角. It aims at △2六角 next, taking the pawn on the second file. If that pawn is lost Sente's attack disappears, so it cannot be overlooked. Sente’s silver has already reached 5f. Locate it and knight 3g before reading the next pawn contact."
           },
           "marks": {
             "last": "5c",
@@ -273,8 +273,8 @@
             "P*2d"
           ],
           "text": {
-            "ja": "後手は銀を△２二銀と引きます。そこで▲２四歩と玉の頭に歩を打ち込むのが強烈です。△同玉は▲２二角成があるので取れません。後手は歩をそのままにされ、受けに苦しみます。",
-            "en": "Gote pulls the silver back with △2二銀. Now ▲2四歩, driving a pawn onto the king's head, is powerful. △同玉 is impossible because of ▲2二角成. The pawn must be left alone and Gote struggles to defend."
+            "ja": "△２二銀に▲２四歩打と、玉の前へ歩を打つ例です。△同玉は合法ですが、その後は▲２二角成で銀を取れます。歩を取れない規則があるのではなく、玉が動いた後の角の利きが問題になります。",
+            "en": "After △2二銀, this example drops ▲2四歩 in front of the king. △同玉 is legal, but ▲2二角成 can then capture the silver. The issue is the bishop’s line after the king moves, not a rule forbidding the pawn capture."
           },
           "marks": {
             "last": "2d",
@@ -291,8 +291,8 @@
             "1d1e"
           ],
           "text": {
-            "ja": "２四の歩を取れないので、後手は１筋へ玉を逃がします。玉が端に来たことで、先手は端から攻める手が生まれます。▲１五歩に△同歩と応じたところで、香を走らせる手が目に入りますが、実はその前に指しておく手があります。",
-            "en": "Since the pawn on 2d cannot be taken, Gote moves the king toward the first file. With the king on the edge, Sente can attack from the edge. After ▲1五歩 △同歩, running the lance catches the eye, but there is a move that should come first."
+            "ja": "この枝では△１二玉と歩を取らずに逃げる応手を選びます。先手は▲１五歩と端へ接触し、△同歩まで進めます。次に香を動かす前に、別の筋からの接触も比べます。",
+            "en": "This branch selects △1二玉, moving away without capturing the pawn. Sente makes edge contact with ▲1五歩 and Gote captures. Before moving the lance, compare contact on another file too."
           },
           "marks": {
             "last": "1e",
@@ -307,8 +307,8 @@
             "3f3e"
           ],
           "text": {
-            "ja": "▲３五歩と、３筋の歩も使います。３七の桂は１筋にも３筋にも利いているので、二つの筋を交互に攻められます。△同歩で取る手と△同角で取る手があり、ここでは△同歩の場合を追います。",
-            "en": "▲3五歩 brings the third-file pawn in too. The knight on 3g covers both the first and third files, so Sente can attack the two files alternately. Gote may capture with the pawn or the bishop; here the pawn capture is followed."
+            "ja": "▲３五歩と、３筋の歩も使います。２五の桂は１筋にも３筋にも利いているので、二つの筋を交互に攻められます。△同歩で取る手と△同角で取る手があり、ここでは△同歩の場合を追います。",
+            "en": "▲3五歩 brings the third-file pawn in too. The knight on 2e covers both the first and third files, so Sente can attack the two files alternately. Gote may capture with the pawn or the bishop; here the pawn capture is followed."
           },
           "marks": {
             "last": "3e",
@@ -459,8 +459,8 @@
             "6h8h"
           ],
           "text": {
-            "ja": "▲同歩△同角と出てきたところで、▲８八飛と飛車を８筋に回ります。これが定番の受けです。７七の角と８八の飛車が８六の角に両方から当たり、放っておくと▲８六飛で角がただで取れます。△７七角成なら、▲８二飛成と飛車を取って先手が良くなります。",
-            "en": "After ▲同歩 △同角, Sente swings the rook to the eighth file with ▲8八飛, the standard defence. Bishop on 7g and rook on 8h both hit the bishop on 8f, and left alone ▲8六飛 wins it for nothing. If Gote plays △7七角成, ▲8二飛成 takes the rook and Sente is better."
+            "ja": "▲同歩△同角と出てきたところで、▲８八飛と飛車を８筋に回ります。これが定番の受けです。７七の角と８八の飛車が８六の角に両方から当たり、▲８六飛で角を取ると△同飛の取り返しがありますが、▲同角まで進めば飛車交換を挟んで角を得ます。△７七角成なら、▲８二飛成と飛車を取って先手が良くなります。",
+            "en": "After ▲同歩 △同角, Sente swings the rook to the eighth file with ▲8八飛, the standard defence. Bishop on 7g and rook on 8h both hit the bishop on 8f, and ▲8六飛 can capture it. Gote’s rook on 8b can recapture, but ▲同角 then completes a rook exchange while gaining the bishop. If Gote plays △7七角成, ▲8二飛成 takes the rook and Sente is better."
           },
           "marks": {
             "last": "8h",

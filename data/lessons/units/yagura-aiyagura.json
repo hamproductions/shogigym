@@ -10,17 +10,17 @@
     "en": "Ai-Yagura: the 24-move formation and Hayagakoi"
   },
   "intro": {
-    "ja": "相矢倉は、先手も後手も矢倉囲いを組む、居飛車の基本の戦型です。初手から標準の24手組を一手ずつ指し、完成形から▲３七銀戦法・脇システム・森下システムへ進む道筋を確かめます。さらに、一手早く囲える早囲いと、その弱点も学びます。",
-    "en": "Ai-Yagura is the basic Ibisha mirror in which both sides build a Yagura castle. Play the standard 24-move formation from move one, then see the routes from the finished form to the ▲3七銀 plan, the Waki System and the Morishita System. You also learn Hayagakoi, which finishes the castle a move earlier, and its weakness."
+    "ja": "矢倉を手順の丸暗記で終わらせず、攻める駒・守る駒・玉の通り道を見分けます。まず24手組の図で役割を読み、道順を確かめ、早囲いとの違いを比べます。最後は別の作図で、歩を取る前の安全確認を練習します。",
+    "en": "Learn to read a Yagura position rather than only recite its moves. Identify the attacking pieces, the defenders and the king’s route. Read the 24-move position first, trace how it is built, compare the quick-castling route, then use a separate original example to check king safety before a capture."
   },
   "check": {
     "question": {
-      "ja": "早囲いが矢倉24手組より一手早く囲いを完成できるのは、なぜですか？",
-      "en": "Why can Hayagakoi finish the castle one move earlier than the 24-move formation?"
+      "ja": "７八に自分の金、７九に自分の角、６九に玉がいます。玉を６九→７九→８八の順に進めたいとき、最初にどの駒を動かして道を空けますか？",
+      "en": "Your gold is on 7h, bishop on 7i and king on 6i. To use the route 6i–7i–8h, which piece must first move out of the king’s path?"
     },
     "answer": {
-      "ja": "７八の金を後回しにして玉を先に入れるため、玉を通すために必要な▲６八角の一手が不要になるからです。",
-      "en": "Because the gold on 7h is put off and the king goes in first, so the ▲6八角 move needed to clear the king's path is unnecessary."
+      "ja": "７九の角です。７八は金でふさがっているので、角を６八などへ動かして７九を空け、玉を７九から８八へ進める道を作ります。早囲いでは７八を金より先に玉が通ります。",
+      "en": "The bishop on 7i. The gold occupies 7h, so clear 7i by moving the bishop, for example to 6h. The king can then use 7i on its way to 8h. In quick castling, the king uses 7h before the gold arrives there."
     }
   },
   "references": [
@@ -34,8 +34,8 @@
   "chapters": [
     {
       "title": {
-        "ja": "矢倉24手組を初手から指す",
-        "en": "Play the Yagura 24-move setup from move one"
+        "ja": "図を読む：囲いの左側、攻めの右側",
+        "en": "Read the position: defend on the left, attack on the right"
       },
       "side": "sente",
       "kind": "opening",
@@ -43,151 +43,9 @@
       "steps": [
         {
           "text": {
-            "ja": "相矢倉は、お互いが矢倉囲いを目指す居飛車どうしの戦いです。初手から24手で組み上がる標準の駒組みを「矢倉24手組」といい、この形を基準に覚えます。手順は唯一ではなく、相矢倉へ向かう代表的な一例です。",
-            "en": "Ai-Yagura is an Ibisha mirror in which both sides head for a Yagura castle. The standard setup that takes 24 moves from the start is called the Yagura 24-move formation, and it is the reference shape to learn. The order is not the only one, only a representative route."
-          }
-        },
-        {
-          "moves": [
-            "7g7f",
-            "8c8d",
-            "7i6h"
-          ],
-          "text": {
-            "ja": "▲７六歩に、後手は△８四歩と８筋の歩を進めました。そこでまず▲６八銀。続けて△８五歩と来ても、次の▲７七銀が間に合う位置に銀を置いておく手です。",
-            "en": "▲7六歩, △8四歩, ▲6八銀. Sente opens the bishop line and Gote pushes the rook pawn. When the rook pawn is pushed, raise ▲6八銀 first, so that if △8五歩 comes next, ▲7七銀 can cover it."
+            "ja": "これは矢倉24手組と呼ばれる基準の図です。先手の７七銀・６七金・７八金が左側の守りを作り、右側には４八銀と２八飛が残っています。囲いを作る仕事と、攻める駒を使う仕事を分けて見ましょう。",
+            "en": "This is the reference position called the Yagura 24-move formation. Sente’s silver on 7g and golds on 6g and 7h form the defensive group on the left. The silver on 4h and rook on 2h remain on the right. Separate the task of building shelter from the task of deploying attackers."
           },
-          "marks": {
-            "last": "6h",
-            "boxes": [
-              "7g"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "3c3d",
-            "6g6f"
-          ],
-          "text": {
-            "ja": "△３四歩、▲６六歩。後手が角道を開けてきたら、角道を歩で止めて角交換を防ぎます。▲７七銀でも角交換は防げ、こちらもよく指されます。▲６六歩は右四間飛車に弱くなる代わりに、中飛車へ振られる展開には強い構えです。",
-            "en": "△3四歩 and ▲6六歩: when Gote opens the bishop line, close it with a pawn to prevent a bishop trade. ▲7七銀 also prevents it and is common too. ▲6六歩 is weaker against Right Fourth File Rook but stronger when Gote swings to Central Rook."
-          },
-          "marks": {
-            "last": "6f",
-            "boxes": [
-              "6f"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "7a6b",
-            "5g5f",
-            "5c5d"
-          ],
-          "text": {
-            "ja": "△６二銀、▲５六歩、△５四歩と、中央の歩をお互いに二つ進めます。後で角を７九（後手は３一）へ引いたとき、斜めの利きを中央へ通しておくための準備です。",
-            "en": "△6二銀, ▲5六歩 and △5四歩: both sides push the fifth file pawn. This prepares the bishop to retreat later to 7i (3a for Gote) with its diagonal clear."
-          },
-          "marks": {
-            "last": "5d",
-            "boxes": [
-              "5f",
-              "5d"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "3i4h",
-            "3a4b",
-            "4i5h",
-            "4a3b",
-            "6i7h",
-            "5a4a",
-            "5i6i"
-          ],
-          "text": {
-            "ja": "▲４八銀、△４二銀、▲５八金右、△３二金、▲７八金、△４一玉、▲６九玉。先手はカニ囲いを組みました。矢倉に組む途中の形ですが、後手が急戦に出てきたらこのまま戦う場合もあります。",
-            "en": "▲4八銀, △4二銀, ▲5八金右, △3二金, ▲7八金, △4一玉, ▲6九玉. Sente has built the Kani on the way to the Yagura. If Gote attacks quickly, the fight may be fought from this shape."
-          },
-          "marks": {
-            "last": "6i",
-            "boxes": [
-              "7h",
-              "6h",
-              "5h"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "7c7d",
-            "5h6g",
-            "6a5b"
-          ],
-          "text": {
-            "ja": "△７四歩、▲６七金、△５二金。先手は右の金を６七へ進め、後手は金を５二に上げて、こちらもカニの形にそろえました。",
-            "en": "△7四歩, ▲6七金, △5二金. Sente raises the right gold to 6g and Gote completes its Kani a little later."
-          },
-          "marks": {
-            "last": "5b",
-            "boxes": [
-              "6g"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "6h7g"
-          ],
-          "text": {
-            "ja": "▲７七銀で、金と銀が矢倉の位置に収まりました。玉が８八に入れば、囲いは仕上がりです。",
-            "en": "▲7七銀 puts gold and silver into the Yagura formation. Moving the king to 8h from here completes the castle."
-          },
-          "marks": {
-            "last": "7g",
-            "boxes": [
-              "7g",
-              "6g",
-              "7h"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "4b3c",
-            "8h7i",
-            "2b3a",
-            "3g3f",
-            "4c4d"
-          ],
-          "text": {
-            "ja": "△３三銀、▲７九角、△３一角、▲３六歩、△４四歩。ここで矢倉24手組の完成です。覚える点は三つ。５筋の歩を突き合う、角は７九と３一へ引いておく、玉はまだ６九で、あとから８八へ入る。この形から先は、いくつかの指し方に分かれます。",
-            "en": "△3三銀, ▲7九角, △3一角, ▲3六歩, △4四歩 completes the 24-move formation. Remember three points: the fifth file pawns face each other, the bishops retreat to 7i and 3a, and the king stays on 6i for now and enters 8h later. From this position the game splits into several plans."
-          },
-          "marks": {
-            "last": "4d",
-            "boxes": [
-              "7i",
-              "3a",
-              "6i"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "title": {
-        "ja": "24手組から先の指し方",
-        "en": "Plans after the 24-move formation"
-      },
-      "side": "sente",
-      "kind": "opening",
-      "start": "startpos",
-      "steps": [
-        {
           "moves": [
             "7g7f",
             "8c8d",
@@ -214,80 +72,204 @@
             "3g3f",
             "4c4d"
           ],
-          "text": {
-            "ja": "矢倉24手組の完成形から、代表的な方針を三つ見ます。まず基本の▲３七銀戦法、次に角をぶつける脇システム、最後に囲いを急ぐ森下システムです。",
-            "en": "From the finished 24-move formation we look at three typical plans: the basic ▲3七銀 plan, the Waki System that confronts the bishops, and the Morishita System that hurries the castle."
-          },
           "marks": {
             "boxes": [
-              "4h"
+              "7g",
+              "6g",
+              "7h",
+              "4h",
+              "2h"
             ]
           }
         },
         {
+          "text": {
+            "ja": "玉はまだ６九です。「24手組になった」と「玉が囲いに入った」は同じではありません。先に攻めの形を決めるか、玉を移す道を空けるか。この図を出発点に方針を選びます。",
+            "en": "The king is still on 6i. Reaching the 24-move formation does not mean the king has entered its shelter. From this position, choose between committing the attacking formation and clearing a route for the king."
+          },
+          "marks": {
+            "boxes": [
+              "6i",
+              "8h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "▲３七銀で、右銀を攻めに使う形をはっきりさせました。この配置を軸にするのが３七銀戦法です。７七の銀を動かしたわけではなく、守りの銀はそのまま残っています。",
+            "en": "▲3七銀 commits the right silver to the attacking group. This is the starting point of the 3g-silver plan. The silver on 7g has not moved; the defensive silver remains in place."
+          },
           "moves": [
             "4h3g"
           ],
-          "text": {
-            "ja": "▲３七銀。４八の銀を３七へ進める、相矢倉の基本の攻めの形です。矢倉を指すなら、まずこの戦法を中心に覚えます。",
-            "en": "▲3七銀 moves the silver from 4h to 3g. It is the basic attacking form in Ai-Yagura, and the plan to learn first if you play Yagura."
-          },
           "marks": {
             "last": "3g",
-            "arrows": [
-              "3g2f"
-            ],
             "boxes": [
-              "3g"
+              "3g",
+              "7g"
             ]
           }
         },
         {
+          "text": {
+            "ja": "△６四角、▲４六角で、角が同じ斜線上に並びました。これは脇システムの形です。相手の角を取ると自分の角も盤から離れるので、角交換を選ぶ前に、その後の打ち込み場所まで考えます。",
+            "en": "After △6四角 and ▲4六角, the bishops face each other on one diagonal. This is a Waki System position. Exchanging bishops removes your own bishop from the board too. Before choosing the trade, consider where either side could later drop a bishop."
+          },
           "moves": [
             "3a6d",
             "7i4f"
           ],
-          "text": {
-            "ja": "△６四角、▲４六角と、両方の角が正面から向き合いました。これが脇システムです。どちらからでも角交換ができる緊張感の中で駒組みを続けます。いつ角を持ち駒に変えるかが勝負どころです。",
-            "en": "△6四角 and ▲4六角: the bishops are put face to face. This is the Waki System. The feature is that either side can trade bishops at any time while building, and the key is when to turn the bishop into a piece in hand."
-          },
           "marks": {
             "last": "4f",
             "arrows": [
               "4f6d"
             ],
             "boxes": [
-              "6d",
-              "4f"
+              "4f",
+              "6d"
             ]
-          }
-        }
-      ],
-      "variations": [
-        {
-          "from": 0,
-          "moves": [
-            "7i6h",
-            "5b4c",
-            "6i7i"
-          ],
-          "text": {
-            "ja": "▲３七銀と攻めの形を決めず、囲いを急ぐのが森下システムです。角を６八へ寄せ、玉を７九に入れて、相手の出方を見てから攻め方を選ぶ、後出しを狙う指し方です。",
-            "en": "Instead of settling on the ▲3七銀 attack, Morishita System hurries the castle. The bishop moves to 6h and the king to 7i, and Sente chooses the attack after seeing Gote's plan, in the manner of answering last."
           }
         }
       ]
     },
     {
       "title": {
-        "ja": "早囲い：一手早く矢倉を作る",
-        "en": "Hayagakoi: building the Yagura one move faster"
+        "ja": "道順を読む：24手で何を準備したか",
+        "en": "Trace the route: what the 24 moves prepare"
       },
       "side": "sente",
       "kind": "opening",
       "start": "startpos",
       "steps": [
         {
+          "text": {
+            "ja": "今度は初期配置から図を作ります。見る仕事は三つです。角の線を調整する、左の金銀を集める、玉の進路を残す。ここで示す順番は一例で、相手の指し方が変われば応じ方も変わります。",
+            "en": "Now build the position from the initial setup. Track three jobs: adjust the bishop lines, gather the defenders on the left, and leave a route for the king. This move order is an example, not a sequence to follow regardless of the opponent."
+          }
+        },
+        {
+          "text": {
+            "ja": "左銀を６八へ上げ、歩を６六へ進めました。６六の歩は角の線を止め、銀は次に７七へ出られる場所にいます。後手の８筋の歩と、こちらの７七の守りを見比べてください。",
+            "en": "The left silver has reached 6h and the pawn 6f. The pawn closes the bishop diagonal, while the silver is ready to reach 7g. Compare Gote’s rook pawn on the eighth file with Sente’s defence of 7g."
+          },
+          "moves": [
+            "7g7f",
+            "8c8d",
+            "7i6h",
+            "3c3d",
+            "6g6f"
+          ],
+          "marks": {
+            "last": "6f",
+            "boxes": [
+              "6h",
+              "6f",
+              "7g",
+              "8d"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "両方の５筋の歩が進みました。先手の５七、後手の５三が空いたことも確認します。歩を動かす一手は、進んだ先だけでなく、後ろに空けたマスにも意味があります。",
+            "en": "Both fifth-file pawns have advanced. Notice the vacated squares, 5g for Sente and 5c for Gote. A pawn move changes not only its destination but also the square it leaves behind."
+          },
+          "moves": [
+            "7a6b",
+            "5g5f",
+            "5c5d"
+          ],
+          "marks": {
+            "boxes": [
+              "5g",
+              "5c",
+              "5f",
+              "5d"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "金銀を集める途中の図です。先手は６八銀・７八金・５八金のまとまりを作り、玉を６九へ寄せました。この段階はカニ囲いの形で、ここから左銀と右金をさらに前へ進めます。",
+            "en": "This is an intermediate defensive group: silver on 6h, golds on 7h and 5h, king on 6i. It has the Kani castle shape. The next part of the route advances the left silver and the right gold."
+          },
+          "moves": [
+            "3i4h",
+            "3a4b",
+            "4i5h",
+            "4a3b",
+            "6i7h",
+            "5a4a",
+            "5i6i"
+          ],
+          "marks": {
+            "last": "6i",
+            "boxes": [
+              "6h",
+              "7h",
+              "5h",
+              "6i"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "右金が６七、左銀が７七に収まりました。７八金と合わせた三枚を、最初に見た守りの図と照らし合わせましょう。右銀は４八のままなので、攻め方を選ぶ余地も残っています。",
+            "en": "The right gold is now on 6g and the left silver on 7g. Together with the gold on 7h, they match the defensive group from the first chapter. The right silver remains on 4h, leaving its attacking role undecided."
+          },
+          "moves": [
+            "7c7d",
+            "5h6g",
+            "6a5b",
+            "6h7g"
+          ],
+          "marks": {
+            "last": "7g",
+            "boxes": [
+              "6g",
+              "7g",
+              "7h",
+              "4h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "24手組に着きました。角は７九と３一へ移り、先手の玉は６九に残っています。手順を振り返るときは、駒の名前だけを唱える代わりに「この手で何を空け、何を守ったか」を一つずつ説明してみましょう。",
+            "en": "The 24-move formation is reached. The bishops have moved to 7i and 3a, while Sente’s king remains on 6i. When reviewing, explain which square each move cleared or defended rather than only reciting the piece names."
+          },
+          "moves": [
+            "4b3c",
+            "8h7i",
+            "2b3a",
+            "3g3f",
+            "4c4d"
+          ],
+          "marks": {
+            "last": "4d",
+            "boxes": [
+              "7i",
+              "3a",
+              "6i"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "進路を読む：７八を玉に空けるか、金で埋めるか",
+        "en": "Read the route: reserve 7h for the king or occupy it with gold"
+      },
+      "side": "sente",
+      "kind": "opening",
+      "start": "startpos",
+      "steps": [
+        {
+          "text": {
+            "ja": "玉は味方の駒がいるマスを通れません。同じ矢倉を目指しても、７八へ金を先に置くか、玉を先に通すかで道順が変わります。二つの手順を比べて、角を動かす回数に注目してください。",
+            "en": "A king cannot pass through its own pieces. The route into a Yagura changes depending on whether the gold occupies 7h first or the king uses it first. Compare the two routes and watch how often the bishop moves."
+          },
           "moves": [
             "7g7f",
             "8c8d",
@@ -296,135 +278,156 @@
             "6g6f",
             "7a6b",
             "5g5f",
-            "5c5d"
-          ],
-          "text": {
-            "ja": "早囲いは、７八の金を後回しにして玉を先に入れる組み方です。24手組では玉を入れる前に▲６八角が必要ですが、早囲いならその一手を省けるので、一手早く矢倉が完成します。まず五筋を突き合ったところまで進めます。",
-            "en": "Hayagakoi puts off the gold on 7h and moves the king in first. In the 24-move setup the bishop must go ▲6八角 before the king can enter, but Hayagakoi skips that move, so the Yagura is finished one move earlier. First we play up to the fifth file pawn exchange."
-          },
-          "marks": {
-            "boxes": [
-              "5f",
-              "5d"
-            ]
-          }
-        },
-        {
-          "moves": [
+            "5c5d",
             "3i4h",
             "3a4b",
             "4i5h",
-            "4a3b",
-            "5h6g",
-            "5a4a",
-            "6h7g"
-          ],
+            "4a3b"
+          ]
+        },
+        {
           "text": {
-            "ja": "▲４八銀、△４二銀、▲５八金右、△３二金、▲６七金、△４一玉、▲７七銀。７八金を指さずに、金と銀を矢倉の位置へ進めました。",
-            "en": "▲4八銀, △4二銀, ▲5八金右, △3二金, ▲6七金, △4一玉, ▲7七銀: the golds and silvers go to the Yagura squares without playing the gold to 7h."
+            "ja": "24手組では７八に金、７九に角がいます。玉を左へ進めるには、まず道を一つ空ける必要があります。ここでは７九の角を動かす方法を使います。",
+            "en": "In the 24-move formation, the gold occupies 7h and the bishop 7i. Clear a square before taking the king farther left. This route clears 7i by moving the bishop."
           },
+          "moves": [
+            "6i7h",
+            "5a4a",
+            "5i6i",
+            "7c7d",
+            "5h6g",
+            "6a5b",
+            "6h7g",
+            "4b3c",
+            "8h7i",
+            "2b3a",
+            "3g3f",
+            "4c4d"
+          ],
           "marks": {
-            "last": "7g",
             "boxes": [
-              "7g",
-              "6g"
+              "7h",
+              "7i",
+              "6i"
             ]
           }
         },
         {
-          "moves": [
-            "6a5b",
-            "8h7i"
-          ],
           "text": {
-            "ja": "△５二金、▲７九角。角を７九へ引くと、玉が囲いに入る道ができます。金が７八にいないので、角を６八へ寄せる手間がありません。",
-            "en": "△5二金 and ▲7九角: retreating the bishop to 7i opens a path for the king. With no gold on 7h, there is no need to shift the bishop to 6h."
+            "ja": "▲６八角で７九が空きました。後手の△４三金を挟み、▲７九玉と進めます。右銀の形をまだ決めずに入城を進める、この構えを森下システムと呼びます。８八へ進む場所も空いています。",
+            "en": "▲6八角 clears 7i. After Gote’s △4三金, ▲7九玉 uses that square. This is a Morishita System approach: advance the king without first committing the right silver. The destination at 8h is also clear."
           },
+          "moves": [
+            "7i6h",
+            "5b4c",
+            "6i7i"
+          ],
           "marks": {
             "last": "7i",
             "boxes": [
-              "7i"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "7c7d",
-            "5i6h",
-            "4b3c",
-            "6h7h",
-            "2b3a",
-            "7h8h"
-          ],
-          "text": {
-            "ja": "△７四歩、▲６八玉、△３三銀、▲７八玉、△３一角、▲８八玉。玉が７八を通って８八に入りました。",
-            "en": "△7四歩, ▲6八玉, △3三銀, ▲7八玉, △3一角, ▲8八玉: the king passes through 7h and enters 8h."
-          },
-          "marks": {
-            "last": "8h",
-            "boxes": [
+              "6h",
+              "7i",
               "8h"
-            ]
-          }
-        },
-        {
-          "moves": [
-            "4c4d",
-            "6i7h"
-          ],
-          "text": {
-            "ja": "△４四歩、▲７八金。最後に７八へ金を上げて、矢倉囲いの完成です。24手組より一手早く囲えます。ただし６九の金が浮きやすいという注意点もあります。",
-            "en": "△4四歩 and ▲7八金: the gold finally steps up to 7h and the Yagura is complete, one move faster than the 24-move formation. The loose gold on 6i, however, is a point of caution."
-          },
-          "marks": {
-            "last": "7h",
-            "boxes": [
-              "7h",
-              "8h",
-              "7g",
-              "6g"
             ]
           }
         }
       ],
       "variations": [
         {
-          "from": 2,
+          "from": 0,
           "moves": [
+            "5h6g",
+            "5a4a",
+            "6h7g",
+            "6a5b",
+            "8h7i",
             "7c7d",
             "5i6h",
-            "6c6d",
+            "4b3c",
             "6h7h",
-            "8a7c"
+            "2b3a",
+            "7h8h",
+            "4c4d",
+            "6i7h"
           ],
           "text": {
-            "ja": "早囲いの隙を突いて、後手が素早く桂を跳ねてくる急戦です。玉を８八へ入れる前に、７三へ桂が跳ねられました。",
-            "en": "Gote attacks the weakness of the quick castle with an early knight jump. The knight reaches 7c before the king has entered 8h."
+            "ja": "別の順番では、金を６九に置いたまま、玉を５九→６八→７八→８八へ進め、最後に▲７八金としました。これが早囲いです。角は８八から７九へ引くだけで済み、▲６八角という追加の移動を省けます。",
+            "en": "In the other route, leave the gold on 6i while the king travels 5i–6h–7h–8h, then finish with ▲7八金. This is Hayagakoi. The bishop only retreats from 8h to 7i; it does not need the extra move to 6h."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "ja": "安全を読む：取れそうな歩を取らない理由",
+        "en": "Check safety: why an available pawn cannot be taken"
+      },
+      "side": "sente",
+      "kind": "position",
+      "start": "4k4/6b2/9/9/2p6/2P6/9/K8/9 b 2rb4g4s4n4l16p 1",
+      "steps": [
+        {
+          "text": {
+            "ja": "ここからは相矢倉の実戦手順ではなく、角筋だけを取り出した別の作図です。先手玉は９八、歩は７六。後手の角が３二、歩が７五にいます。表示した持ち駒を使い、盤上にない残りの駒はすべて後手が持っています。",
+            "en": "This is a separate original illustration of a bishop diagonal, not a continuation of the opening. Sente has a king on 9h and pawn on 7f; Gote has a bishop on 3b and pawn on 7e. Use the displayed hands. All pieces not on the board are in Gote’s hand."
           },
-          "steps": [
-            {
-              "moves": [
-                "7h8h",
-                "7c8e",
-                "7g8f",
-                "6d6e"
-              ],
-              "text": {
-                "ja": "▲８八玉、△８五桂、▲８六銀、△６五歩と進みました。この歩を▲同歩と取ると、玉が後手の角の利きに入ってしまい、取れません。早囲いは６九の金が孤立して狙われやすく、先に攻められると苦しいのが欠点です。",
-                "en": "▲8八玉, △8五桂, ▲8六銀 and △6五歩 follow. If Sente takes ▲同歩 here, the king walks into the diagonal of Gote's bishop. In the quick castle the gold on 6i is easily left loose, so it is weak against a fast attack."
-              },
-              "marks": {
-                "last": "6e",
-                "arrows": [
-                  "3a6d"
-                ],
-                "boxes": [
-                  "8h",
-                  "6e"
-                ]
-              }
-            }
-          ]
+          "marks": {
+            "boxes": [
+              "9h",
+              "7f",
+              "3b",
+              "7e"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "７六の歩で７五の歩を取れるでしょうか。歩の動き方には合っていますが、７六を空けると３二角から９八玉までの斜線が通ります。自分の玉を王手にさらすので、▲７五歩とは指せません。",
+            "en": "Can the pawn on 7f capture the pawn on 7e? The pawn moves in the correct direction, but vacating 7f opens the diagonal from the bishop on 3b to the king on 9h. Exposing your own king to check makes ▲7五歩 illegal."
+          },
+          "marks": {
+            "arrows": [
+              "3b7f"
+            ],
+            "boxes": [
+              "7f",
+              "7e",
+              "9h"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "▲８八玉で、玉を角の斜線から外しました。７六の歩はまだ動かしていません。この一手の役割は、歩を守り直すことではなく、歩が動いた後に自玉へ王手がかからない位置へ移ることです。",
+            "en": "▲8八玉 takes the king off the bishop’s diagonal. The pawn on 7f has not moved. This king move does not add protection to the pawn; it changes where the king stands so vacating 7f will no longer expose it to check."
+          },
+          "moves": [
+            "9h8h"
+          ],
+          "marks": {
+            "last": "8h",
+            "boxes": [
+              "8h",
+              "7f"
+            ]
+          }
+        },
+        {
+          "text": {
+            "ja": "仕組みを比較するため、後手は△４一玉と待つ協力的な応手を選びます。最善の受けを示す手順ではありません。続く▲７五歩は、今度は自玉を王手にさらさず、合法に取れました。囲いの予定があっても、着手後の角筋を先に確認しましょう。",
+            "en": "For this comparison, Gote cooperates by waiting with △4一玉. This is not a best-defence line. Now ▲7五歩 captures legally because it no longer exposes Sente’s king to check. Even when following a castling plan, check the bishop diagonal that your move would leave behind."
+          },
+          "moves": [
+            "5a4a",
+            "7f7e"
+          ],
+          "marks": {
+            "last": "7e",
+            "boxes": [
+              "7e",
+              "8h"
+            ]
+          }
         }
       ]
     }

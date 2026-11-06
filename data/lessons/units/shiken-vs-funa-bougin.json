@@ -234,7 +234,8 @@
             "boxes": [
               "7e"
             ]
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [
@@ -242,8 +243,8 @@
             "8e8f"
           ],
           "text": {
-            "ja": "歩を打って銀に当てても、後手は銀を気にせず△８六歩と突き込みます。▲７五歩と銀を取ると、△８七歩成と成り込まれて先手は大きく負けです。棒銀の思う壺にはまった形です。",
-            "en": "Even after the pawn drop attacks the silver, Gote ignores it and pushes △8六歩. If Sente takes the silver with ▲7五歩, △8七歩成 promotes and Sente is badly lost. Sente has fallen right into Bogin's plan."
+            "ja": "歩を打って銀に当てても、後手は銀を気にせず△８六歩と突き込みます。▲７五歩と銀を取ると、△８七歩成と成り込まれて歩を取ってと金を作る反撃が残ります。銀を取る利益だけで判断せず、この反撃も含めて比べます。",
+            "en": "Even after the pawn drop attacks the silver, Gote ignores it and pushes △8六歩. If Sente takes the silver with ▲7五歩, △8七歩成 promotes and Gote captures a pawn and creates a tokin as counterplay. Compare that reply with the gain of the silver rather than counting only the capture."
           },
           "marks": {
             "last": "8f",
@@ -253,7 +254,8 @@
             "boxes": [
               "7e"
             ]
-          }
+          },
+          "kind": "deviation"
         }
       ]
     },
@@ -483,7 +485,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "kind": "alt"
         },
         {
           "from": 2,
@@ -516,7 +519,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "kind": "alt"
         }
       ]
     }

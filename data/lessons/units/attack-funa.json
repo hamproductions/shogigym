@@ -89,13 +89,22 @@
         {
           "moves": [
             "4b5b",
-            "2f2e",
+            "2f2e"
+          ],
+          "text": {
+            "ja": "△５二飛と中央へ寄り、先手が▲２五歩を選ぶ例です。飛車の進路に角の利きがないか確認します。",
+            "en": "Gote transfers the rook to 5b and Sente selects ▲2五歩. Inspect the bishop’s control before advancing the rook."
+          }
+        },
+        {
+          "moves": [
             "5b5e"
           ],
           "text": {
             "ja": "△５二飛、▲２五歩、△５五飛。飛車で金５八を狙う弱い手ですが、先手の角８八から７七・６六を通る線を見落としています。",
             "en": "After △５二飛 and ▲２五歩, the weak △５五飛 attacks the gold on ５八 but overlooks Sente’s bishop line from ８八 through ７七 and ６六."
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [
@@ -125,16 +134,27 @@
       ],
       "variations": [
         {
-          "from": 4,
+          "from": 5,
           "moves": [
-            "5h6h",
-            "5e5h+",
-            "6h5h"
+            "5h6h"
           ],
           "text": {
-            "ja": "▲６八金と動く弱い応手でも、△５八飛成と進めば▲同金と龍を取られます。６八の金が５八を守るためです。",
-            "en": "Even after the weak reply ▲６八金, △５八飛成 loses the dragon to ▲同金 because the gold on ６八 protects ５八."
-          }
+            "ja": "▲６八金と金を動かす弱い応手を選ぶ比較です。",
+            "en": "Compare Sente choosing the weaker gold move ▲6八金."
+          },
+          "steps": [
+            {
+              "moves": [
+                "5e5h+",
+                "6h5h"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "△５八飛成は▲同金で龍を失う誤りです。金６八が５八を守っています。",
+                "en": "△5八飛成 is a mistake that loses the dragon to ▲同金. Gold 6h guards 5h."
+              }
+            }
+          ]
         }
       ]
     },
@@ -189,7 +209,8 @@
           "text": {
             "ja": "▲６三飛成と入る弱い手には△同金と龍を取られます。金５二が６三を守っているためです。",
             "en": "The weak ▲６三飛成 loses the dragon to △同金: the gold on ５二 protects ６三."
-          }
+          },
+          "kind": "deviation"
         },
         {
           "text": {
@@ -248,16 +269,36 @@
           "from": 0,
           "moves": [
             "3d2e",
-            "8c8d",
-            "7f4c+",
-            "5b4c",
-            "4h4c+",
-            "3b4c"
+            "8c8d"
           ],
           "text": {
-            "ja": "▲２五銀と守りを外し、△８四歩と応じた場合、同じ交換の▲同飛成には△同玉があります。銀を動かす前と収支が変わります。",
-            "en": "After ▲２五銀 removes the support and △８四歩 replies, the same exchange allows △同玉 after ▲同飛成. The result changes when the silver leaves."
-          }
+            "ja": "▲２五銀で４三への支えを外し、後手が△８四歩を選ぶ比較です。次に角と飛車を進めたときの玉の取り返しを読みます。",
+            "en": "▲2五銀 removes the support of 4c, and this comparison selects △8四歩. Read the king’s recaptures before advancing the bishop and rook."
+          },
+          "steps": [
+            {
+              "moves": [
+                "7f4c+",
+                "5b4c"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "▲４三角成は△同金で角を失う比較です。飛車の次の取り返しにも玉３二の利きがあります。",
+                "en": "▲4三角成 allows △同金 to capture the bishop. King 3b still controls the rook’s possible recapture square."
+              }
+            },
+            {
+              "moves": [
+                "4h4c+",
+                "3b4c"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "▲２五銀と守りを外し、△８四歩と応じた場合、同じ交換の▲同飛成には△同玉があります。銀を動かす前と収支が変わります。",
+                "en": "After ▲２五銀 removes the support and △８四歩 replies, the same exchange allows △同玉 after ▲同飛成. The result changes when the silver leaves."
+              }
+            }
+          ]
         }
       ]
     },
@@ -268,17 +309,17 @@
       },
       "side": "sente",
       "kind": "position",
-      "start": "lns2gsnl/1r2g1kb1/pppp1pppp/4p4/3P5/P8/NPP1PPPPP/1S1R3B1/KG3GSNL b l 1",
+      "start": "lns2gsnl/1r2g1kb1/pppp2ppp/4pp3/3P5/P8/NPP1PPPPP/1S1R3B1/KG3GSNL b l 1",
       "steps": [
         {
           "text": {
-            "ja": "舟囲いの金５二は５三へ上がれます。先手飛車６八を先に上げる間に金が動くと、歩５四の守りが変わります。",
-            "en": "The Boat castle’s gold on ５二 can move to ５三. If it does so while Sente lifts the rook from ６八, its protection of the pawn on ５四 changes."
+            "ja": "舟囲いの金５二は４三へ進めます。先手が飛車６八を上げる間に金が４三へ動くと、歩５四の守りが変わります。金４三は６四には利いていないので、飛車の着地点６四と、次に取ろうとする５四を区別します。 この練習図では後手の４筋の歩は４四にあり、４三を空けています。",
+            "en": "The Boat gold on 5b can advance diagonally to 4c. If it does so while Sente lifts the rook from 6h, it changes the defense of pawn 5d. Gold 4c does not control 6d: distinguish the rook’s landing square from its next capture target on 5d. In this teaching position Gote’s fourth-file pawn is on 4d, leaving 4c vacant."
           },
           "marks": {
             "boxes": [
               "5b",
-              "5c",
+              "4c",
               "5d",
               "6h"
             ]
@@ -287,11 +328,11 @@
         {
           "moves": [
             "6h6g",
-            "5b5c"
+            "5b4c"
           ],
           "text": {
-            "ja": "▲６七飛、△５三金。後手金が一段上がり、歩５四を守ります。",
-            "en": "▲６七飛, △５三金 raises the gold to protect the pawn on ５四."
+            "ja": "▲６七飛、△４三金。後手金が斜め前へ進み、歩５四を守ります。",
+            "en": "▲6七飛 △4三金 advances the gold diagonally to guard pawn 5d."
           }
         },
         {
@@ -301,20 +342,29 @@
             "6g6d"
           ],
           "text": {
-            "ja": "▲６四歩、△同歩、▲同飛と進む例では、飛車が歩５四に利きますが、その歩は金に守られています。",
-            "en": "In the example ▲６四歩, △同歩, ▲同飛, the rook attacks ５四, but the gold protects that pawn."
+            "ja": "▲６四歩△同歩▲同飛と進む例です。金４三は飛車６四を取れませんが、飛車が狙う歩５四を守っています。",
+            "en": "In ▲6四歩 △同歩 ▲同飛, gold 4c cannot capture rook 6d, but it protects the rook’s target, pawn 5d."
           }
         },
         {
           "moves": [
-            "8c8d",
+            "8c8d"
+          ],
+          "text": {
+            "ja": "相手が表示の応手を選んだ後、次の取り返しを確認します。",
+            "en": "After the displayed reply, inspect the recapture before choosing the next move."
+          }
+        },
+        {
+          "moves": [
             "6d5d",
-            "5c5d"
+            "4c5d"
           ],
           "text": {
             "ja": "△８四歩と別の場所を進めた後、▲５四飛と歩を取る弱い手には△同金と飛車を取られます。",
             "en": "After △８四歩 moves elsewhere, the weak ▲５四飛 captures the pawn but loses the rook to △同金."
-          }
+          },
+          "kind": "deviation"
         },
         {
           "text": {
@@ -362,14 +412,23 @@
         },
         {
           "moves": [
-            "3b4a",
+            "3b4a"
+          ],
+          "text": {
+            "ja": "相手が表示の応手を選んだ後、次の取り返しを確認します。",
+            "en": "After the displayed reply, inspect the recapture before choosing the next move."
+          }
+        },
+        {
+          "moves": [
             "3c3b+",
             "4a3b"
           ],
           "text": {
             "ja": "△４一玉に▲３二香成と王手する弱い手は△同玉と取られます。歩３四が飛車３八の線を遮り、３二の成香は守られていません。",
             "en": "After △４一玉, the weak ▲３二香成 loses the promoted lance to △同玉. The pawn on ３四 blocks the rook on ３八, leaving ３二 undefended."
-          }
+          },
+          "kind": "deviation"
         },
         {
           "text": {
@@ -391,7 +450,8 @@
           "text": {
             "ja": "△同金、▲同歩成、△同角、▲同銀、△４一玉という交換例です。歩が３筋を空けた後は飛車が銀を支えます。",
             "en": "One line is △同金, ▲同歩成, △同角, ▲同銀, △４一玉. After the pawn vacates the third file, the rook supports the silver."
-          }
+          },
+          "kind": "alt"
         },
         {
           "from": 1,
@@ -402,7 +462,8 @@
           "text": {
             "ja": "△同桂には▲同歩成と桂を取れますが、角２二がと金を狙うので続きも読みます。",
             "en": "Against △同桂, ▲同歩成 captures the knight, but the bishop on ２二 attacks the tokin; calculate the continuation."
-          }
+          },
+          "kind": "alt"
         }
       ]
     },
@@ -468,14 +529,25 @@
         {
           "from": 1,
           "moves": [
-            "8c8d",
-            "6a4a+",
-            "3b4a"
+            "8c8d"
           ],
           "text": {
-            "ja": "△８四歩と銀を取らない場合、▲４一飛成には△同玉があります。金を守る玉が残っているためです。",
-            "en": "If Gote declines with △８四歩, ▲４一飛成 can be answered by △同玉 because the king still protects the gold."
-          }
+            "ja": "△８四歩と銀２二を取らない応手を比べます。玉３二は金４一を守ったままです。",
+            "en": "Compare △8四歩, declining silver 2b. King 3b still guards gold 4a."
+          },
+          "steps": [
+            {
+              "moves": [
+                "6a4a+",
+                "3b4a"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "▲４一飛成は△同玉で龍を失います。金を守る玉を動かしていないためです。",
+                "en": "▲4一飛成 loses the dragon to △同玉 because the king defending the gold has not moved."
+              }
+            }
+          ]
         }
       ]
     }

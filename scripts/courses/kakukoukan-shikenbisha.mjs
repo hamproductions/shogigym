@@ -32,15 +32,25 @@ export default {
     branches: [
       {
         kind: 'alt',
-        moves: '6g6f 6b5c 6f6e 6d6e 7g6f',
+        moves: '6g6f 6b5c 6f6e 6d6e',
         notes: {
           0: '６六歩。６七は空くが、６六は自分の歩が占める。',
           1: '後手銀５三。この応手でも先手銀は６六の自歩を取れない。',
           2: '６五歩。６六が空き、銀が次に使える升になる。',
           3: '後手６五同歩は一例。後手は歩を持ち、６五に歩が残る。',
-          4: '銀６六。自歩が移動した後なので進める。飛車６八の前は今度は自銀で止まる。',
         },
-        comment: 'この応手は強制ではない。６六歩を突いた瞬間と、歩を交換して銀を進めた後を区別する。６五の後手歩を取る前にも相手銀５三と持ち角を数える。',
+        comment: '６六は空きましたが、後手歩６五がその升を狙っています。合法に進める升と、安全に進める升は同じではありません。',
+        commentEn: 'Square 6f is empty, but Gote’s pawn on 6e attacks it. A legal destination is not necessarily a safe one.',
+        branches: [
+          {
+            kind: 'deviation',
+            moves: '7g6f 6e6f 6h6f',
+            comment:
+              '▲６六銀は△同歩で銀を失います。▲同飛で取り返しても得るのは歩だけで、銀と歩の交換です。自歩が空けた升へ進めることだけを根拠に、銀を出してはいけません。',
+            commentEn:
+              '▲6六銀 loses the silver to △同歩. ▲同飛 recaptures only the pawn, leaving a silver-for-pawn loss. An empty square alone does not justify advancing the silver.',
+          },
+        ],
       },
       {
         kind: 'alt',

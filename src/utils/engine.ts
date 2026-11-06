@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react'
 import i18n from './i18n'
 import { readEvalFile } from './evalStore'
+import { engineLabel, modelFor, readEngineModel } from './engineModels'
 import { readBookFile } from './openingBook'
 import { flipBookMove, flipBookPosition } from './bookPosition'
 import { InitialPositionSFEN, Position, Color } from 'tsshogi'
@@ -10,7 +11,7 @@ type UsiModule = {
   addMessageListener: (listener: (line: string) => void) => void
   postMessage: (command: string) => void
   terminate: () => void
-  FS?: { writeFile: (path: string, data: Uint8Array) => void }
+  FS?: { writeFile: (path: string, data: Uint8Array, options?: { canOwn: boolean }) => void }
 }
 
 type EngineFactory = () => Promise<UsiModule>
@@ -19,11 +20,22 @@ declare global {
   interface Window {
     YaneuraOu_K_P?: EngineFactory
     YaneuraOu_HalfKP_noeval?: EngineFactory
+    YaneuraOu_TsuyouraMini?: EngineFactory
+    YaneuraOu_TsuyouraMicro?: EngineFactory
+    YaneuraOu_HalfKP?: EngineFactory
+    YaneuraOu_TanukiLi?: EngineFactory
+    YaneuraOu_AobaNNUE?: EngineFactory
     Stockfish?: EngineFactory
   }
 }
 
 export type Score = { cp: number } | { mate: number }
+export type EnginePurpose = 'analysis' | 'playing'
+
+export function engineForPurpose(purpose: EnginePurpose = 'analysis'): EngineKind {
+  const settings = getSettings()
+  return (purpose === 'playing' ? settings.enginePlaying : settings.engineAnalysis) ?? settings.engine
+}
 
 export type Candidate = {
   multipv: number
@@ -40,7 +52,7 @@ export type Analysis = {
 
 export type EngineStatus = { kind: EngineKind; name: string; error: string; loading: boolean; epoch: number }
 
-const ENGINES: Record<EngineKind, { script: string; factory: () => EngineFactory | undefined; options: () => string[] }> = {
+const ENGINES: Record<EngineKind, { script: string; factory: () => EngineFactory | undefined; options: () => string[]; files?: string[] }> = {
   yaneuraou: {
     script: `${import.meta.env.BASE_URL}engine/yaneuraou.k-p.js`,
     factory: () => window.YaneuraOu_K_P,
@@ -52,6 +64,38 @@ const ENGINES: Record<EngineKind, { script: string; factory: () => EngineFactory
     options: () => ['USI_OwnBook value false', 'PvInterval value 0', 'EvalDir value .', 'EvalFile value nn.bin', `FV_SCALE value ${getSettings().fvScale}`],
   },
   fairy: { script: `${import.meta.env.BASE_URL}engine/fairy/stockfish.js`, factory: () => window.Stockfish, options: () => ['USI_Variant value shogi'] },
+  'tsuyoura-mini': {
+    script: `${import.meta.env.BASE_URL}engines/tsuyoura-mini/yaneuraou.js`,
+    factory: () => window.YaneuraOu_TsuyouraMini,
+    options: () => ['USI_OwnBook value false', 'PvInterval value 0', 'EvalDir value /', 'EvalFile value nn.bin', 'FV_SCALE value 24'],
+    files: ['nn.bin', 'progress.bin'],
+  },
+  'tsuyoura-micro': {
+    script: `${import.meta.env.BASE_URL}engines/tsuyoura-micro/yaneuraou.js`,
+    factory: () => window.YaneuraOu_TsuyouraMicro,
+    options: () => ['USI_OwnBook value false', 'PvInterval value 0', 'EvalDir value /', 'EvalFile value nn.bin', 'FV_SCALE value 24'],
+    files: ['nn.bin', 'progress.bin'],
+  },
+  suisho5: {
+    script: `${import.meta.env.BASE_URL}engines/halfkp/yaneuraou.js`,
+    factory: () => window.YaneuraOu_HalfKP,
+    options: () => ['USI_OwnBook value false', 'PvInterval value 0', 'EvalDir value /', 'FV_SCALE value 24'],
+  },
+  'tanuki-hao': {
+    script: `${import.meta.env.BASE_URL}engines/halfkp/yaneuraou.js`,
+    factory: () => window.YaneuraOu_HalfKP,
+    options: () => ['USI_OwnBook value false', 'PvInterval value 0', 'EvalDir value /', 'FV_SCALE value 20'],
+  },
+  'tanuki-li': {
+    script: `${import.meta.env.BASE_URL}engines/tanuki-li/yaneuraou.js`,
+    factory: () => window.YaneuraOu_TanukiLi,
+    options: () => ['USI_OwnBook value false', 'PvInterval value 0', 'EvalDir value /', 'FV_SCALE value 20'],
+  },
+  aobannue: {
+    script: `${import.meta.env.BASE_URL}engines/aobannue/yaneuraou.js`,
+    factory: () => window.YaneuraOu_AobaNNUE,
+    options: () => ['USI_OwnBook value false', 'PvInterval value 0', 'EvalDir value /', 'FV_SCALE value 40'],
+  },
 }
 
 let active: { key: string; engine: Promise<UsiModule> } | null = null
@@ -63,7 +107,7 @@ let pending: (() => void) | null = null
 let interruptible = false
 let searching = false
 let backgroundGeneration = 0
-let status: EngineStatus = { kind: getSettings().engine, name: '', error: '', loading: false, epoch: 0 }
+let status: EngineStatus = { kind: engineForPurpose(), name: '', error: '', loading: false, epoch: 0 }
 const statusListeners = new Set<() => void>()
 
 function setStatus(patch: Partial<EngineStatus>) {
@@ -84,9 +128,18 @@ export function useEngineStatus() {
   )
 }
 
-function engineKey() {
-  const { engine, fvScale } = getSettings()
-  return engine === 'nnue' ? `${engine}:${fvScale}` : engine
+function engineKey(kind = getSettings().engine) {
+  return kind === 'nnue' ? `${kind}:${getSettings().fvScale}` : kind
+}
+
+function validatePosition(command: string) {
+  const [start, moves = ''] = command.replace(/^position /, '').split(' moves ')
+  const position = Position.newBySFEN(start === 'startpos' ? InitialPositionSFEN.STANDARD : start.replace(/^sfen /, ''))
+  if (!position) throw new Error('Invalid engine position')
+  for (const usi of moves.split(' ').filter(Boolean)) {
+    const move = position.createMoveByUSI(usi)
+    if (!move || !position.doMove(move)) throw new Error('Invalid engine move history')
+  }
 }
 
 function loadScript(src: string, factory: () => EngineFactory | undefined): Promise<void> {
@@ -156,7 +209,18 @@ async function boot(kind: EngineKind): Promise<UsiModule> {
   const spec = ENGINES[kind]
   const evalFile = kind === 'nnue' ? await readEvalFile() : null
   if (kind === 'nnue' && !evalFile) throw new Error(i18n.t('engine.noEvalFile'))
-  await loadScript(spec.script, spec.factory)
+  const model = modelFor(kind)
+  const [, files, network] = await Promise.all([
+    loadScript(spec.script, spec.factory),
+    Promise.all(
+      (spec.files ?? []).map(async (file) => {
+        const response = await fetch(`${import.meta.env.BASE_URL}engines/${kind}/${file}`)
+        if (!response.ok) throw new Error(`${file}: HTTP ${response.status}`)
+        return { name: file, bytes: new Uint8Array(await response.arrayBuffer()) }
+      }),
+    ),
+    model ? readEngineModel(model) : null,
+  ])
   if (id !== session) throw new Error('engine switched')
   const starting = spec.factory()!()
   void starting
@@ -179,6 +243,8 @@ async function boot(kind: EngineKind): Promise<UsiModule> {
     if (id === session) listener?.(line)
   })
   if (evalFile) engine.FS!.writeFile('/nn.bin', evalFile.bytes)
+  for (const file of files) engine.FS!.writeFile(`/${file.name}`, file.bytes)
+  if (network) engine.FS!.writeFile('/nn.bin', network, { canOwn: true })
   let name = ''
   await waitFor(engine, 'usi', 'usiok', (line) => {
     if (line.startsWith('id name ')) name = line.slice(8)
@@ -207,29 +273,30 @@ async function boot(kind: EngineKind): Promise<UsiModule> {
     throw new Error(failure || 'engine switched')
   }
   current = engine
-  setStatus({ kind, name: evalFile ? `${name} (${evalFile.name})` : name, error: '', loading: false, epoch: status.epoch + 1 })
+  const label = model || spec.files ? engineLabel(kind) : evalFile?.name
+  setStatus({ kind, name: label ? `${name} (${label})` : name, error: '', loading: false })
   return engine
 }
 
-function shutdown() {
+function shutdown(preserveResults = false) {
   const previous = active
   active = null
   current = null
   nativeBook = null
   session++
-  backgroundGeneration++
+  if (!preserveResults) backgroundGeneration++
   pending?.()
   searching = false
   interruptible = false
-  cache.clear()
+  if (!preserveResults) cache.clear()
   previous?.engine.then((engine) => engine.terminate()).catch(() => undefined)
 }
 
-export function getEngine(): Promise<UsiModule> {
-  const key = engineKey()
-  if (active && active.key !== key) shutdown()
+export function getEngine(requested?: EngineKind): Promise<UsiModule> {
+  const kind = requested ?? engineForPurpose()
+  const key = engineKey(kind)
+  if (active && active.key !== key) shutdown(true)
   if (!active) {
-    const kind = getSettings().engine
     const engine = boot(kind)
     active = { key, engine }
     setStatus({ kind, name: '', error: '', loading: true })
@@ -244,12 +311,13 @@ export function getEngine(): Promise<UsiModule> {
 
 export function restartEngine() {
   shutdown()
-  if (engineSupported()) getEngine().catch((error) => console.warn('engine preload failed', error))
+  setStatus({ name: '', error: '', loading: false, epoch: status.epoch + 1 })
 }
 
-let configuredKey = engineKey()
+const configurationKey = () => `${engineKey(engineForPurpose('analysis'))}|${engineKey(engineForPurpose('playing'))}`
+let configuredKey = configurationKey()
 subscribeSettings(() => {
-  const key = engineKey()
+  const key = configurationKey()
   if (key === configuredKey) return
   configuredKey = key
   restartEngine()
@@ -335,6 +403,7 @@ export function analyze(
     idle = false,
     onUpdate,
     book = false,
+    purpose = 'analysis',
     signal,
   }: {
     multipv?: number
@@ -343,15 +412,18 @@ export function analyze(
     idle?: boolean
     onUpdate?: (analysis: Analysis) => void
     book?: boolean
+    purpose?: EnginePurpose
     signal?: AbortSignal
   } = {},
 ): Promise<Analysis> {
   signal?.throwIfAborted()
-  const key = `${usiPosition}|book:${book}`
+  validatePosition(usiPosition)
+  const kind = engineForPurpose(purpose)
+  const key = `${engineKey(kind)}|${usiPosition}|book:${book}`
   const known = cache.get(key)
   if (known && enough(known, multipv, movetime)) return Promise.resolve(known.analysis)
   if (background) {
-    const { job, result } = search(usiPosition, multipv, movetime, PRIORITY.background, onUpdate, book, signal)
+    const { job, result } = search(kind, usiPosition, multipv, movetime, PRIORITY.background, onUpdate, book, signal)
     return result.then((analysis) => {
       if (!signal?.aborted && !job.stopped) remember(key, multipv, movetime, analysis)
       return analysis
@@ -365,7 +437,7 @@ export function analyze(
   }
   const controller = new AbortController()
   const listeners = new Set<(analysis: Analysis) => void>()
-  const { job, result } = search(usiPosition, multipv, movetime, priority, (analysis) => listeners.forEach((l) => l(analysis)), book, controller.signal)
+  const { job, result } = search(kind, usiPosition, multipv, movetime, priority, (analysis) => listeners.forEach((l) => l(analysis)), book, controller.signal)
   const shared: Shared = { multipv, movetime, users: 0, listeners, controller, job, result }
   inflight.set(key, shared)
   result.then(
@@ -417,6 +489,7 @@ function pump() {
 }
 
 function search(
+  kind: EngineKind,
   usiPosition: string,
   multipv: number,
   movetime: number,
@@ -433,12 +506,12 @@ function search(
   const generation = background ? ++backgroundGeneration : backgroundGeneration
   const run = async () => {
     signal?.throwIfAborted()
-    const engine = await getEngine()
+    const engine = await getEngine(kind)
     signal?.throwIfAborted()
     if (engine !== current || (background && generation !== backgroundGeneration)) return { bestmove: '', candidates: [] }
     let command = usiPosition
     let flipped = false
-    if (getSettings().engine !== 'fairy') {
+    if (kind !== 'fairy') {
       let enabled = false
       if (book) {
         nativeBook ??= prepareBook(engine)

@@ -330,8 +330,8 @@
             "3i3h"
           ],
           "text": {
-            "ja": "飛車は３六へ戻るしかありません。後手は△２五歩と取り込み、先手が底に▲２八歩と打つのを△２六歩と押さえます。先手は▲３八金と受けますが、２筋が崩れてかなり厳しい陣形になりました。なお文章では▲３六歩、▲３二金と書かれていますが、図に従いました。",
-            "en": "The rook can only go back to 3f. Gote takes with △2五歩, and when Sente drops a pawn on the bottom with ▲2八歩, presses on with △2六歩. Sente defends with ▲3八金, but the second file is shattered and the position is very difficult. The written text says ▲3六歩 and ▲3二金; the diagram is followed here."
+            "ja": "飛車は３六へ戻るしかありません。後手は△２五歩と取り込み、先手が底に▲２八歩と打つのを△２六歩と押さえます。先手は▲３八金と受けますが、２筋が崩れてかなり厳しい陣形になりました。表示局面では先手飛車は３六、金は３八、歩は２八です。後手歩２六は２七への前進を狙っています。",
+            "en": "The rook can only go back to 3f. Gote takes with △2五歩, and when Sente drops a pawn on the bottom with ▲2八歩, presses on with △2六歩. Sente defends with ▲3八金, but the second file is shattered and the position is very difficult. In the displayed position, Sente’s rook is on 3f, gold on 3h and pawn on 2h. Gote’s pawn on 2f threatens to advance to 2g."
           },
           "marks": {
             "last": "3h",

@@ -205,7 +205,16 @@
         {
           "moves": [
             "8h7g",
-            "8b3b",
+            "8b3b"
+          ],
+          "kind": "deviation",
+          "text": {
+            "ja": "▲７七角を急ぐ比較です。６六を守る銀を先に上げず、次に飛車も振ると、後手に横から歩を狙われます。",
+            "en": "This comparison rushes ▲7七角. Without first developing the silver to guard 6f, the following rook swing leaves a sideways pawn capture available."
+          }
+        },
+        {
+          "moves": [
             "2h8h"
           ],
           "text": {
@@ -218,7 +227,8 @@
               "8h",
               "6f"
             ]
-          }
+          },
+          "kind": "deviation"
         },
         {
           "moves": [
@@ -447,17 +457,28 @@
         {
           "from": 0,
           "moves": [
-            "3a4b",
-            "5i4h",
-            "3e3f",
-            "3g3f",
-            "2b5e"
+            "3a4b"
           ],
+          "steps": [
+            {
+              "moves": [
+                "5i4h",
+                "3e3f",
+                "3g3f",
+                "2b5e"
+              ],
+              "kind": "deviation",
+              "text": {
+                "ja": "△４二銀に対して、ただ▲４八玉と寄ってしまうのは失敗です。△３六歩▲同歩△５五角と打たれ、▲３七桂で受けても△３六飛と歩を取られ、先手がまずくなります。",
+                "en": "If Sente answers △4二銀 with the plain ▲4八玉, then △3六歩 ▲同歩 △5五角 lands. Even defending with ▲3七桂, Gote takes a pawn with △3六飛 and Sente is worse."
+              }
+            }
+          ],
+          "kind": "alt",
           "text": {
-            "ja": "△４二銀に対して、ただ▲４八玉と寄ってしまうのは失敗です。△３六歩▲同歩△５五角と打たれ、▲３七桂で受けても△３六飛と歩を取られ、先手がまずくなります。",
-            "en": "If Sente answers △4二銀 with the plain ▲4八玉, then △3六歩 ▲同歩 △5五角 lands. Even defending with ▲3七桂, Gote takes a pawn with △3六飛 and Sente is worse."
-          },
-          "steps": []
+            "ja": "△４二銀の局面です。銀より先に玉を動かす失敗例を見ます。",
+            "en": "After △4二銀, compare the mistake of moving the king before the silver."
+          }
         }
       ]
     },

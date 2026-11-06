@@ -19,8 +19,8 @@
       "en": "When turning Hon Mino into Taka Mino, why push the third-file pawn before the gold steps up?"
     },
     "answer": {
-      "ja": "金が４七に上がると、桂馬から狙われる場所ができます。３筋の歩を突いて３七に桂を跳ねる準備をしておけば、上がった金と玉の斜め前を同時に守れます。",
-      "en": "A gold on 4g becomes a target for a knight. Pushing the third-file pawn and jumping the knight to 3g covers both the advanced gold and the square diagonally ahead of the king."
+      "ja": "３六歩は３七を空け、桂を跳ねる場所を作ります。３七の桂が利くのは２五と４五で、４七の金を直接守るわけではありません。この図で金４七を守るのは銀３八です。桂を使うかどうかは相手の攻めや自分の攻め筋を見て選びます。",
+      "en": "The pawn move to 3f clears 3g for the knight. A knight on 3g controls 2e and 4e, not the gold on 4g. In this diagram the silver on 3h protects that gold. Decide whether to use the knight by considering both players' attacking plans."
     }
   },
   "references": [
@@ -103,8 +103,8 @@
             "2h6h"
           ],
           "text": {
-            "ja": "▲６八飛。飛車を右から四つ目の筋へ振ります。四間飛車です。同時に、玉が入る二八が空きました。",
-            "en": "▲6八飛 swings the rook to the fourth file, which is Fourth File Rook, and also frees 2h for the king."
+            "ja": "▲６八飛。先手から見て左から四つ目の筋へ飛車を振る、四間飛車です。同時に、玉が入る２八が空きました。",
+            "en": "▲6八飛 swings the rook to the fourth file from Sente's left: Fourth File Rook. It also clears 2h for the king."
           },
           "marks": {
             "boxes": [
@@ -119,13 +119,12 @@
             "7i7h"
           ],
           "text": {
-            "ja": "▲７八銀。左の銀を上げて、角と飛車を守ります。",
-            "en": "▲7八銀 lifts the left silver to protect the bishop and rook."
+            "ja": "▲７八銀。左の銀を上げて、前の７七の角を守ります。横の６八にいる飛車は、この銀の利きには入っていません。",
+            "en": "▲7八銀 lifts the left silver to protect the bishop directly ahead on 7g. The rook beside it on 6h is outside the silver's control."
           },
           "marks": {
             "boxes": [
-              "7g",
-              "6h"
+              "7g"
             ],
             "last": "7h"
           }
@@ -355,8 +354,8 @@
             "3g3f"
           ],
           "text": {
-            "ja": "▲３六歩。隣の歩も突いておきます。桂馬が跳ねる場所を作り、上がった金を相手の桂馬から守る準備です。",
-            "en": "▲3六歩 pushes the neighboring pawn too. It makes room for the knight to jump and prepares to guard the advanced gold against an enemy knight."
+            "ja": "▲３六歩で３七を空けました。このあと桂を３七へ跳ねる手順を見ます。歩で空けたマスと、そこから桂が利く先を分けて確認しましょう。",
+            "en": "▲3六歩 clears 3g. The following line jumps the knight there. Distinguish the square vacated by the pawn from the squares the knight will control."
           },
           "marks": {
             "boxes": [
@@ -371,8 +370,8 @@
             "2i3g"
           ],
           "text": {
-            "ja": "▲３七桂。桂馬を跳ねます。この桂馬が、上がる金の隣で守りの役を担います。",
-            "en": "▲3七桂 jumps the knight. It becomes part of the guard beside the gold that is about to step up."
+            "ja": "▲３七桂。この桂は２五と４五へ利いています。隣の４七を直接守る駒ではないので、金を上げるときは別の支えも確認します。",
+            "en": "▲3七桂 controls 2e and 4e. It does not directly protect the neighboring square 4g, so check the gold's other support before advancing it."
           },
           "marks": {
             "arrows": [
@@ -387,8 +386,8 @@
             "5h4g"
           ],
           "text": {
-            "ja": "▲４七金。金を一段上げて、高美濃の完成です。玉の頭を金と桂が覆い、上からの攻めに備えます。",
-            "en": "▲4七金 lifts the gold one step, completing Taka Mino. Gold and knight cover the head of the king and prepare for attacks from above."
+            "ja": "▲４七金と上がり、この章の高美濃になりました。金４七は銀３八に守られています。金と桂は同じ段にいますが、互いの利きと役割は異なります。",
+            "en": "▲4七金 completes this chapter's Taka Mino. The silver on 3h protects the gold on 4g. Gold and knight stand on the same rank but have different control and roles."
           },
           "marks": {
             "boxes": [
@@ -400,8 +399,8 @@
         },
         {
           "text": {
-            "ja": "高美濃は、玉の頭と斜め前を金と桂が守るので、本美濃の弱点だった斜め攻めに強くなります。そのかわり、金が前に出た分、下の段の守りが薄くなり、横から飛車を打ち込まれると弱くなります。上がった金が、相手の桂や銀の攻めの目標になる点にも注意が要ります。",
-            "en": "Taka Mino covers the head and the diagonal front with gold and knight, so it resists the diagonal attacks that troubled Hon Mino. In exchange the rank behind has become thin, and a rook dropped in from the side is dangerous. The advanced gold is also a target for enemy knights and silvers."
+            "ja": "金を５八から４七へ上げると、守るマスも変わります。銀３八から金４七への支え、桂３七の２五・４五への利き、空いた５八を確認してください。形の名前だけで斜めの攻めが防げるとは限りません。",
+            "en": "Moving the gold from 5h to 4g changes which squares it covers. Check the silver's support from 3h to 4g, the knight's control of 2e and 4e, and the vacated square 5h. A named shape alone does not stop every diagonal attack."
           },
           "marks": {
             "boxes": [
@@ -669,8 +668,8 @@
         },
         {
           "text": {
-            "ja": "ダイヤモンド美濃は、金銀を四枚使って玉の周りを固めた形で、手厚さは美濃の中でも上位です。ただし、銀を一枚守りに回したぶん、攻める駒が減ります。また、銀が玉の隣ではなく斜め前にいるので、玉の頭のすき間を突かれる可能性があります。実戦では、戦いの中で自然に銀が囲いに寄る形が多く、狙って組むより結果としてできる形です。",
-            "en": "Diamond Mino uses four pieces around the king and ranks among the most solid Mino forms. The cost is that one silver has stopped attacking, so fewer pieces are left to attack. The silver sits diagonally ahead instead of beside the king, so a gap above the king can be probed. In real games it usually arises as the silver drifts back during the fight rather than being planned from the start."
+            "ja": "ダイヤモンド美濃は、金銀四枚を守りに集める形です。２八玉の隣には３八の銀が残り、もう一枚の銀が４七へ加わりました。３七は空いています。守りに使った銀のぶん攻め駒は減るので、相手の攻めの速さと盤上の金銀の利きを見て選びます。",
+            "en": "Diamond Mino gathers four golds and silvers for defense. The silver on 3h remains beside the king on 2h, while the second silver joins on 4g. Square 3g is empty. Committing the second silver to defense leaves fewer attackers; judge the opponent’s pace and the actual squares covered by your guards."
           },
           "marks": {
             "boxes": [
@@ -755,8 +754,8 @@
             "3i4h"
           ],
           "text": {
-            "ja": "▲４八銀。右の銀を斜めに上げます。玉の隣ではなく、一つ右の列へ向かいます。",
-            "en": "▲4八銀 lifts the right silver diagonally. It heads for the next file rather than staying beside the king."
+            "ja": "▲４八銀。右の銀を斜めに上げます。玉の隣ではなく、一つ左の列へ向かいます。",
+            "en": "▲4八銀 lifts the right silver diagonally from 3i to 4h, moving one file to Sente’s left."
           },
           "marks": {
             "boxes": [
@@ -771,8 +770,8 @@
             "4h4g"
           ],
           "text": {
-            "ja": "▲４七銀。銀が前に出ました。この銀は攻めにも使え、玉の頭の守りにもなります。",
-            "en": "▲4七銀 pushes the silver forward. It can both attack and cover the head of the king."
+            "ja": "▲４七銀。銀は４六・３六・５六や、後方の３八・５八へ利きます。玉２八の真上の２七を直接守る位置ではありません。",
+            "en": "▲4七銀 controls 4f, 3f and 5f, plus the rear diagonals 3h and 5h. It does not directly guard 2g above King2h."
           },
           "marks": {
             "boxes": [
@@ -800,8 +799,8 @@
         },
         {
           "text": {
-            "ja": "木村美濃は、玉の斜め上に銀を置くことで、片美濃の薄いところを埋めた形です。右の桂は動かさずに済むので、必要なら跳ねて攻めに加えられます。使っていない金は、左辺の整備に回せます。ただし守りの駒は二枚だけなので、飛車を打ち込まれると危険です。攻めと守りの釣り合いを見て選びます。",
-            "en": "Kimura Mino covers the weak head of Kata Mino with a silver, and the right knight can still jump to join the attack. The remaining gold can stay on the left to guard that wing. It is still a thin two-piece castle, so a rook drop is dangerous. Choose it for the balance between attack and defense."
+            "ja": "木村美濃は玉２八・金３八・銀４七の配置です。銀４七が金３八を支え、玉の真上の２七は金３八が守ります。銀が玉の斜め隣にいる形ではありません。桂２九や左の金をどう使うかも、相手の攻めを見て選びます。",
+            "en": "Kimura Mino places King2h, Gold3h and Silver4g. The silver supports the gold, while the gold directly guards 2g above the king. The silver is not diagonally adjacent to the king. Choose how to use Knight2i and the remaining gold according to the opponent’s attack."
           },
           "marks": {
             "boxes": [
@@ -929,8 +928,8 @@
             "1g1f"
           ],
           "text": {
-            "ja": "玉が二八に入った段階から始めます。まだ金銀は動いていません。",
-            "en": "Start with the king on 2h. No gold or silver has moved yet."
+            "ja": "玉が２八に入った段階から始めます。右の金４九と右の銀３九は初期位置に残っています。一方、左の銀はすでに７八へ動いています。",
+            "en": "Start with the king on 2h. The right gold on 4i and right silver on 3i remain on their original squares, while the left silver has already moved to 7h."
           },
           "marks": {
             "boxes": [

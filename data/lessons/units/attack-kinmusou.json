@@ -131,8 +131,8 @@
       "steps": [
         {
           "text": {
-            "ja": "後手の金無双は玉７二、銀８二、金６二・５二です。先手は銀８四と飛車８八で歩８三を狙い、持ち角で攻めを支えることができます。",
-            "en": "Gote’s Kin Muso has king ７二, silver ８二 and golds on ６二 and ５二. Sente’s silver on ８四 and rook on ８八 target the pawn on ８三; a bishop in hand can add support."
+            "ja": "後手の金無双は玉７二、銀８二、金６二・５二です。先手は銀８四と飛車８八で歩８三を狙い、持ち角で攻めを支えることができます。 飛車８八の線は自分の銀８四に遮られているため、現在の歩８三への利きと、銀が動いた後の取り返しを分けます。",
+            "en": "Gote’s Kin Muso has king ７二, silver ８二 and golds on ６二 and ５二. Sente’s silver on ８四 and rook on ８八 target the pawn on ８三; a bishop in hand can add support. The silver on 8d currently blocks the rook on 8h. Distinguish current control of 8c from a later recapture after the silver moves."
           },
           "marks": {
             "boxes": [
@@ -186,11 +186,12 @@
           "from": 1,
           "moves": [
             "9e8d",
-            "8h8d"
+            "8h8d",
+            "8c8d"
           ],
           "text": {
-            "ja": "△８四角と銀を取る手には▲同飛と角を取り返せます。",
-            "en": "Against △８四角 capturing the silver, ▲同飛 recaptures the bishop."
+            "ja": "△８四角で銀を取られた後、▲同飛と角を取り返しても△同歩が残ります。この順では先手は銀と飛車を失って角を得るので、単に角を取り返せることを守りの成功とは数えません。後手歩８三が飛車の着地点８四を守っています。",
+            "en": "After △８四角 takes the silver, ▲同飛 recaptures the bishop, but △同歩 then takes the rook. Sente has spent a silver and rook for a bishop; the available bishop recapture does not establish successful support. Gote’s pawn on 8c guards the rook’s landing square, 8d."
           }
         }
       ]

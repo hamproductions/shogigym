@@ -10,8 +10,8 @@
     "en": "Finishing Tactics: Read What Each Check Changes"
   },
   "intro": {
-    "ja": "寄せでは王手を一つ見つけるだけでなく、その後に何が変わるかを数えます。遠い王手なら合駒、駒を取る王手なら守備の減少、玉が動く王手なら新しい逃げ道を調べます。最初の局面で玉が動けない王手でも合駒で受かる例を確かめ、残る四局面で守備駒の捕獲、二つの逃げ道を両方止める決め手、桂と香の支え、攻め駒への攻撃を利用する手順を練習します。",
-    "en": "A finishing check matters for the position it leaves behind. For a distant check, count interpositions; for a capture, count the lost defender; and after a king move, count the new exits. The first position shows a check that leaves the king no move yet is still answered by an interposition. Four fresh mating positions then teach how to capture a defender with tempo, find one finish that covers two king routes, coordinate a knight with a lance, and use a check before an attacked bishop must move."
+    "ja": "寄せでは王手を一つ見つけるだけでなく、その後に何が変わるかを数えます。遠い王手なら合駒、駒を取る王手なら守備の減少、玉が動く王手なら新しい逃げ道を調べます。最初の局面で玉が動けない王手でも合駒で受かる例を確かめ、残る四局面で守備駒の捕獲、二つの逃げ道を両方止める決め手、桂と香の支え、攻め駒への攻撃を利用する手順を練習します。 この教材では盤面と持ち駒欄に表示された駒だけを使い、表示されていない残りの駒を玉方の持ち駒には加えません。",
+    "en": "A finishing check matters for the position it leaves behind. For a distant check, count interpositions; for a capture, count the lost defender; and after a king move, count the new exits. The first position shows a check that leaves the king no move yet is still answered by an interposition. Four fresh mating positions then teach how to capture a defender with tempo, find one finish that covers two king routes, coordinate a knight with a lance, and use a check before an attacked bishop must move. Use only the pieces shown on the board and in the hands; unshown remaining pieces are not added to the defender’s hand."
   },
   "check": {
     "question": {
@@ -49,8 +49,8 @@
       "steps": [
         {
           "text": {
-            "ja": "後手玉１一の隣は、後手自身の香２一と歩２二が埋めています。先手の飛車は４五、後手の持ち駒は金一枚です。飛車を１筋へ回すと玉は一歩も動けなくなりますが、それだけで詰みとは決まりません。",
-            "en": "Gote's king on １一 is hemmed in by its own lance on ２一 and pawn on ２二. Sente's rook stands on ４五, and Gote holds one gold. Swinging the rook to the first file leaves the king no square to move to, but that alone does not make it mate."
+            "ja": "後手玉１一の隣は、後手自身の香２一と歩２二が埋めています。先手の飛車は４五、後手の持ち駒は金一枚です。飛車を１筋へ回すと玉は一歩も動けなくなりますが、それだけで詰みとは決まりません。 この教材では盤面と持ち駒欄に表示された駒だけを使い、表示されていない残りの駒を玉方の持ち駒には加えません。",
+            "en": "Gote's king on １一 is hemmed in by its own lance on ２一 and pawn on ２二. Sente's rook stands on ４五, and Gote holds one gold. Swinging the rook to the first file leaves the king no square to move to, but that alone does not make it mate. Use only the pieces shown on the board and in the hands; unshown remaining pieces are not added to the defender’s hand."
           }
         },
         {
@@ -99,8 +99,8 @@
       "steps": [
         {
           "text": {
-            "ja": "先手の持ち駒に金はありません。２三の飛車で６三の金を王手しながら取れば、守備駒を減らすと同時に、最後の金打ちに使う金が手に入ります。８三の桂と４五の香の利きも確認しましょう。",
-            "en": "Sente starts with no gold in hand. Taking the gold on ６三 with check by the rook from ２三 both removes a defender and gains the gold needed for the final drop. Also check what the knight on ８三 and the lance on ４五 control."
+            "ja": "先手の持ち駒に金はありません。２三の飛車で６三の金を王手しながら取れば、守備駒を減らすと同時に、最後の金打ちに使う金が手に入ります。８三の桂と４五の香の利きも確認しましょう。 この教材では盤面と持ち駒欄に表示された駒だけを使い、表示されていない残りの駒を玉方の持ち駒には加えません。",
+            "en": "Sente starts with no gold in hand. Taking the gold on ６三 with check by the rook from ２三 both removes a defender and gains the gold needed for the final drop. Also check what the knight on ８三 and the lance on ４五 control. Use only the pieces shown on the board and in the hands; unshown remaining pieces are not added to the defender’s hand."
           }
         },
         {
@@ -135,8 +135,8 @@
       "steps": [
         {
           "text": {
-            "ja": "後手玉７一には８二の後手銀が近く、先手は２四の飛車、５二の銀、７四の金を持っています。飛車を一段目へ上げて王手した後、候補の決め手を玉の二つの行き先それぞれに当てて読みます。",
-            "en": "Gote's king on ７一 has a silver nearby on ８二. Sente has a rook on ２四, silver on ５二, and gold on ７四. A rook check on the first rank leaves two king routes; test each candidate finish against both."
+            "ja": "後手玉７一には８二の後手銀が近く、先手は２四の飛車、５二の銀、７四の金を持っています。飛車を一段目へ上げて王手した後、候補の決め手を玉の二つの行き先それぞれに当てて読みます。 この教材では盤面と持ち駒欄に表示された駒だけを使い、表示されていない残りの駒を玉方の持ち駒には加えません。",
+            "en": "Gote's king on ７一 has a silver nearby on ８二. Sente has a rook on ２四, silver on ５二, and gold on ７四. A rook check on the first rank leaves two king routes; test each candidate finish against both. Use only the pieces shown on the board and in the hands; unshown remaining pieces are not added to the defender’s hand."
           }
         },
         {
@@ -196,8 +196,8 @@
       "steps": [
         {
           "text": {
-            "ja": "先手飛車７二、桂６三、香４四に対して後手玉は６一です。飛車だけの横王手ではなく、桂の跳ねで一段目の行き先を先に変えます。",
-            "en": "Sente's rook on ７二, knight on ６三, and lance on ４四 face Gote's king on ６一. Use the knight to change the king's first-rank exits before finishing with the rook."
+            "ja": "先手飛車７二、桂６三、香４四に対して後手玉は６一です。飛車だけの横王手ではなく、桂の跳ねで一段目の行き先を先に変えます。 この教材では盤面と持ち駒欄に表示された駒だけを使い、表示されていない残りの駒を玉方の持ち駒には加えません。",
+            "en": "Sente's rook on ７二, knight on ６三, and lance on ４四 face Gote's king on ６一. Use the knight to change the king's first-rank exits before finishing with the rook. Use only the pieces shown on the board and in the hands; unshown remaining pieces are not added to the defender’s hand."
           }
         },
         {
@@ -232,8 +232,8 @@
       "steps": [
         {
           "text": {
-            "ja": "５三の先手角は４四の後手銀に狙われています。先手には７三の銀と２三の桂もあります。角をただ逃がす前に、７三の銀から王手を続けると、角を最後の一手に使えます。",
-            "en": "Gote's silver on ４四 attacks Sente's bishop on ５三. Sente also has a silver on ７三 and a knight on ２三. Before retreating the bishop, look for a checking sequence that lets it make the final move."
+            "ja": "５三の先手角は４四の後手銀に狙われています。先手には７三の銀と２三の桂もあります。角をただ逃がす前に、７三の銀から王手を続けると、角を最後の一手に使えます。 この教材では盤面と持ち駒欄に表示された駒だけを使い、表示されていない残りの駒を玉方の持ち駒には加えません。",
+            "en": "Gote's silver on ４四 attacks Sente's bishop on ５三. Sente also has a silver on ７三 and a knight on ２三. Before retreating the bishop, look for a checking sequence that lets it make the final move. Use only the pieces shown on the board and in the hands; unshown remaining pieces are not added to the defender’s hand."
           }
         },
         {

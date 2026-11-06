@@ -11,7 +11,7 @@
   },
   "intro": {
     "ja": "実戦ではあまり見かけない、変わった囲いを七つ組んでみます。金銀を使わず大駒を切って攻めるアヒル囲い、角道を止めたまま潜る音無しの構え、二枚落ちの下手が使う銀多伝、香の上に玉を置く串カツ囲い、美濃から変形したちょんまげ美濃と坊主美濃、そして初心者が自己流で組みがちな無敵囲いです。珍しい形でも、組み方と強さ、弱点がはっきり分かると、戦いの中で出会ったときに慌てません。",
-    "en": "Here are seven unusual castles that rarely appear in real games: the Duck castle that attacks by throwing away major pieces, the silent stance that dives with the bishop line closed, the silver Taden that the stronger side uses in a two-piece handicap game, the skewer castle with the king above the lance, the two Mino variants called Chonmage and Bozu, and the so-called invincible castle that beginners tend to build by themselves. Even rare shapes are less of a surprise in play once you know how they are built, and what they resist or lack."
+    "en": "Here are seven unusual castles that rarely appear in real games: the Duck castle that attacks by throwing away major pieces, the silent stance that dives with the bishop line closed, the silver Taden that the weaker side uses in a two-piece handicap game, the skewer castle with the king above the lance, the two Mino variants called Chonmage and Bozu, and the so-called invincible castle that beginners tend to build by themselves. Even rare shapes are less of a surprise in play once you know how they are built, and what they resist or lack."
   },
   "check": {
     "question": {
@@ -170,7 +170,7 @@
         },
         {
           "moves": [
-            "6b5c",
+            "6a5b",
             "6i7i"
           ],
           "text": {
@@ -186,12 +186,12 @@
         },
         {
           "moves": [
-            "5a4b",
+            "6b5c",
             "4i3i"
           ],
           "text": {
-            "ja": "▲３九金。右の金も寄せます。",
-            "en": "▲3九金 shifts the right gold aside."
+            "ja": "後手は先に５二へ動かした金で５三を守ってから、△５三銀と進めます。先手は▲３九金と右の金を寄せます。角９七で銀５三を取っても金で取り返せるので、銀をただで取れる配置とは違います。",
+            "en": "Gote first moved the gold to 5b, guarding 5c, and now develops △5三銀. Sente shifts the right gold with ▲3九金. If bishop 9g captures silver 5c, the gold can recapture; the silver is not left undefended."
           },
           "marks": {
             "boxes": [
@@ -202,7 +202,7 @@
         },
         {
           "moves": [
-            "6a5b",
+            "5a4b",
             "5i5h"
           ],
           "text": {
@@ -1050,8 +1050,8 @@
     },
     {
       "title": {
-        "ja": "無敵囲い：初心者が自己流で作りがちな形",
-        "en": "Invincible castle: the shape beginners build on their own"
+        "ja": "無敵囲い：玉の前に飛車を置く形",
+        "en": "Invincible castle: a rook in front of the king"
       },
       "side": "sente",
       "kind": "opening",
@@ -1059,8 +1059,8 @@
       "steps": [
         {
           "text": {
-            "ja": "無敵囲いは、飛車を玉の真下に置き、左右を金銀で固めた形です。将棋を覚えたての人が自己流で組むとよくこうなります。名前に反して、強い囲いではありません。いつまでも初心者を卒業しない人を皮肉って名づけられました。",
-            "en": "The invincible castle sets the rook directly beside the king and fills both sides with gold and silver. It is what people who have just learned the game tend to build on their own. Despite the name it is not a strong castle; the name was coined as a joke at players who never grow out of it."
+            "ja": "この章では、玉５九の真前の５八へ飛車を移し、左右に金銀を置く「無敵囲い」を組みます。名前だけで安全とは判断せず、飛車がどこへ動けるかと、玉の退路にどの駒がいるかを確かめましょう。",
+            "en": "Here we build the so-called invincible castle by placing the rook on 5h, directly in front of the king on 5i, with golds and silvers on either side. Assess its safety from the board: check the rook's available moves and which pieces occupy the king's escape routes."
           },
           "marks": {
             "boxes": [

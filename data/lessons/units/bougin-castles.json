@@ -450,8 +450,8 @@
       "steps": [
         {
           "text": {
-            "ja": "飛車を振ってくる相手には、矢倉ではなく舟囲いに構えるのが定石です。真上からの攻めに弱く、飛車を動かさない相手には不向きですが、振り飛車の攻めは主に横から来るので十分に持ちこたえます。手数が少なくて済む分、攻めを急げます。",
-            "en": "Against a swung rook the Funagakoi is the basic castle rather than Yagura. It is weak against attacks from above, so it is not used in Ibisha mirrors, but a swung-rook player usually attacks from the side, where it holds up well. It takes few moves and leaves time for the attack."
+            "ja": "後手が飛車を４二へ振る例で、舟囲いを組みます。玉を７八へ運び、右の金を５八へ上げる短い手順を確認しましょう。囲いにかける手数と攻めの準備を、相手の動きに合わせて配分します。",
+            "en": "Build a Boat castle in an example where Gote swings the rook to 4b. Follow the short sequence that places the king on 7h and the right gold on 5h. Balance time spent on shelter and attack according to the opponent’s moves."
           }
         },
         {
@@ -461,13 +461,13 @@
             "7g7f",
             "4c4d",
             "5g5f",
-            "6c6d",
+            "8b4b",
             "3g3f",
             "5c5d"
           ],
           "text": {
-            "ja": "端の歩と７筋、５筋、３筋の歩を突きます。銀や角が動く道ができ、のちの棒銀の動きにも備えます。",
-            "en": "The edge pawn and the seventh, fifth and third file pawns are pushed. This opens lines for silver and bishop and prepares the Bogin moves later."
+            "ja": "先手は端と７筋、５筋、３筋の歩を突きます。後手は△４四歩で４筋の歩を進め、△４二飛と飛車を振りました。相手の飛車が８筋から４筋へ移ったことを確認してください。",
+            "en": "Sente advances the edge, seventh-, fifth- and third-file pawns. Gote plays △4二飛, swinging the rook to 4b after the pawn has cleared 4c."
           },
           "marks": {
             "last": "3f"

@@ -688,8 +688,8 @@
             "P*1c"
           ],
           "text": {
-            "ja": "四つの筋の攻めが止まり、端から崩しにかかった局面です。後手は香車で歩を取り返しました。ここから先手は、桂を足場にして一気に寄せる順を見ていきます。",
-            "en": "The edge attack has been played. Sente now goes for a quick finish. The start is the position after Gote takes with the lance."
+            "ja": "▲１三歩と打った直後で、後手香はまだ１一です。次の△１三香と取る応手から、桂跳ねと持ち角を組み合わせる例を見ます。",
+            "en": "The position is immediately after ▲1三歩: Gote’s lance is still on 1a. The following example selects △1三香 and combines the knight jump with a bishop drop."
           },
           "marks": {
             "boxes": [
@@ -776,8 +776,8 @@
             "B*1a"
           ],
           "text": {
-            "ja": "ここで打つのが▲１一角です。後手玉が角を取ると▲２三飛成が入って寄り筋になるため、３二へ引くほかに道がありません。角を捨てて玉を狭い側へ送る、送りの手筋です。",
-            "en": "▲1一角 is the pin-shift technique. If Gote takes with the king, ▲2三飛成 comes in and the game is nearly over. Gote can only run with △3二玉."
+            "ja": "▲１一角と打ちました。ここでは△３二玉を選ぶ応手を見ますが、△３一玉・△２一玉・△同玉も合法です。角を取る場合の▲２三飛成も含め、玉の行き先ごとに続きを読みます。",
+            "en": "▲1一角 drops the bishop. This example selects △3二玉, but △3一玉, △2一玉 and △同玉 are also legal. Read each king destination separately, including ▲2三飛成 after a king capture."
           },
           "marks": {
             "last": "1a",
@@ -835,8 +835,8 @@
             "1a4d+"
           ],
           "text": {
-            "ja": "△２三玉と取るしかなく、▲４四角成と角で銀を取ります。ここで、▲３四銀、△１二玉、▲２二金、△１三玉、▲２三銀成と詰めろがかかっていて、先手だけが攻める局面になりました。",
-            "en": "Gote has to capture with △2三玉, and ▲4四角成 takes the silver with the bishop. Now ▲3四銀, △1二玉, ▲2二金, △1三玉, ▲2三銀成 is a mating threat, and only Sente is attacking."
+            "ja": "この例では△２三玉▲４四角成と銀を取りました。持ち銀を３四へ打つ攻めもありますが、玉の応手は一つではありません。たとえば次の△４三金に▲３四銀なら△３二玉も合法で、示した手順だけで強制的な詰めろとは判断できません。",
+            "en": "The selected △2三玉 ▲4四角成 captures the silver. A silver drop on 3d is an attacking idea, but the king has multiple replies. For example, after the following △4三金 and ▲3四銀, △3二玉 is also legal. A selected mating pattern alone does not prove a forced mating threat."
           },
           "marks": {
             "last": "4d",
@@ -854,8 +854,8 @@
             "4e4d"
           ],
           "text": {
-            "ja": "後手は△４三金と粘りますが、▲４五銀と盤上の銀も攻めに使い、△４四金に▲同銀。またしても詰めろがかかり、先手優勢です。実戦でこの通りになることは少ないですが、腰掛け銀の攻め筋が詰まった定跡です。",
-            "en": "Gote holds on with △4三金, but Sente brings the silver on the board into the attack with ▲4五銀, and after △4四金 takes with ▲同銀. Another mating threat appears, and Sente is better. This exact line rarely appears in games, but it packs many attacking patterns of Koshikake Gin."
+            "ja": "△４三金▲４五銀△４四金▲同銀と進む例です。後手金が馬を取り、先手銀がその金を取り返しました。交換後の持ち駒と玉の逃げ先を数え、攻めが続くか確認します。",
+            "en": "This example continues △4三金 ▲4五銀 △4四金 ▲同銀. Gote’s gold captures the horse and Sente’s silver captures that gold. Count the changed hands and the king’s escape squares before judging the continuation."
           },
           "marks": {
             "last": "4d",
@@ -961,8 +961,8 @@
             "4b3a"
           ],
           "text": {
-            "ja": "双方が銀を５筋に出して、腰掛け銀の形が整いました。後手は標準的な組み方で、先手はこの陣形のまま仕掛けに入れます。なお、記事の手順の文には▲２五歩と△７四歩がありませんが、図には現れているので、ここではそれを補っています。",
-            "en": "Both sides now settle into Koshikake Gin. Gote plays the ordinary Koshikake Gin formation, while Sente can attack from this shape. (The article's text omits ▲2五歩 and △7四歩, but its diagram has them.)"
+            "ja": "双方の銀が５六と５四に出て、腰掛け銀の形になりました。先手の飛車は２九、金は４八、歩は２五です。後手の７筋の歩は７四まで進んでいます。次は４筋から仕掛ける手順を見ます。",
+            "en": "The silvers on 5f and 5d form mutual Koshikake Gin. Sente’s rook is on 2i, the gold on 4h and the pawn on 2e. Gote’s seventh-file pawn has advanced to 7d. Next, examine the attack on the fourth file."
           },
           "marks": {
             "last": "3a",
@@ -1076,8 +1076,8 @@
           "steps": [
             {
               "text": {
-                "ja": "後手が４筋の歩を突いていない場合は、▲４五歩の仕掛けは使えません。代わりに、いきなり▲４五桂と跳ねる攻め方が有力な手段になります。",
-                "en": "When Gote has not pushed the fourth-file pawn, the ▲4五歩 attack is impossible. Then the attack starting with ▲4五桂 is the strong plan."
+                "ja": "後手歩が４三に残っているため、▲４五歩と進めてもすぐ歩は接触しません。▲４五歩自体は合法ですが、この比較では▲４五桂と先に桂を使う構想を見ます。",
+                "en": "With Gote’s pawn still on 4c, ▲4五歩 does not make immediate pawn contact. The push itself is legal; this comparison instead examines using the knight first with ▲4五桂."
               },
               "marks": {
                 "last": "5f",
@@ -1116,7 +1116,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "kind": "alt"
         },
         {
           "from": 5,
