@@ -38,7 +38,7 @@ For lesson authoring, revision, or audit in this project, use `.agents/skills/sh
 
 # Coaching annotations
 
-Side markers must face their owner's board direction: Sente and Gote always oppose, and both reverse when the board flips. Route text markers through SideMark, Marks or FlipMarks; movement guides follow the selected piece's color and board orientation, including hand selections.
+Render authored ▲/△ side notation as tile glyphs through the shared marker renderer, never literal triangles. Side markers must face their owner's board direction: Sente and Gote always oppose, and both reverse when the board flips. Route text markers through SideMark, Marks or FlipMarks; movement guides follow the selected piece's color and board orientation, including hand selections.
 
 For a correction involving Sente/Gote or move order, replay the exact path and verify the displayed ply, side to move and commentary timing before editing labels. Do not infer a request to remove, rename or restyle side identifiers from a turn-order question.
 
