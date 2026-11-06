@@ -6,6 +6,7 @@ import { defineConfig, type Plugin } from 'vite'
 import { positionHash } from './src/utils/positionHash.ts'
 import { lessonLeadIn } from './src/utils/lessonLeadIn.ts'
 import { DERIVED, derive } from './src/utils/derivedCourses.ts'
+import { sharedPreviewPlugin } from './scripts/shared-preview-assets.mjs'
 
 const crossOriginIsolation = {
   'Cross-Origin-Embedder-Policy': 'require-corp',
@@ -243,7 +244,7 @@ export default defineConfig({
       'tsshogi',
     ],
   },
-  plugins: [isolationHeaders(), compactJoseki(), courseIndex(), englishMoveFacts(), woff2Only(), pandacss(), reactRouter()],
+  plugins: [sharedPreviewPlugin(), isolationHeaders(), compactJoseki(), courseIndex(), englishMoveFacts(), woff2Only(), pandacss(), reactRouter()],
   build: {
     chunkSizeWarningLimit: 1500,
     rolldownOptions: {

@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { sharePreviewOutput } from './shared-preview-assets.mjs'
 
 const base = (process.env.BASE_PATH ?? '/').replace(/^\/|\/$/g, '')
 const out = 'build/client'
@@ -28,6 +29,8 @@ if (process.env.PREVIEW) {
     cpSync(join(out, existsSync(join(out, '__spa-fallback.html')) ? '__spa-fallback.html' : 'index.html'), join(dir, 'index.html'))
   }
 }
+
+sharePreviewOutput(out)
 
 const site = (process.env.SITE_URL ?? 'https://hamproductions.github.io/shogigym').replace(/\/$/, '')
 const pages = []

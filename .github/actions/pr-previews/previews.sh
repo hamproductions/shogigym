@@ -25,6 +25,7 @@ build)
   for dir in "$STATE"/*/; do
     [ -d "$dir" ] || continue
     n=$(basename "$dir")
+    [ "$n" = "_assets" ] && continue
     grep -qx "$n" <<<"$keep" || { echo "drop closed PR $n"; rm -rf "$dir" "$STATE/$n.sha"; }
   done
   auth=$(printf 'x-access-token:%s' "$TOKEN" | base64 -w0)
@@ -54,12 +55,16 @@ build)
 assemble)
   dest="$SITE_DIR/$PREFIX"
   mkdir -p "$dest"
+  if [ -d "$STATE/_assets" ]; then
+    mkdir -p "$SITE_DIR/_shared"
+    cp -r "$STATE/_assets/." "$SITE_DIR/_shared/"
+  fi
   built=""
   used=$(du -sm "$SITE_DIR" | cut -f1)
   while read -r n; do
     [ -f "$STATE/$n.sha" ] || continue
     size=$(du -sm "$STATE/$n" | cut -f1)
-    if [ $((used + size)) -gt "$MAX_MB" ]; then echo "::warning::skip PR $n, site would pass ${MAX_MB}MB"; continue; fi
+    if [ $((used + size)) -gt "$MAX_MB" ]; then echo "::error::PR $n exceeds the ${MAX_MB}MB site budget; preview was not published"; exit 1; fi
     cp -r "$STATE/$n" "$dest/$(slug "$n")"
     for path in $EXCLUDE; do rm -rf "$dest/$(slug "$n")/$path"; done
     used=$((used + size)); built="$built $n"
