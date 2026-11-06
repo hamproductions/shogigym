@@ -165,9 +165,7 @@ export function useSpar(
         : position.checked && !hasLegalMove(position)
           ? t('app.checkmateTheGameIsOver')
           : !atEnd
-            ? over
-              ? t('app.lookingBackAtEarlierMoves')
-              : t('app.lookingBackDuringGame')
+            ? t('app.lookingBackAtEarlierMoves')
             : opponentMoving
               ? t('app.theAiIsThinking')
               : userTurn
