@@ -70,3 +70,5 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+        env:
+          GITHUB_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
