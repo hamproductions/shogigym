@@ -173,7 +173,7 @@ export function Application({ routeMode, routeMain }: { routeMode?: string; rout
     onAiEnd: spar.endByAi,
     hold: cameraOpen && cameraLive,
   })
-  const board = mode === 'spar' ? { ...session, assist: spar.assist, userTurn: atEnd ? session.userTurn : spar.over } : session
+  const board = mode === 'spar' ? { ...session, assist: spar.assist } : session
   const rating = useAutoRate({
     enabled: board.ai && board.assist && (mode === 'spar' || (mode === 'analyze' && !ratingPaused)),
     sfens: session.sfens,

@@ -47,7 +47,7 @@ export function useOpponent(
   }, [fresh, game.start, sparGame.aiStrategy, userSide])
 
   useEffect(() => {
-    if ((mode !== 'lesson' && !spar) || (mode === 'lesson' && !course) || turn === userSide || halted || gameOver) return
+    if ((spar && !atEnd) || (mode !== 'lesson' && !spar) || (mode === 'lesson' && !course) || turn === userSide || halted || gameOver) return
     let cancelled = false
     const started = performance.now()
     const sharp = positionOf(base).checked || (!!prev && pieces(base) < pieces(prev))
@@ -79,14 +79,14 @@ export function useOpponent(
     return () => {
       cancelled = true
     }
-  }, [mode, spar, turn, userSide, base, nodes, course, sparGame.opponent, strategy, halted, gameOver, epoch, game.moves.length, prev, paceRef, endAiRef])
+  }, [mode, spar, atEnd, turn, userSide, base, nodes, course, sparGame.opponent, strategy, halted, gameOver, epoch, game.moves.length, prev, paceRef, endAiRef])
 
   const due = !halted && !gameOver && !preview && pending && pending.key === base && (mode === 'lesson' || spar) && turn !== userSide ? pending : null
   const reply = due && (atEnd || mode === 'lesson') ? due : null
 
   const playRef = useLatest(play)
   const endRef = useLatest(end)
-  const armed = spar || atEnd
+  const armed = atEnd
   useEffect(() => {
     if (!due || !armed || (spar && hold) || session.visualMoving || (mode === 'lesson' && lessonMode === 'study')) return
     const wait = spar ? Math.max(900, (due.until ?? 0) - performance.now()) : 1000
