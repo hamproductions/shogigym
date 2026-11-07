@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useRef, type CSSProperties, type MouseEvent } from 'react'
 import { Color, promotedPieceType, type Move } from 'tsshogi'
-import { PIECE_CHAR } from '@/utils/shogi'
 import type { PromotionAtlas } from '@/rendering/sprites'
 import type { Announcement } from '@/app/hooks/useAnnouncements'
 import { cx } from '@/app/ui/cx'
@@ -146,9 +145,7 @@ export function PromotionPicker({
                 : undefined
             }
             aria-hidden="true"
-          >
-            {faces ? null : PIECE_CHAR[m.promote ? promotedPieceType(m.pieceType) : m.pieceType]}
-          </styled.span>
+          />
           <span>{m.promote ? t('app.promote2') : t('app.donTPromote')}</span>
         </button>
       ))}
