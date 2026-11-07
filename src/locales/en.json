@@ -189,7 +189,7 @@
     "expandPanel": "Expand panel",
     "closeThePanelP": "Close the panel (P)",
     "closeThePanel": "Close the panel",
-    "theAiNeedsACross": "The AI needs a cross-origin isolated page. Reload from the dev server.",
+    "theAiNeedsACross": "The AI could not start securely. Reload this page to retry.",
     "theAiStaysQuietUntil": "The AI stays quiet until you answer.",
     "helpIsOffTurnIt": "Help is off. Turn it back on in the header to see the AI's view.",
     "comment": "Comment",
@@ -368,7 +368,7 @@
     "isBetter": "{{side}} is better",
     "isClearlyBetter": "{{side}} is clearly better",
     "isWinning": "{{side}} is winning",
-    "theAiNeedsACross": "The AI needs a cross-origin isolated page. Reload from the dev server.",
+    "theAiNeedsACross": "The AI could not start securely. Reload this page to retry.",
     "analysingThePosition": "Analysing the position…",
     "disabledForLesson": "Engine analysis is disabled for this lesson.",
     "positionUnavailable": {

@@ -13,21 +13,13 @@ const isolate = (response) => {
 // precache.json is written by scripts/flatten-build.mjs: `shell` is what a page needs to start, `rest` is everything else the app can ask for.
 const manifest = () => fetch('precache.json', { cache: 'no-cache' }).then((response) => (response.ok ? response.json() : null)).catch(() => null)
 
-self.addEventListener('install', (event) => {
-  self.skipWaiting()
-  if (local) return
-  event.waitUntil(
-    Promise.all([caches.open(CACHE), manifest()]).then(([cache, list]) =>
-      cache.addAll(list?.shell ?? ['./', 'manifest.webmanifest', 'favicon.svg', 'icon-192.png', 'icon-512.png']),
-    ),
-  )
-})
+self.addEventListener('install', () => self.skipWaiting())
 
 // The page asks for the remaining files once it is idle, so the first visit is never slowed down; each file is skipped if already cached.
 let precaching
 const precacheRest = async () => {
   const [cache, list] = await Promise.all([caches.open(CACHE), manifest()])
-  const queue = (list?.rest ?? []).slice()
+  const queue = [...(list?.shell ?? ['./', 'manifest.webmanifest', 'favicon.svg', 'icon-192.png', 'icon-512.png']), ...(list?.rest ?? [])]
   const worker = async () => {
     for (let url = queue.shift(); url; url = queue.shift()) {
       try {

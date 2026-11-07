@@ -67,7 +67,14 @@ function EngineAnalysis({ sfen, toMove, analysis, showBest, setShowBest, onPlay,
     return (
       <div role="alert">
         <Muted>{t('engine.theAiNeedsACross')}</Muted>
-        <Button onClick={() => location.reload()}>{t('engine.reloadPage')}</Button>
+        <Button
+          onClick={() => {
+            sessionStorage.removeItem(`coi-controlled-reload-v2:${import.meta.env.BASE_URL}`)
+            location.reload()
+          }}
+        >
+          {t('engine.reloadPage')}
+        </Button>
       </div>
     )
   if (status.error && status.kind === (settings.engineAnalysis ?? settings.engine)) return name

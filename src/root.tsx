@@ -36,9 +36,11 @@ const themeScript = `(() => {
 })()`
 
 const isolationScript = `if (window.isSecureContext && 'serviceWorker' in navigator) {
+  const reloadKey = 'coi-controlled-reload-v2:${base}'
+  if (window.crossOriginIsolated) sessionStorage.removeItem(reloadKey)
   const reloadWhenControlled = () => {
-    if (!window.crossOriginIsolated && navigator.serviceWorker.controller && !sessionStorage.getItem('coi-controlled-reload')) {
-      sessionStorage.setItem('coi-controlled-reload', '1')
+    if (!window.crossOriginIsolated && navigator.serviceWorker.controller && !sessionStorage.getItem(reloadKey)) {
+      sessionStorage.setItem(reloadKey, '1')
       location.reload()
     }
   }

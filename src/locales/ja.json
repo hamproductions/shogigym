@@ -186,7 +186,7 @@
     "expandPanel": "パネルを開く",
     "closeThePanelP": "パネルを閉じる (P)",
     "closeThePanel": "パネルを閉じる",
-    "theAiNeedsACross": "AIを使うにはクロスオリジン分離されたページが必要です。開発サーバーから再読み込みしてください。",
+    "theAiNeedsACross": "AIの起動準備ができませんでした。このページを再読み込みして再試行してください。",
     "theAiStaysQuietUntil": "答えるまでAIの評価は表示しません。",
     "helpIsOffTurnIt": "補助はオフです。AIの評価を見るにはヘッダーでオンにしてください。",
     "comment": "棋譜コメント",
@@ -359,7 +359,7 @@
     "isBetter": "{{side}}が有利",
     "isClearlyBetter": "{{side}}が優勢",
     "isWinning": "{{side}}が勝勢",
-    "theAiNeedsACross": "AIを使うにはクロスオリジン分離されたページが必要です。開発サーバーから再読み込みしてください。",
+    "theAiNeedsACross": "AIの起動準備ができませんでした。このページを再読み込みして再試行してください。",
     "analysingThePosition": "局面を解析中…",
     "disabledForLesson": "このレッスンではAIの解析を使いません。",
     "positionUnavailable": {
